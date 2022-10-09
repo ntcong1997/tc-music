@@ -1,62 +1,132 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
-    compileSdk 32
-
+    compileSdk Versions.COMPILE_SDK
     defaultConfig {
         applicationId "com.example.tcmusic"
-        minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        minSdk Versions.MIN_SDK
+        targetSdk Versions.TARGET_SDK
+        versionCode Versions.versionCode
+        versionName Versions.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion Versions.COMPOSE
+        kotlinCompilerVersion Versions.KOTLIN
     }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
+
+    buildFeatures {
+        dataBinding true
     }
 }
 
 dependencies {
+    api(platform(project(":depconstraints")))
+    kapt(platform(project(":depconstraints")))
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    // Core
+    implementation(Libs.CORE_KTX)
+    implementation(Libs.CORE_SPLASH_SCREEN)
+
+    // UI
+    implementation(Libs.ACTIVITY_COMPOSE)
+    implementation(Libs.APPCOMPAT)
+    implementation(Libs.MATERIAL)
+    implementation(Libs.MATERIAL_ICONS_EXTENDED)
+    implementation(Libs.PAGER)
+
+    // Kotlin
+    implementation(Libs.KOTLIN_STDLIB)
+
+    // Architecture Components
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
+    implementation(Libs.LIFECYCLE_RUNTIME_KTX)
+    kapt(Libs.LIFECYCLE_COMPILER)
+
+    // Compose
+    implementation(Libs.COMPOSE_LIVE_DATA)
+    implementation(Libs.COMPOSE_MATERIAL)
+    implementation(Libs.COMPOSE_UI)
+    implementation(Libs.COMPOSE_UI_TOOLING)
+    implementation(Libs.COMPOSE_UI_TOOLING_PREVIEW)
+    implementation(Libs.SWIPE_REFRESH)
+    androidTestImplementation(Libs.COMPOSE_TEST)
+    debugImplementation(Libs.COMPOSE_UI_TOOLING)
+
+    // Google
+    implementation(Libs.GOOGLE_SERVICES_AUTH)
+
+    // CameraX
+    implementation(Libs.CAMERAX_CORE)
+    implementation(Libs.CAMERAX_LIFECYCLE)
+    implementation(Libs.CAMERAX_VIEW)
+
+    // Navigation
+    implementation(Libs.NAVIGATION_COMPOSE)
+
+    // Dagger Hilt
+    implementation(Libs.HILT_ANDROID)
+    implementation(Libs.HILT_NAVIGATION_COMPOSE)
+    androidTestImplementation(Libs.HILT_TESTING)
+    kapt(Libs.HILT_COMPILER)
+    kaptAndroidTest(Libs.HILT_COMPILER)
+
+    // Coil
+    implementation(Libs.COIL_BASE)
+    implementation(Libs.COIL_COMPOSE)
+
+    // Paging 3
+    implementation(Libs.PAGING)
+    implementation(Libs.PAGING_COMPOSE)
+
+    // Retrofit & Okhttp
+    implementation(Libs.RETROFIT)
+    implementation(Libs.OKHTTP_LOGGING)
+
+    // Utils
+    implementation(Libs.COMPRESSOR)
+    api(Libs.TIMBER)
+    implementation(Libs.GSON)
+
+    // Instrumentation tests
+    androidTestImplementation(Libs.ESPRESSO_CORE)
+    androidTestImplementation(Libs.EXT_JUNIT)
+
+    // Local unit tests
+    testImplementation(Libs.JUNIT)
 }
