@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484368894972",
+    "project_id": "tc-world-1fa9e",
+    "storage_bucket": "tc-world-1fa9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484368894972:android:78dbea60fa4cae41f04079",
+        "android_client_info": {
+          "package_name": "com.example.tcmusic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484368894972-0bkhops4hd1v8thjek0uu77q5u2m3usa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsR18WqX1VqxwNk90n4ttEa96xGtiDiPI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484368894972-0bkhops4hd1v8thjek0uu77q5u2m3usa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
