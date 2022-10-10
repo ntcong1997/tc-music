@@ -4,18 +4,35 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.tcmusic.ui.main.favorites.FavoritesScreen
+import com.example.tcmusic.ui.main.home.HomeScreen
+import com.example.tcmusic.ui.main.playlists.PlaylistsScreen
+import com.example.tcmusic.ui.main.settings.SettingsScreen
+import com.example.tcmusic.ui.theme.BlueRibbon
+import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.TCMusicTheme
+import com.example.tcmusic.ui.theme.White
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,7 +54,42 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val navController = rememberNavController()
+
+                    Scaffold(
+                        bottomBar = {
+                            MainBottomNavigation(navController = navController)
+                        }
+                    ) {
+                        Box(
+                            modifier = Modifier.padding(
+                                PaddingValues(
+                                    0.dp,
+                                    0.dp,
+                                    0.dp,
+                                    it.calculateBottomPadding()
+                                )
+                            )
+                        ) {
+                            NavHost(
+                                navController = navController,
+                                startDestination = Screen.Home.route
+                            ) {
+                                composable(route = Screen.Home.route) {
+                                    Home()
+                                }
+                                composable(route = Screen.Favorites.route) {
+                                    Favorites()
+                                }
+                                composable(route = Screen.Playlists.route) {
+                                    Playlists()
+                                }
+                                composable(route = Screen.Settings.route) {
+                                    Settings()
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -45,14 +97,72 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun Home() {
+    HomeScreen()
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    TCMusicTheme {
-        Greeting("Android")
+fun Favorites() {
+    FavoritesScreen()
+}
+
+@Composable
+fun Playlists() {
+    PlaylistsScreen()
+}
+
+@Composable
+fun Settings() {
+    SettingsScreen()
+}
+
+@Composable
+fun MainBottomNavigation(
+    navController: NavController
+) {
+    val items = listOf(
+        Screen.Home,
+        Screen.Favorites,
+        Screen.Playlists,
+        Screen.Settings
+    )
+
+    BottomNavigation(
+        backgroundColor = White,
+        elevation = 8.dp
+    ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentDestination = navBackStackEntry?.destination
+
+        items.forEach { screen ->
+            BottomNavigationItem(
+                icon = {
+                    Icon(
+                        painter = painterResource(id = screen.icon),
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = screen.resourceId),
+                        fontSize = 10.sp,
+                        maxLines = 1
+                    )
+                },
+                selectedContentColor = BlueRibbon,
+                unselectedContentColor = GraySilverChalice,
+                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                onClick = {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
+        }
     }
 }

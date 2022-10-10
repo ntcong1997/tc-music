@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TC Music</string>
+
+    <!-- MainActivity -->
+    <string name="text_home">Home</string>
+    <string name="text_favorites">Favorites</string>
+    <string name="text_playlists">Playlists</string>
+    <string name="text_settings">Settings</string>
 </resources>
