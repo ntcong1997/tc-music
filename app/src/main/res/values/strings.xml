@@ -6,4 +6,8 @@
     <string name="text_favorites">Favorites</string>
     <string name="text_playlists">Playlists</string>
     <string name="text_settings">Settings</string>
+
+    <!-- Home Screen -->
+    <string name="text_app_name">TC Music</string>
+    <string name="text_world_chart"> World chart</string>
 </resources>

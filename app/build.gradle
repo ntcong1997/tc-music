@@ -69,6 +69,7 @@ dependencies {
     implementation(Libs.MATERIAL)
     implementation(Libs.MATERIAL_ICONS_EXTENDED)
     implementation(Libs.PAGER)
+    implementation(Libs.PAGER_INDICATORS)
 
     // Kotlin
     implementation(Libs.KOTLIN_STDLIB)

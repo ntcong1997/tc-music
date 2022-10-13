@@ -32,12 +32,14 @@ import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.TCMusicTheme
 import com.example.tcmusic.ui.theme.White
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
+    @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,7 +78,7 @@ class MainActivity : ComponentActivity() {
                                 startDestination = Screen.Home.route
                             ) {
                                 composable(route = Screen.Home.route) {
-                                    Home()
+                                    Home(navController)
                                 }
                                 composable(route = Screen.Favorites.route) {
                                     Favorites()
@@ -96,9 +98,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalPagerApi
 @Composable
-fun Home() {
-    HomeScreen()
+fun Home(
+    navController: NavController
+) {
+    HomeScreen(navController)
 }
 
 @Composable
