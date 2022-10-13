@@ -69,6 +69,7 @@ dependencies {
         api("${Libs.NAVIGATION_COMPOSE}:${Versions.NAVIGATION}")
         api("${Libs.OKHTTP_LOGGING}:$okhttp")
         api("${Libs.PAGER}:$accompanist")
+        api("${Libs.PAGER_INDICATORS}:$accompanist")
         api("${Libs.PAGING}:$paging")
         api("${Libs.PAGING_COMPOSE}:$pagingCompose")
         api("${Libs.RETROFIT}:$retrofit")

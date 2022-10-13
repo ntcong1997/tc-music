@@ -40,6 +40,7 @@ object Libs {
     const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose"
     const val OKHTTP_LOGGING = "com.squareup.okhttp3:logging-interceptor"
     const val PAGER = "com.google.accompanist:accompanist-pager"
+    const val PAGER_INDICATORS = "com.google.accompanist:accompanist-pager-indicators"
     const val PAGING = "androidx.paging:paging-runtime"
     const val PAGING_COMPOSE = "androidx.paging:paging-compose"
     const val RETROFIT = "com.squareup.retrofit2:retrofit"
