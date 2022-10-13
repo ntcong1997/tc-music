@@ -14,7 +14,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
+            buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
+        }
+
         release {
+            buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
+            buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
+
             debuggable false
 
             minifyEnabled true
