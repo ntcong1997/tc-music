@@ -7,3 +7,5 @@ import com.example.data.BuildConfig
  */
 
 const val SHAZAM_DOMAIN_API = "https://${BuildConfig.X_RapidAPI_Host}"
+
+const val API_GET_WORLD_CHART = "${SHAZAM_DOMAIN_API}v1/charts/world"

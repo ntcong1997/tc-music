@@ -2,6 +2,8 @@ package com.example.data.di
 
 import android.content.Context
 import com.example.data.BuildConfig
+import com.example.data.remote.SHAZAM_DOMAIN_API
+import com.example.data.remote.ShazamApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -58,4 +60,14 @@ class NetworkModule {
         }
         return builder.build()
     }
+
+    @Singleton
+    @Provides
+    fun provideShazamApiService(gson: Gson, okHttpClient: OkHttpClient): ShazamApiService =
+        Retrofit.Builder()
+            .baseUrl(SHAZAM_DOMAIN_API)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+            .create(ShazamApiService::class.java)
 }
