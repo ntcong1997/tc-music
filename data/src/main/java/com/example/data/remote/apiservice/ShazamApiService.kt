@@ -1,5 +1,6 @@
-package com.example.data.remote
+package com.example.data.remote.apiservice
 
+import com.example.data.remote.API_GET_WORLD_CHART
 import com.example.domain.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Query
