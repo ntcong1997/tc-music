@@ -64,6 +64,7 @@ dependencies {
 
     // Coroutines
     api(Libs.COROUTINES)
+    testImplementation(Libs.COROUTINES_TEST)
 
     // DataStore
     implementation(Libs.DATA_STORE_PREFERENCES)

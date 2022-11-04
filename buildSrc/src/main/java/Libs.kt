@@ -18,6 +18,7 @@ object Libs {
     const val COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
     const val COMPRESSOR = "id.zelory:compressor"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
     const val CORE_KTX = "androidx.core:core-ktx"
     const val CORE_SPLASH_SCREEN = "androidx.core:core-splashscreen"
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences"

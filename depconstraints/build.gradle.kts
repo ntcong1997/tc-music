@@ -49,6 +49,7 @@ dependencies {
         api("${Libs.CORE_KTX}:$core")
         api("${Libs.CORE_SPLASH_SCREEN}:$coreSplashScreen")
         api("${Libs.COROUTINES}:$coroutines")
+        api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.DATA_STORE_PREFERENCES}:$dataStore")
         api("${Libs.ESPRESSO_CORE}:$espresso")
         api("${Libs.GOOGLE_SERVICES_AUTH}:$googleServicesAuth")
