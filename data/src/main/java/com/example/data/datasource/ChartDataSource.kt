@@ -14,15 +14,15 @@ import javax.inject.Inject
  */
 
 interface ChartDataSource {
-    fun loadWorldChart() : Flow<PagingData<Track>>
+    fun loadWorldChart(pageSize: Int) : Flow<PagingData<Track>>
 }
 
 class ChartDataSourceImpl @Inject constructor(
     private val shazamApiService: ShazamApiService
 ) : ChartDataSource {
-    override fun loadWorldChart(): Flow<PagingData<Track>> {
+    override fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>> {
         val worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
-        return Pager(PagingConfig(pageSize = 20)) {
+        return Pager(PagingConfig(pageSize = pageSize)) {
             worldChartPagingDataSource
         }.flow
     }

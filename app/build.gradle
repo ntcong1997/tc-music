@@ -59,6 +59,9 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
+
     // Core
     implementation(Libs.CORE_KTX)
     implementation(Libs.CORE_SPLASH_SCREEN)

@@ -19,7 +19,7 @@ class ChatDataSourceTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun getWorldChart() =
+    fun get_world_chart_success() =
         runTest {
             val expectedResult = PagingSource.LoadResult.Page(
                 data = listOf(
@@ -33,7 +33,7 @@ class ChatDataSourceTest {
 
             val actualResult = WorldChartPagingDataSource(shazamApiService).load(
                 PagingSource.LoadParams.Refresh(
-                    key = 2,
+                    key = 0,
                     loadSize = 0,
                     placeholdersEnabled = false
                 )
