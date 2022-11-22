@@ -16,13 +16,18 @@ import javax.inject.Inject
  * Created by TC on 17/11/2022.
  */
 
-class LoadWorldChartUseCase @Inject constructor(
+class LoadWorldChartByGenreUseCase @Inject constructor(
     private val chartRepository: ChartRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : FlowUseCase<Int, PagingData<Track>>(dispatcher) {
-    override fun execute(parameters: Int): Flow<Result<PagingData<Track>>> {
-        return chartRepository.loadWorldChart(parameters).map {
+) : FlowUseCase<LoadWorldChartByGenreParams, PagingData<Track>>(dispatcher) {
+    override fun execute(parameters: LoadWorldChartByGenreParams): Flow<Result<PagingData<Track>>> {
+        return chartRepository.loadWorldChartByGenre(parameters.genreCode, parameters.offset).map {
             Result.Success(it)
         }
     }
 }
+
+data class LoadWorldChartByGenreParams(
+    val genreCode: GenreCode,
+    val offset: Int
+)

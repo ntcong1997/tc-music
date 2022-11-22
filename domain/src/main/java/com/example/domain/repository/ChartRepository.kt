@@ -1,6 +1,7 @@
 package com.example.domain.repository
 
 import androidx.paging.PagingData
+import com.example.domain.model.GenreCode
 import com.example.domain.model.Track
 import kotlinx.coroutines.flow.Flow
 
@@ -9,4 +10,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface ChartRepository {
     fun loadWorldChart(pageSize: Int) : Flow<PagingData<Track>>
+
+    fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int) : Flow<PagingData<Track>>
 }

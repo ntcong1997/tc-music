@@ -16,11 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.domain.model.Images
 import com.example.domain.model.Track
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.R
-import timber.log.Timber
 
 /**
  * Created by TC on 21/11/2022.
@@ -32,7 +30,7 @@ fun TrackItem(
 ) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier
-            .padding(16.dp)
+            .padding(16.dp, 16.dp, 0.dp, 16.dp)
             .align(Alignment.Center)
         ) {
             AsyncImage(
@@ -52,7 +50,7 @@ fun TrackItem(
                 Text(
                     text = track.title ?: "",
                     color = Black,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -61,15 +59,22 @@ fun TrackItem(
                 Text(
                     text = track.subtitle ?: "",
                     color = Black,
-                    fontSize = 10.sp
+                    fontSize = 12.sp
                 )
             }
 
-            IconButton(onClick = { }) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_more),
+                    painter = painterResource(id = R.drawable.ic_play),
                     contentDescription = null
                 )
+
+                IconButton(onClick = { }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_more),
+                        contentDescription = null
+                    )
+                }
             }
         }
     }
@@ -84,11 +89,7 @@ fun TrackItem() {
             artists = null,
             genres = null,
             hub = null,
-            images = Images(
-                background = null,
-                coverArt = "",
-                coverArtHq = null
-            ),
+            images = null,
             key = null,
             releaseDate = null,
             sections = null,

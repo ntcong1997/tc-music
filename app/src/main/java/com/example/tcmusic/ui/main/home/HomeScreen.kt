@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tcmusic.R
+import com.example.tcmusic.ui.main.home.popchart.PopChartScreen
 import com.example.tcmusic.ui.main.home.worldchart.WorldChartScreen
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRibbon
@@ -24,6 +25,7 @@ import com.example.tcmusic.ui.theme.GrayMercury
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Created by TC on 10/10/2022.
@@ -72,20 +74,13 @@ fun Header() {
         )
 
         Text(
-            text = context.getString(R.string.text_app_name),
+            text = context.getString(R.string.home_screen_text_app_name),
+            color = Black,
             fontSize = 16.sp,
             modifier = Modifier
                 .weight(1f)
                 .padding(20.dp)
         )
-
-        Icon(
-            imageVector = Icons.Filled.Search,
-            contentDescription = null,
-            modifier = Modifier.padding(vertical = 20.dp)
-        )
-
-        Spacer(modifier = Modifier.width(20.dp))
     }
 }
 
@@ -95,7 +90,8 @@ fun TabLayout() {
     val pagerState = rememberPagerState()
 
     val listTab = listOf(
-        R.string.text_world_chart
+        R.string.home_screen_text_world_chart,
+        R.string.home_screen_text_pop_chart
     )
 
     Tabs(listTab = listTab, pagerState = pagerState)
@@ -155,6 +151,7 @@ fun TabsContent(
     ) { page ->
         when (page) {
             0 -> WorldChartScreen()
+            1 -> PopChartScreen()
         }
     }
 }

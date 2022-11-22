@@ -1,6 +1,7 @@
 package com.example.data.remote.apiservice
 
 import com.example.data.remote.API_GET_WORLD_CHART
+import com.example.data.remote.API_GET_WORLD_CHART_BY_GENRE
 import com.example.domain.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,4 +12,7 @@ import retrofit2.http.Query
 interface ShazamApiService {
     @GET(API_GET_WORLD_CHART)
     suspend fun getWorldChart(@Query("offset") offset: Int) : List<Track>
+
+    @GET(API_GET_WORLD_CHART_BY_GENRE)
+    suspend fun getWorldChartByGenre(@Query("genre_code") genreCode: String?, @Query("offset") offset: Int) : List<Track>
 }

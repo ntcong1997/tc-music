@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tcmusic.ui.main.favorites.FavoritesScreen
 import com.example.tcmusic.ui.main.home.HomeScreen
 import com.example.tcmusic.ui.main.playlists.PlaylistsScreen
+import com.example.tcmusic.ui.main.search.SearchScreen
 import com.example.tcmusic.ui.main.settings.SettingsScreen
 import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
@@ -80,6 +81,9 @@ class MainActivity : ComponentActivity() {
                                 composable(route = Screen.Home.route) {
                                     Home(navController)
                                 }
+                                composable(route = Screen.Search.route) {
+                                    Search()
+                                }
                                 composable(route = Screen.Favorites.route) {
                                     Favorites()
                                 }
@@ -107,6 +111,11 @@ fun Home(
 }
 
 @Composable
+fun Search() {
+    SearchScreen()
+}
+
+@Composable
 fun Favorites() {
     FavoritesScreen()
 }
@@ -127,6 +136,7 @@ fun MainBottomNavigation(
 ) {
     val items = listOf(
         Screen.Home,
+        Screen.Search,
         Screen.Favorites,
         Screen.Playlists,
         Screen.Settings
