@@ -1,4 +1,4 @@
-package com.example.tcmusic.ui.main.home.popchart
+package com.example.tcmusic.ui.main.home.dancechart
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.*
@@ -13,20 +13,20 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import java.util.*
 
 /**
- * Created by TC on 22/11/2022.
+ * Created by TC on 25/11/2022.
  */
 
 @Composable
-fun PopChartScreen(
-    viewModel: PopChartViewModel = hiltViewModel()
+fun DanceChartScreen(
+    viewModel: DanceChartViewModel = hiltViewModel()
 ) {
     val tracks = viewModel.tracks.collectAsLazyPagingItems()
 
-    PopChartScreen(tracks = tracks)
+    DanceChartScreen(tracks = tracks)
 }
 
 @Composable
-fun PopChartScreen(
+fun DanceChartScreen(
     tracks: LazyPagingItems<Track>
 ) {
     var isRefreshing by remember { mutableStateOf(false) }

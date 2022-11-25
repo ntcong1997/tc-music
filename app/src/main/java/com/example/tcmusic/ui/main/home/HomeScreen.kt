@@ -17,7 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tcmusic.R
+import com.example.tcmusic.ui.main.home.dancechart.DanceChartScreen
+import com.example.tcmusic.ui.main.home.electronicchart.ElectronicChartScreen
+import com.example.tcmusic.ui.main.home.hiphoprapchart.HipHopRapChartScreen
 import com.example.tcmusic.ui.main.home.popchart.PopChartScreen
+import com.example.tcmusic.ui.main.home.rockchart.RockChartScreen
 import com.example.tcmusic.ui.main.home.worldchart.WorldChartScreen
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRibbon
@@ -91,7 +95,11 @@ fun TabLayout() {
 
     val listTab = listOf(
         R.string.home_screen_text_world_chart,
-        R.string.home_screen_text_pop_chart
+        R.string.home_screen_text_pop_chart,
+        R.string.home_screen_text_hip_hop_rap_chart,
+        R.string.home_screen_text_dance_chart,
+        R.string.home_screen_text_electronic_chart,
+        R.string.home_screen_text_rock_chart
     )
 
     Tabs(listTab = listTab, pagerState = pagerState)
@@ -152,6 +160,10 @@ fun TabsContent(
         when (page) {
             0 -> WorldChartScreen()
             1 -> PopChartScreen()
+            2 -> HipHopRapChartScreen()
+            3 -> DanceChartScreen()
+            4 -> ElectronicChartScreen()
+            5 -> RockChartScreen()
         }
     }
 }
