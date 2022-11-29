@@ -114,7 +114,7 @@ fun Tabs(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    TabRow(
+    ScrollableTabRow(
         selectedTabIndex = pagerState.currentPage,
         backgroundColor = White,
         contentColor = BlueRibbon,
