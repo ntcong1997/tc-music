@@ -2,6 +2,10 @@ package com.example.data.di
 
 import android.content.Context
 import com.example.data.BuildConfig
+import com.example.data.datasource.ChartDataSource
+import com.example.data.datasource.ChartDataSourceImpl
+import com.example.data.remote.SHAZAM_DOMAIN_API
+import com.example.data.remote.apiservice.ShazamApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -48,8 +52,9 @@ class NetworkModule {
             var request = it.request()
             request = request
                 .newBuilder()
-                .addHeader("X_RapidAPI_Key", BuildConfig.X_RapidAPI_Key)
-                .addHeader("X_RapidAPI_Host", BuildConfig.X_RapidAPI_Host).build()
+                .addHeader("X-RapidAPI-Key", BuildConfig.X_RapidAPI_Key)
+                .addHeader("X-RapidAPI-Host", BuildConfig.X_RapidAPI_Host)
+                .build()
             it.proceed(request)
         }
 
@@ -58,4 +63,20 @@ class NetworkModule {
         }
         return builder.build()
     }
+
+    @Singleton
+    @Provides
+    fun provideShazamApiService(gson: Gson, okHttpClient: OkHttpClient): ShazamApiService =
+        Retrofit.Builder()
+            .baseUrl(SHAZAM_DOMAIN_API)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+            .create(ShazamApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideChartDataSource(
+        shazamApiService: ShazamApiService
+    ) : ChartDataSource = ChartDataSourceImpl(shazamApiService)
 }

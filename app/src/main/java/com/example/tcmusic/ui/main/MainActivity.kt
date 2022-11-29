@@ -27,17 +27,20 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tcmusic.ui.main.favorites.FavoritesScreen
 import com.example.tcmusic.ui.main.home.HomeScreen
 import com.example.tcmusic.ui.main.playlists.PlaylistsScreen
+import com.example.tcmusic.ui.main.search.SearchScreen
 import com.example.tcmusic.ui.main.settings.SettingsScreen
 import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.TCMusicTheme
 import com.example.tcmusic.ui.theme.White
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
+    @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,7 +79,10 @@ class MainActivity : ComponentActivity() {
                                 startDestination = Screen.Home.route
                             ) {
                                 composable(route = Screen.Home.route) {
-                                    Home()
+                                    Home(navController)
+                                }
+                                composable(route = Screen.Search.route) {
+                                    Search()
                                 }
                                 composable(route = Screen.Favorites.route) {
                                     Favorites()
@@ -96,9 +102,17 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalPagerApi
 @Composable
-fun Home() {
-    HomeScreen()
+fun Home(
+    navController: NavController
+) {
+    HomeScreen(navController)
+}
+
+@Composable
+fun Search() {
+    SearchScreen()
 }
 
 @Composable
@@ -122,6 +136,7 @@ fun MainBottomNavigation(
 ) {
     val items = listOf(
         Screen.Home,
+        Screen.Search,
         Screen.Favorites,
         Screen.Playlists,
         Screen.Settings

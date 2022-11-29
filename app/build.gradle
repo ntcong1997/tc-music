@@ -59,6 +59,9 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
+
     // Core
     implementation(Libs.CORE_KTX)
     implementation(Libs.CORE_SPLASH_SCREEN)
@@ -69,6 +72,7 @@ dependencies {
     implementation(Libs.MATERIAL)
     implementation(Libs.MATERIAL_ICONS_EXTENDED)
     implementation(Libs.PAGER)
+    implementation(Libs.PAGER_INDICATORS)
 
     // Kotlin
     implementation(Libs.KOTLIN_STDLIB)
