@@ -1,5 +1,6 @@
 package com.example.data.remote.apiservice
 
+import com.example.data.remote.API_GET_TRACK_DETAIL
 import com.example.data.remote.API_GET_WORLD_CHART
 import com.example.data.remote.API_GET_WORLD_CHART_BY_GENRE
 import com.example.domain.model.Track
@@ -15,4 +16,7 @@ interface ShazamApiService {
 
     @GET(API_GET_WORLD_CHART_BY_GENRE)
     suspend fun getWorldChartByGenre(@Query("genre_code") genreCode: String?, @Query("offset") offset: Int) : List<Track>
+
+    @GET(API_GET_TRACK_DETAIL)
+    suspend fun getTrackDetail(@Query("track_id") trackId: String?) : Track
 }

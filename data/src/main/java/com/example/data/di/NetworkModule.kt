@@ -4,6 +4,8 @@ import android.content.Context
 import com.example.data.BuildConfig
 import com.example.data.datasource.ChartDataSource
 import com.example.data.datasource.ChartDataSourceImpl
+import com.example.data.datasource.TrackDataSource
+import com.example.data.datasource.TrackDataSourceImpl
 import com.example.data.remote.SHAZAM_DOMAIN_API
 import com.example.data.remote.apiservice.ShazamApiService
 import com.google.gson.Gson
@@ -79,4 +81,10 @@ class NetworkModule {
     fun provideChartDataSource(
         shazamApiService: ShazamApiService
     ) : ChartDataSource = ChartDataSourceImpl(shazamApiService)
+
+    @Singleton
+    @Provides
+    fun provideTrackDataSource(
+        shazamApiService: ShazamApiService
+    ) : TrackDataSource = TrackDataSourceImpl(shazamApiService)
 }

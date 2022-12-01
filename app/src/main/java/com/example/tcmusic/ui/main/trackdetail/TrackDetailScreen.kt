@@ -1,14 +1,16 @@
-package com.example.tcmusic.ui.main.trackplaying
+package com.example.tcmusic.ui.main.trackdetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.tcmusic.R
 
@@ -17,19 +19,25 @@ import com.example.tcmusic.R
  */
 
 @Composable
-fun TrackPlayingScreen(
-    navController: NavController
+fun TrackDetailScreen(
+    trackId: String?,
+    navController: NavController,
+    viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
-    TrackPlayingScreen(
+    TrackDetailScreen(
         onClickBack = {
             navController.navigateUp()
         },
         onClickMore = { }
     )
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.getTrackDetail(trackId)
+    }
 }
 
 @Composable
-fun TrackPlayingScreen(
+fun TrackDetailScreen(
     onClickBack: () -> Unit,
     onClickMore: () -> Unit
 ) {
@@ -71,8 +79,8 @@ fun Header(
 
 @Preview
 @Composable
-fun TrackPlayingScreenPreview() {
-    TrackPlayingScreen(
+fun TrackDetailScreenPreview() {
+    TrackDetailScreen(
         onClickBack = { },
         onClickMore = { }
     )
