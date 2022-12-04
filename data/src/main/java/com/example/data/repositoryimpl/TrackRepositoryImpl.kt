@@ -12,7 +12,7 @@ import javax.inject.Inject
 class TrackRepositoryImpl @Inject constructor(
     private val trackDataSource: TrackDataSource
 ) : TrackRepository {
-    override suspend fun getTrackDetail(trackId: String?): Track {
+    override suspend fun getTrackDetail(trackId: String?): Track? {
         return trackDataSource.getTrackDetail(trackId)
     }
 }

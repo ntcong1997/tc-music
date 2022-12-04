@@ -18,5 +18,5 @@ interface ShazamApiService {
     suspend fun getWorldChartByGenre(@Query("genre_code") genreCode: String?, @Query("offset") offset: Int) : List<Track>
 
     @GET(API_GET_TRACK_DETAIL)
-    suspend fun getTrackDetail(@Query("track_id") trackId: String?) : Track
+    suspend fun getTrackDetail(@Query("track_id") trackId: String?) : Track?
 }
