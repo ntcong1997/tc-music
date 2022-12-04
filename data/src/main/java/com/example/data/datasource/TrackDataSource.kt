@@ -9,13 +9,13 @@ import javax.inject.Inject
  */
 
 interface TrackDataSource {
-    suspend fun getTrackDetail(trackId: String?) : Track
+    suspend fun getTrackDetail(trackId: String?) : Track?
 }
 
 class TrackDataSourceImpl @Inject constructor(
     private val shazamApiService: ShazamApiService
 ) : TrackDataSource {
-    override suspend fun getTrackDetail(trackId: String?): Track {
+    override suspend fun getTrackDetail(trackId: String?): Track? {
         return shazamApiService.getTrackDetail(trackId)
     }
 }

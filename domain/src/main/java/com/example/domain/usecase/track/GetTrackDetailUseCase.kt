@@ -14,8 +14,8 @@ import javax.inject.Inject
 class GetTrackDetailUseCase @Inject constructor(
     private val trackRepository: TrackRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : CoroutineUseCase<String?, Track>(dispatcher) {
-    override suspend fun execute(parameters: String?): Track {
+) : CoroutineUseCase<String?, Track?>(dispatcher) {
+    override suspend fun execute(parameters: String?): Track? {
         return trackRepository.getTrackDetail(parameters)
     }
 }
