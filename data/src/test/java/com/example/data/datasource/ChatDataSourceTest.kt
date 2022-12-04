@@ -14,12 +14,13 @@ import org.junit.Test
 /**
  * Created by TC on 03/11/2022.
  */
+
 class ChatDataSourceTest {
     private val shazamApiService = FakeShazamApiService()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun get_world_chart_success() =
+    fun get_world_chart_paging_success() =
         runTest {
             val expectedResult = PagingSource.LoadResult.Page(
                 data = listOf(

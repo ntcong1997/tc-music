@@ -7,9 +7,9 @@ import com.example.domain.model.*
  */
 
 val Track_1 = Track(
-    alias = "1",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -19,31 +19,43 @@ val Track_1 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "1",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "One Direction",
     title = "Story of my life",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_2 = Track(
-    alias = "2",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -53,31 +65,43 @@ val Track_2 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "2",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Adam Levine",
     title = "Lost stars",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_3 = Track(
-    alias = "3",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -87,31 +111,43 @@ val Track_3 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "3",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Bruno Mars",
     title = "It will rain",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_4 = Track(
-    alias = "4",
+    alias = null,
     artists = listOf(),
-    genres = Genres("rock"),
+    genres = Genres("ROCK"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -121,31 +157,43 @@ val Track_4 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "4",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Guns N'Roses",
     title = "November rain",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_5 = Track(
-    alias = "5",
+    alias = null,
     artists = listOf(),
-    genres = Genres("ballad"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -155,31 +203,43 @@ val Track_5 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "5",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "John Legend",
     title = "All of me",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_6 = Track(
-    alias = "6",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -189,31 +249,43 @@ val Track_6 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "6",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "JLS",
     title = "Take a chance on me",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_7 = Track(
-    alias = "7",
+    alias = null,
     artists = listOf(),
-    genres = Genres("rock"),
+    genres = Genres("ROCK"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -223,31 +295,43 @@ val Track_7 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "7",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Avril Lavigne",
     title = "When you're gone",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_8 = Track(
-    alias = "8",
+    alias = null,
     artists = listOf(),
-    genres = Genres("rock"),
+    genres = Genres("ROCK"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -257,31 +341,43 @@ val Track_8 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "8",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Jonas Brothers",
     title = "When you look me in the eyes",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_9 = Track(
-    alias = "9",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -291,31 +387,43 @@ val Track_9 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "9",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Taylor Swift",
     title = "Back to December",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
 
 val Track_10 = Track(
-    alias = "10",
+    alias = null,
     artists = listOf(),
-    genres = Genres("pop"),
+    genres = Genres("POP"),
     hub = Hub(
         actions = listOf(
             Action(
@@ -325,23 +433,35 @@ val Track_10 = Track(
                 uri = "https://..."
             )
         ),
-        image = null
+        displayname = null,
+        explicit = null,
+        image = null,
+        options = null,
+        type = null
     ),
     images = Images(
         background = null,
-        coverArt = null,
-        coverArtHq = null
+        coverart = null,
+        coverarthq = null
     ),
-    key = null,
-    releaseDate = null,
+    key = "10",
+    layout = null,
+    releasedate = null,
     sections = listOf(
         Section(
+            beacondata = null,
+            footer = null,
+            metadata = null,
+            metapages = null,
+            tabname = null,
             text = listOf("A", "B", "C"),
-            type = "lyrics"
+            type = "LYRICS"
         )
     ),
+    share = null,
     subtitle = "Ed Sheeran",
     title = "Perfect",
     type = "MUSIC",
-    url = "https://..."
+    url = "https://...",
+    urlparams = null
 )
