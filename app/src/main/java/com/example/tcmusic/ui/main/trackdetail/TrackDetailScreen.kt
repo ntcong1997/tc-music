@@ -3,20 +3,21 @@ package com.example.tcmusic.ui.main.trackdetail
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.IconButton
-import androidx.compose.material.Slider
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,13 +29,16 @@ import coil.compose.AsyncImage
 import com.example.domain.model.Track
 import com.example.tcmusic.R
 import com.example.tcmusic.ui.theme.Black
+import com.example.tcmusic.ui.theme.BlueRoyal
 import com.example.tcmusic.ui.theme.GrayMercury
 import com.example.tcmusic.ui.theme.White
+import kotlinx.coroutines.launch
 
 /**
  * Created by TC on 29/11/2022.
  */
 
+@ExperimentalMaterialApi
 @Composable
 fun TrackDetailScreen(
     trackId: String?,
@@ -56,13 +60,19 @@ fun TrackDetailScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun TrackDetailScreen(
     track: Track?,
     onClickBack: () -> Unit,
     onClickMore: () -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     val scrollState = rememberScrollState()
+
+    val modalBottomSheetState =
+        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     Column(
         modifier = Modifier
@@ -96,8 +106,39 @@ fun TrackDetailScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             TrackAction()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.CenterHorizontally),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                IconButton(onClick = {
+                    coroutineScope.launch {
+                        modalBottomSheetState.show()
+                    }
+                }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_up),
+                        contentDescription = null
+                    )
+                }
+
+                Text(
+                    text = stringResource(id = R.string.track_detail_screen_text_lyrics),
+                    color = Black,
+                    fontSize = 14.sp
+                )
+            }
         }
     }
+
+    TrackLyrics(
+        modalBottomSheetState = modalBottomSheetState,
+        lyrics = track?.lyrics ?: listOf()
+    )
 }
 
 @Composable
@@ -223,14 +264,14 @@ fun TrackAction() {
     ) {
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_previous),
+                painter = painterResource(id = R.drawable.ic_random),
                 contentDescription = null
             )
         }
 
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_rewind_10),
+                painter = painterResource(id = R.drawable.ic_previous),
                 contentDescription = null
             )
         }
@@ -242,20 +283,57 @@ fun TrackAction() {
 
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_fast_forward_10),
+                painter = painterResource(id = R.drawable.ic_next),
                 contentDescription = null
             )
         }
 
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_next),
+                painter = painterResource(id = R.drawable.ic_repeat),
                 contentDescription = null
             )
         }
     }
 }
 
+@ExperimentalMaterialApi
+@Composable
+fun TrackLyrics(
+    modalBottomSheetState: ModalBottomSheetState,
+    lyrics: List<String>
+) {
+    ModalBottomSheetLayout(
+        sheetContent = {
+            Text(
+                text = stringResource(id = R.string.track_detail_screen_text_lyrics),
+                color = White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(16.dp)
+            )
+
+            LazyColumn(
+                contentPadding = PaddingValues(16.dp, 0.dp, 16.dp, 16.dp)
+            ) {
+                items(lyrics) { lyric ->
+                    Text(
+                        text = lyric,
+                        color = White,
+                        fontSize = 16.sp
+                    )
+                }
+            }
+        },
+        sheetState = modalBottomSheetState,
+        sheetBackgroundColor = BlueRoyal,
+        sheetShape = RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
+    ) {
+
+    }
+}
+
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun TrackDetailScreenPreview() {

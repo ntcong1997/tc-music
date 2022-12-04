@@ -19,7 +19,7 @@ import com.example.domain.Result
 class TrackDetailViewModel @Inject constructor(
     private val getTrackDetailUseCase: GetTrackDetailUseCase
 ) : ViewModel() {
-    private val _track = Channel<Track>(Channel.CONFLATED)
+    private val _track = Channel<Track?>(Channel.CONFLATED)
     val track = _track.receiveAsFlow()
 
     fun getTrackDetail(trackId: String?) {

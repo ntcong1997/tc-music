@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TC Music</string>
 
-    <!-- MainActivity -->
+    <!-- Main Activity -->
     <string name="main_activity_text_home">Home</string>
     <string name="main_activity_text_search">Search</string>
     <string name="main_activity_text_favorites">Favorites</string>
@@ -16,4 +16,7 @@
     <string name="home_screen_text_dance_chart">Dance chart</string>
     <string name="home_screen_text_electronic_chart">Electronic chart</string>
     <string name="home_screen_text_rock_chart">Rock chart</string>
+
+    <!-- Track Detail Screen -->
+    <string name="track_detail_screen_text_lyrics">Lyrics</string>
 </resources>
