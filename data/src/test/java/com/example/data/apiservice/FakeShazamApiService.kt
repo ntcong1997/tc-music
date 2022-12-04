@@ -28,4 +28,18 @@ class FakeShazamApiService : ShazamApiService {
 
         return data.subList(startIndex, endIndex)
     }
+
+    override suspend fun getWorldChartByGenre(genreCode: String?, offset: Int): List<Track> {
+        val data = data.filter { it.genres?.primary == genreCode }
+
+        val pageSize = 3
+        val startIndex = if (offset * pageSize > data.size - 1) data.size - 1 else offset * pageSize
+        val endIndex = if (startIndex + 3 > data.size - 1) data.size - 1 else startIndex + 3
+
+        return data.subList(startIndex, endIndex)
+    }
+
+    override suspend fun getTrackDetail(trackId: String?): Track? {
+        return data.find { it.key == trackId }
+    }
 }
