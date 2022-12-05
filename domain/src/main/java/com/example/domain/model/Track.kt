@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class Track(
+    @SerializedName("albumadamid")
+    val albumadamid: String?,
     @SerializedName("alias")
     val alias: String?,
     @SerializedName("artists")
@@ -17,6 +19,8 @@ data class Track(
     val hub: Hub?,
     @SerializedName("images")
     val images: Images?,
+    @SerializedName("isrc")
+    val isrc: String?,
     @SerializedName("key")
     val key: String?,
     @SerializedName("layout")
@@ -31,29 +35,15 @@ data class Track(
     val subtitle: String?,
     @SerializedName("title")
     val title: String?,
+    @SerializedName("trackadamid")
+    val trackadamid: String?,
     @SerializedName("type")
     val type: String?,
     @SerializedName("url")
     val url: String?,
     @SerializedName("urlparams")
     val urlparams: Urlparams?
-) {
-    val mediaUri: String
-        get() = if (hub?.actions?.find { it.type == "uri" } != null) {
-            val mediaAction = hub.actions.find { it.type == "uri" }
-            mediaAction?.uri ?: ""
-        }
-        else ""
-
-    val lyrics: List<String>
-        get() = if (sections?.find { it.type == "LYRICS" } != null) {
-            val sectionLyrics = sections.find { it.type == "LYRICS" }
-            val lyrics = sectionLyrics?.text
-            if (lyrics.isNullOrEmpty()) listOf()
-            else lyrics
-        }
-        else listOf()
-}
+)
 
 data class Artist(
     @SerializedName("adamid")
@@ -91,6 +81,8 @@ data class Images(
     val coverart: String?,
     @SerializedName("coverarthq")
     val coverarthq: String?,
+    @SerializedName("joecolor")
+    val joecolor: String?
 )
 
 data class Section(
