@@ -38,6 +38,13 @@ data class Track(
     @SerializedName("urlparams")
     val urlparams: Urlparams?
 ) {
+    val mediaUri: String
+        get() = if (hub?.actions?.find { it.type == "uri" } != null) {
+            val mediaAction = hub.actions.find { it.type == "uri" }
+            mediaAction?.uri ?: ""
+        }
+        else ""
+
     val lyrics: List<String>
         get() = if (sections?.find { it.type == "LYRICS" } != null) {
             val sectionLyrics = sections.find { it.type == "LYRICS" }

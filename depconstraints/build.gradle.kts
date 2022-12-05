@@ -6,7 +6,6 @@ plugins {
 val accompanist = "0.25.1"
 val activityCompose = "1.6.0"
 val appcompat = "1.5.1"
-val cameraX = "1.1.0"
 val coil = "2.1.0"
 val compose = Versions.COMPOSE
 val compressor = "3.0.1"
@@ -16,6 +15,7 @@ val core = "1.9.0"
 val coreSplashScreen = "1.0.0-rc01"
 val dataStore = "1.0.0"
 val espresso = "3.3.0"
+val exoPlayer = "2.18.2"
 val googleServicesAuth = "20.2.0"
 val gson = "2.9.1"
 val hilt = Versions.HILT
@@ -34,9 +34,6 @@ dependencies {
     constraints {
         api("${Libs.ACTIVITY_COMPOSE}:$activityCompose")
         api("${Libs.APPCOMPAT}:$appcompat")
-        api("${Libs.CAMERAX_CORE}:$cameraX")
-        api("${Libs.CAMERAX_LIFECYCLE}:$cameraX")
-        api("${Libs.CAMERAX_VIEW}:$cameraX")
         api("${Libs.COIL_BASE}:$coil")
         api("${Libs.COIL_COMPOSE}:$coil")
         api("${Libs.COMPOSE_LIVE_DATA}:$compose")
@@ -63,6 +60,7 @@ dependencies {
         api("${Libs.LIFECYCLE_VIEW_MODEL_COMPOSE}:$lifecycle")
         api("${Libs.LIFECYCLE_VIEW_MODEL_KTX}:$lifecycle")
         api("${Libs.LIFECYCLE_RUNTIME_KTX}:$lifecycle")
+        api("${Libs.EXO_PLAYER_CORE}:$exoPlayer")
         api("${Libs.EXT_JUNIT}:$junitExt")
         api("${Libs.KOTLIN_STDLIB}:${Versions.KOTLIN}")
         api("${Libs.MATERIAL}:$material")

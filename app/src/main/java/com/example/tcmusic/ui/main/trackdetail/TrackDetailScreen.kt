@@ -1,13 +1,10 @@
 package com.example.tcmusic.ui.main.trackdetail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,6 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,14 +43,19 @@ fun TrackDetailScreen(
     navController: NavController,
     viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
-    val track = viewModel.track.collectAsState(initial = null)
+    val context = LocalContext.current
+
+    val track = viewModel.track.collectAsState()
 
     TrackDetailScreen(
         track = track.value,
         onClickBack = {
             navController.navigateUp()
         },
-        onClickMore = { }
+        onClickMore = { },
+        onClickPlay = {
+
+        }
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -65,7 +68,8 @@ fun TrackDetailScreen(
 fun TrackDetailScreen(
     track: Track?,
     onClickBack: () -> Unit,
-    onClickMore: () -> Unit
+    onClickMore: () -> Unit,
+    onClickPlay: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -105,7 +109,11 @@ fun TrackDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            TrackAction()
+            TrackAction(
+                onClickPlay = {
+                    onClickPlay()
+                }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -254,7 +262,9 @@ fun TrackPlayingBar() {
 }
 
 @Composable
-fun TrackAction() {
+fun TrackAction(
+    onClickPlay: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -277,8 +287,11 @@ fun TrackAction() {
         }
 
         Image(
-            painter = painterResource(id = R.drawable.ic_play_2),
-            contentDescription = null
+            painter = painterResource(id = R.drawable.ic_play),
+            contentDescription = null,
+            modifier = Modifier.clickable {
+                onClickPlay()
+            }
         )
 
         IconButton(onClick = { }) {
@@ -339,13 +352,11 @@ fun TrackLyrics(
 fun TrackDetailScreenPreview() {
     TrackDetailScreen(
         track = Track(
-            albumadamid = null,
             alias = null,
             artists = null,
             genres = null,
             hub = null,
             images = null,
-            isrc = null,
             key = null,
             layout = null,
             releasedate = null,
@@ -353,12 +364,12 @@ fun TrackDetailScreenPreview() {
             share = null,
             subtitle = "Bruno Mars",
             title = "It will rain",
-            trackadamid = null,
             type = null,
             url = null,
             urlparams = null
         ),
         onClickBack = { },
-        onClickMore = { }
+        onClickMore = { },
+        onClickPlay = { }
     )
 }

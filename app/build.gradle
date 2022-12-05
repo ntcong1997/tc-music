@@ -95,11 +95,6 @@ dependencies {
     // Google
     implementation(Libs.GOOGLE_SERVICES_AUTH)
 
-    // CameraX
-    implementation(Libs.CAMERAX_CORE)
-    implementation(Libs.CAMERAX_LIFECYCLE)
-    implementation(Libs.CAMERAX_VIEW)
-
     // Navigation
     implementation(Libs.NAVIGATION_COMPOSE)
 

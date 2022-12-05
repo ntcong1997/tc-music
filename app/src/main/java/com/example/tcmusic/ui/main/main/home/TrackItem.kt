@@ -68,18 +68,11 @@ fun TrackItem(
                 )
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = { }) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_play),
+                    painter = painterResource(id = R.drawable.ic_more),
                     contentDescription = null
                 )
-
-                IconButton(onClick = { }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_more),
-                        contentDescription = null
-                    )
-                }
             }
         }
     }
@@ -90,13 +83,11 @@ fun TrackItem(
 fun TrackItem() {
     TrackItem(
         track = Track(
-            albumadamid = null,
             alias = null,
             artists = null,
             genres = null,
             hub = null,
             images = null,
-            isrc = null,
             key = null,
             layout = null,
             releasedate = null,
@@ -104,7 +95,6 @@ fun TrackItem() {
             share = null,
             subtitle = "Bruno Mars",
             title = "It will rain",
-            trackadamid = null,
             type = null,
             url = null,
             urlparams = null

@@ -5,9 +5,6 @@
 object Libs {
     const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose"
     const val APPCOMPAT = "androidx.appcompat:appcompat"
-    const val CAMERAX_CORE = "androidx.camera:camera-camera2"
-    const val CAMERAX_LIFECYCLE = "androidx.camera:camera-lifecycle"
-    const val CAMERAX_VIEW = "androidx.camera:camera-view"
     const val COIL_BASE = "io.coil-kt:coil-base"
     const val COIL_COMPOSE = "io.coil-kt:coil-compose"
     const val COMPOSE_LIVE_DATA = "androidx.compose.runtime:runtime-livedata"
@@ -23,6 +20,7 @@ object Libs {
     const val CORE_SPLASH_SCREEN = "androidx.core:core-splashscreen"
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core"
+    const val EXO_PLAYER_CORE = "com.google.android.exoplayer:exoplayer-core"
     const val EXT_JUNIT = "androidx.test.ext:junit"
     const val GOOGLE_SERVICES_AUTH = "com.google.android.gms:play-services-auth"
     const val GSON = "com.google.code.gson:gson"
