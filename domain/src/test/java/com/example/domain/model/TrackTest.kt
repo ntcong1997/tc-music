@@ -159,4 +159,122 @@ class TrackTest {
 
         assertEquals(expectedResult, actualResult)
     }
+
+    @Test
+    fun track_has_media_uri() {
+        val track = Track(
+            alias = null,
+            artists = listOf(),
+            genres = Genres("POP"),
+            hub = Hub(
+                actions = listOf(
+                    Action(
+                        id = null,
+                        name = "apple",
+                        type = "uri",
+                        uri = "https://..."
+                    )
+                ),
+                displayname = null,
+                explicit = null,
+                image = null,
+                options = null,
+                type = null
+            ),
+            images = Images(
+                background = null,
+                coverart = null,
+                coverarthq = null
+            ),
+            key = "1",
+            layout = null,
+            releasedate = null,
+            sections = null,
+            share = null,
+            subtitle = "One Direction",
+            title = "Story of my life",
+            type = "MUSIC",
+            url = "https://...",
+            urlparams = null
+        )
+
+        val expectedResult = "https://..."
+        val actualResult = track.mediaUri
+
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun track_has_no_media_uri_hub_is_null() {
+        val track = Track(
+            alias = null,
+            artists = listOf(),
+            genres = Genres("POP"),
+            hub = null,
+            images = Images(
+                background = null,
+                coverart = null,
+                coverarthq = null
+            ),
+            key = "1",
+            layout = null,
+            releasedate = null,
+            sections = null,
+            share = null,
+            subtitle = "One Direction",
+            title = "Story of my life",
+            type = "MUSIC",
+            url = "https://...",
+            urlparams = null
+        )
+
+        val expectedResult = ""
+        val actualResult = track.mediaUri
+
+        assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun track_has_no_media_uri_hub_has_no_element_uri() {
+        val track = Track(
+            alias = null,
+            artists = listOf(),
+            genres = Genres("POP"),
+            hub = Hub(
+                actions = listOf(
+                    Action(
+                        id = "123",
+                        name = "apple",
+                        type = "applemusicplay",
+                        uri = null
+                    )
+                ),
+                displayname = null,
+                explicit = null,
+                image = null,
+                options = null,
+                type = null
+            ),
+            images = Images(
+                background = null,
+                coverart = null,
+                coverarthq = null
+            ),
+            key = "1",
+            layout = null,
+            releasedate = null,
+            sections = null,
+            share = null,
+            subtitle = "One Direction",
+            title = "Story of my life",
+            type = "MUSIC",
+            url = "https://...",
+            urlparams = null
+        )
+
+        val expectedResult = ""
+        val actualResult = track.mediaUri
+
+        assertEquals(expectedResult, actualResult)
+    }
 }
