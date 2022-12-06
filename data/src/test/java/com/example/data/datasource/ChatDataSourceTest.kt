@@ -18,7 +18,7 @@ import org.junit.Test
 class ChatDataSourceTest {
     private val shazamApiService = FakeShazamApiService()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+    @ExperimentalCoroutinesApi
     @Test
     fun get_world_chart_paging_success() =
         runTest {
