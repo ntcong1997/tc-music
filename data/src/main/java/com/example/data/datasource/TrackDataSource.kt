@@ -9,7 +9,7 @@ import javax.inject.Inject
  */
 
 interface TrackDataSource {
-    suspend fun getTrackDetail(trackId: String?) : Track?
+    suspend fun getTrackDetail(trackId: String?): Track?
 }
 
 class TrackDataSourceImpl @Inject constructor(

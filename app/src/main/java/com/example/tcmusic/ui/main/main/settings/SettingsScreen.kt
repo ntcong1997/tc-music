@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-fun SettingsScreen(
-
-) {
+fun SettingsScreen() {
     Text(text = "Settings")
 }

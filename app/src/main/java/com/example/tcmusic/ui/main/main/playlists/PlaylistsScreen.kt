@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-fun PlaylistsScreen(
-
-) {
+fun PlaylistsScreen() {
     Text(text = "Playlists")
 }

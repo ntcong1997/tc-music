@@ -4,8 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -31,12 +29,10 @@ import com.example.tcmusic.ui.theme.GrayMercury
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Created by TC on 10/10/2022.
  */
-
 
 @ExperimentalPagerApi
 @Composable

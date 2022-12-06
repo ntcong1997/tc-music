@@ -52,7 +52,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.MainScreen.route) {
                             MainScreen(navController)
                         }
-                        composable(route = Screen.TrackDetailScreen.route + "?trackId={trackId}",
+                        composable(
+                            route = Screen.TrackDetailScreen.route + "?trackId={trackId}",
                             arguments = listOf(
                                 navArgument(name = "trackId") {
                                     type = NavType.StringType

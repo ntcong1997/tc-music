@@ -54,7 +54,6 @@ fun TrackDetailScreen(
         },
         onClickMore = { },
         onClickPlay = {
-
         }
     )
 
@@ -342,7 +341,6 @@ fun TrackLyrics(
         sheetBackgroundColor = BlueRoyal,
         sheetShape = RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
     ) {
-
     }
 }
 

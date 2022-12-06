@@ -42,8 +42,7 @@ data class Track(
         get() = if (hub?.actions?.find { it.type == "uri" } != null) {
             val mediaAction = hub.actions.find { it.type == "uri" }
             mediaAction?.uri ?: ""
-        }
-        else ""
+        } else ""
 
     val lyrics: List<String>
         get() = if (sections?.find { it.type == "LYRICS" } != null) {
@@ -51,8 +50,7 @@ data class Track(
             val lyrics = sectionLyrics?.text
             if (lyrics.isNullOrEmpty()) listOf()
             else lyrics
-        }
-        else listOf()
+        } else listOf()
 }
 
 data class Artist(

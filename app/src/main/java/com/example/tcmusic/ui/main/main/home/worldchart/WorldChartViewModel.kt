@@ -5,8 +5,8 @@ import androidx.paging.PagingData
 import com.example.domain.Result
 import com.example.domain.usecase.chart.LoadWorldChartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by TC on 21/11/2022.

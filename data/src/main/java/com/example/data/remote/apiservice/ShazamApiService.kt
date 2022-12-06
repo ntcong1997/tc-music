@@ -12,11 +12,14 @@ import retrofit2.http.Query
  */
 interface ShazamApiService {
     @GET(API_GET_WORLD_CHART)
-    suspend fun getWorldChart(@Query("offset") offset: Int) : List<Track>
+    suspend fun getWorldChart(@Query("offset") offset: Int): List<Track>
 
     @GET(API_GET_WORLD_CHART_BY_GENRE)
-    suspend fun getWorldChartByGenre(@Query("genre_code") genreCode: String?, @Query("offset") offset: Int) : List<Track>
+    suspend fun getWorldChartByGenre(
+        @Query("genre_code") genreCode: String?,
+        @Query("offset") offset: Int
+    ): List<Track>
 
     @GET(API_GET_TRACK_DETAIL)
-    suspend fun getTrackDetail(@Query("track_id") trackId: String?) : Track?
+    suspend fun getTrackDetail(@Query("track_id") trackId: String?): Track?
 }

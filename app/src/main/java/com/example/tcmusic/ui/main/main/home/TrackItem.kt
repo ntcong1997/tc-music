@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.model.Track
-import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.R
+import com.example.tcmusic.ui.theme.Black
 
 /**
  * Created by TC on 21/11/2022.
@@ -31,12 +31,13 @@ fun TrackItem(
     onClickTrack: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier
-            .padding(16.dp, 16.dp, 0.dp, 16.dp)
-            .align(Alignment.Center)
-            .clickable {
-                onClickTrack()
-            }
+        Row(
+            modifier = Modifier
+                .padding(16.dp, 16.dp, 0.dp, 16.dp)
+                .align(Alignment.Center)
+                .clickable {
+                    onClickTrack()
+                }
         ) {
             AsyncImage(
                 model = track.images?.coverart,

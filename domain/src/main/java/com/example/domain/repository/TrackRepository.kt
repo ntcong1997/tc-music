@@ -6,5 +6,5 @@ import com.example.model.Track
  * Created by TC on 01/12/2022.
  */
 interface TrackRepository {
-    suspend fun getTrackDetail(trackId: String?) : Track?
+    suspend fun getTrackDetail(trackId: String?): Track?
 }

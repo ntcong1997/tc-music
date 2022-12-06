@@ -1,10 +1,10 @@
 package com.example.tcmusic
 
 import com.example.model.Track
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import javax.inject.Inject
 
 /**
  * Created by TC on 01/12/2022.
@@ -16,9 +16,7 @@ interface TrackManager {
     fun setTrackPlaying(track: Track)
 }
 
-class TrackManagerImpl @Inject constructor(
-
-) : TrackManager {
+class TrackManagerImpl @Inject constructor() : TrackManager {
     private val _trackPlaying = Channel<Track>(Channel.CONFLATED)
 
     override val trackPlaying: Flow<Track>
@@ -27,5 +25,4 @@ class TrackManagerImpl @Inject constructor(
     override fun setTrackPlaying(track: Track) {
         _trackPlaying.trySend(track)
     }
-
 }

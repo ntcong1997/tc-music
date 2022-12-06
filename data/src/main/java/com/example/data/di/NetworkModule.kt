@@ -15,12 +15,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 /**
  * Created by TC on 13/10/2022.
@@ -31,7 +31,7 @@ import javax.inject.Singleton
 class NetworkModule {
     @Singleton
     @Provides
-    fun provideOkHttpCache(@ApplicationContext context: Context): Cache = Cache(context.cacheDir, 10 * 1024 * 1024) //cache size = 10MB
+    fun provideOkHttpCache(@ApplicationContext context: Context): Cache = Cache(context.cacheDir, 10 * 1024 * 1024) // cache size = 10MB
 
     @Singleton
     @Provides
@@ -80,11 +80,11 @@ class NetworkModule {
     @Provides
     fun provideChartDataSource(
         shazamApiService: ShazamApiService
-    ) : ChartDataSource = ChartDataSourceImpl(shazamApiService)
+    ): ChartDataSource = ChartDataSourceImpl(shazamApiService)
 
     @Singleton
     @Provides
     fun provideTrackDataSource(
         shazamApiService: ShazamApiService
-    ) : TrackDataSource = TrackDataSourceImpl(shazamApiService)
+    ): TrackDataSource = TrackDataSourceImpl(shazamApiService)
 }

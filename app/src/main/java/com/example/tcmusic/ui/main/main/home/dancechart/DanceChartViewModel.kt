@@ -3,12 +3,12 @@ package com.example.tcmusic.ui.main.main.home.dancechart
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.example.domain.Result
-import com.example.model.GenreCode
 import com.example.domain.usecase.chart.LoadWorldChartByGenreParams
 import com.example.domain.usecase.chart.LoadWorldChartByGenreUseCase
+import com.example.model.GenreCode
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by TC on 25/11/2022.
