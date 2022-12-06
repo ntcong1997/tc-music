@@ -1,7 +1,9 @@
 package com.example.tcmusic.ui.main.main.home.dancechart
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.domain.Result
 import com.example.domain.usecase.chart.LoadWorldChartByGenreParams
 import com.example.domain.usecase.chart.LoadWorldChartByGenreUseCase
@@ -21,7 +23,7 @@ class DanceChartViewModel @Inject constructor(
     val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.DANCE, PAGE_SIZE)).map {
         if (it is Result.Success) it.data
         else PagingData.empty()
-    }
+    }.cachedIn(viewModelScope)
 
     companion object {
         private const val PAGE_SIZE = 20

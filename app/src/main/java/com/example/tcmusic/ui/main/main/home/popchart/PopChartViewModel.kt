@@ -1,7 +1,9 @@
 package com.example.tcmusic.ui.main.main.home.popchart
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.domain.Result
 import com.example.domain.usecase.chart.LoadWorldChartByGenreParams
 import com.example.domain.usecase.chart.LoadWorldChartByGenreUseCase
@@ -19,9 +21,9 @@ class PopChartViewModel @Inject constructor(
     loadWorldChartByGenreUseCase: LoadWorldChartByGenreUseCase
 ) : ViewModel() {
     val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.POP, PAGE_SIZE)).map {
-            if (it is Result.Success) it.data
-            else PagingData.empty()
-        }
+        if (it is Result.Success) it.data
+        else PagingData.empty()
+    }.cachedIn(viewModelScope)
 
     companion object {
         private const val PAGE_SIZE = 20
