@@ -1,6 +1,6 @@
 package com.example.player
 
-import com.example.domain.model.Track
+import com.example.model.Track
 import com.example.domain.player.Player
 import com.google.android.exoplayer2.ExoPlayer
 import kotlinx.coroutines.channels.Channel

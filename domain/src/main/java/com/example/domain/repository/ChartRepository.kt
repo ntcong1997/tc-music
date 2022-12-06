@@ -1,8 +1,8 @@
 package com.example.domain.repository
 
 import androidx.paging.PagingData
-import com.example.domain.model.GenreCode
-import com.example.domain.model.Track
+import com.example.model.GenreCode
+import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,7 +1,7 @@
 package com.example.data.datasource
 
 import com.example.data.remote.apiservice.ShazamApiService
-import com.example.domain.model.Track
+import com.example.model.Track
 import javax.inject.Inject
 
 /**

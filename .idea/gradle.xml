@@ -15,7 +15,9 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/depconstraints" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/player" />
+            <option value="$PROJECT_DIR$/test-data" />
           </set>
         </option>
       </GradleProjectSettings>

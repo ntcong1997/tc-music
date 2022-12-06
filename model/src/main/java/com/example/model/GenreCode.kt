@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.model
 
 /**
  * Created by TC on 22/11/2022.

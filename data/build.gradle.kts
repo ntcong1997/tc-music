@@ -1,46 +1,40 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk Versions.COMPILE_SDK
+    compileSdk = Versions.COMPILE_SDK
     defaultConfig {
-        minSdk Versions.MIN_SDK
-        targetSdk Versions.TARGET_SDK
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        debug {
+        getByName("debug") {
             buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
             buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
         }
 
-        release {
+        getByName("release") {
             buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
             buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
 
-            debuggable false
-
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
-    }
-
-    sourceSets {
-        test.java.srcDirs += ["${project(':domain').projectDir}/src/test/java"]
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 }
 
@@ -49,12 +43,14 @@ dependencies {
     kapt(platform(project(":depconstraints")))
 
     implementation(project(":domain"))
+    implementation(project(":model"))
+    testImplementation(project(":test-data"))
 
     implementation(Libs.CORE_KTX)
 
     // Kotlin
     implementation(Libs.KOTLIN_STDLIB)
-    implementation('org.jetbrains.kotlin:kotlin-reflect:1.6.10')
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
 
     // Dagger Hilt
     implementation(Libs.HILT_ANDROID)

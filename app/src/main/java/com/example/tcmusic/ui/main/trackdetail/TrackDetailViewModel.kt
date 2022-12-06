@@ -3,7 +3,7 @@ package com.example.tcmusic.ui.main.trackdetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.Result
-import com.example.domain.model.Track
+import com.example.model.Track
 import com.example.domain.usecase.track.GetTrackDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

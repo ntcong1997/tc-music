@@ -1,6 +1,6 @@
 package com.example.domain.player
 
-import com.example.domain.model.Track
+import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.domain.model.Track
+import com.example.model.Track
 import com.example.tcmusic.R
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRoyal

@@ -1,6 +1,6 @@
 package com.example.domain.repository
 
-import com.example.domain.model.Track
+import com.example.model.Track
 
 /**
  * Created by TC on 01/12/2022.

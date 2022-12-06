@@ -1,41 +1,42 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
-    id 'dagger.hilt.android.plugin'
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk Versions.COMPILE_SDK
+    compileSdk = Versions.COMPILE_SDK
     defaultConfig {
-        minSdk Versions.MIN_SDK
-        targetSdk Versions.TARGET_SDK
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
-            debuggable false
-
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-                targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
+
+    implementation(project(":domain"))
+    implementation(project(":model"))
 
     implementation(Libs.CORE_KTX)
 
@@ -56,17 +57,11 @@ dependencies {
     kapt(Libs.HILT_COMPILER)
     kaptAndroidTest(Libs.HILT_COMPILER)
 
-    // Retrofit & Okhttp
-    implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_CONVERTER)
-    implementation(Libs.OKHTTP_LOGGING)
-
-    // Paging 3
-    implementation(Libs.PAGING)
+    // Exo Player
+    implementation(Libs.EXO_PLAYER_CORE)
 
     // Utils
     api(Libs.TIMBER)
-    implementation(Libs.GSON)
 
     // Instrumentation tests
     androidTestImplementation(Libs.ESPRESSO_CORE)

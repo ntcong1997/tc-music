@@ -1,6 +1,6 @@
-package com.example.domain.data
+package com.example.test.data
 
-import com.example.domain.model.*
+import com.example.model.*
 
 /**
  * Created by TC on 19/10/2022.

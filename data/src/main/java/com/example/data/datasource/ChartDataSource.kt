@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.example.data.datasource.paging.WorldChartByGenrePagingDataSource
 import com.example.data.datasource.paging.WorldChartPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
-import com.example.domain.model.GenreCode
-import com.example.domain.model.Track
+import com.example.model.GenreCode
+import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

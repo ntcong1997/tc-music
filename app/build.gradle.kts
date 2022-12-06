@@ -1,66 +1,63 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
-    id 'dagger.hilt.android.plugin'
-    id 'com.google.gms.google-services'
+    id("com.android.application")
+    kotlin("android")
+    kotlin("kapt")
+    id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
-    compileSdk Versions.COMPILE_SDK
+    compileSdk = Versions.COMPILE_SDK
     defaultConfig {
-        applicationId "com.example.tcmusic"
-        minSdk Versions.MIN_SDK
-        targetSdk Versions.TARGET_SDK
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        applicationId = "com.example.tcmusic"
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        versionCode = Versions.versionCode
+        versionName = Versions.versionName
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        vectorDrawables {
-            useSupportLibrary true
-        }
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
-    buildTypes {
-        release {
-            debuggable false
 
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+    buildTypes {
+        getByName("release") {
+            isDebuggable = false
+
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
     }
 
     buildFeatures {
-        compose true
+        dataBinding = true
+        compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion Versions.COMPOSE
-        kotlinCompilerVersion Versions.KOTLIN
-    }
-
-    buildFeatures {
-        dataBinding true
+        kotlinCompilerExtensionVersion = Versions.COMPOSE
     }
 }
 
 dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
+    androidTestApi(platform(project(":depconstraints")))
 
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":model"))
 
     // Core
     implementation(Libs.CORE_KTX)

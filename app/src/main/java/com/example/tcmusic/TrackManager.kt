@@ -1,11 +1,8 @@
 package com.example.tcmusic
 
-import com.example.domain.model.Track
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.channels.BroadcastChannel
+import com.example.model.Track
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 

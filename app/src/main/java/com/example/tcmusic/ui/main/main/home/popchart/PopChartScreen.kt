@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
-import com.example.domain.model.Track
+import com.example.model.Track
 import com.example.tcmusic.ui.main.Screen
 import com.example.tcmusic.ui.main.main.home.TrackItem
 import com.google.accompanist.swiperefresh.SwipeRefresh

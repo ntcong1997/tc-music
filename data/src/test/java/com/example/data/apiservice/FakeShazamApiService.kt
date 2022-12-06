@@ -1,8 +1,8 @@
 package com.example.data.apiservice
 
 import com.example.data.remote.apiservice.ShazamApiService
-import com.example.domain.data.*
-import com.example.domain.model.Track
+import com.example.model.Track
+import com.example.test.data.*
 
 /**
  * Created by TC on 03/11/2022.

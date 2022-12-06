@@ -3,7 +3,7 @@ package com.example.data.remote.apiservice
 import com.example.data.remote.API_GET_TRACK_DETAIL
 import com.example.data.remote.API_GET_WORLD_CHART
 import com.example.data.remote.API_GET_WORLD_CHART_BY_GENRE
-import com.example.domain.model.Track
+import com.example.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Query
 

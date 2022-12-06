@@ -1,5 +1,6 @@
 package com.example.domain.model
 
+import com.example.model.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
