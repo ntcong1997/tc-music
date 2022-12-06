@@ -3,9 +3,9 @@ package com.example.data.datasource
 import androidx.paging.PagingSource
 import com.example.data.apiservice.FakeShazamApiService
 import com.example.data.datasource.paging.WorldChartPagingDataSource
-import com.example.domain.data.Track_1
-import com.example.domain.data.Track_2
-import com.example.domain.data.Track_3
+import com.example.test.data.Track_1
+import com.example.test.data.Track_2
+import com.example.test.data.Track_3
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
