@@ -35,8 +35,7 @@ jobs:
         arguments: build
 
     - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-reports-tc-music
-          path: app/build/reports/androidTests
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-reports-tc-music
+        path: app/build/reports/androidTests
