@@ -34,8 +34,9 @@ jobs:
       with:
         arguments: build
 
-    - name: Upload test reports
+    - name: Upload domain module test reports
+      if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: test-reports-tc-music
-        path: app/build/reports/androidTests
+        name: doamin-test-reports-tc-music
+        path: domain/build/reports/tests
