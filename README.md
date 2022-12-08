@@ -1,3 +1,3 @@
 # tc-music
 
-[![Java CI with Gradle](https://github.com/ntcong1997/tc-music/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/ntcong1997/tc-music/actions/workflows/gradle.yml)
+[![tc-music](https://github.com/ntcong1997/tc-music/actions/workflows/tc-music.yml/badge.svg?branch=main)](https://github.com/ntcong1997/tc-music/actions/workflows/tc-music.yml)
