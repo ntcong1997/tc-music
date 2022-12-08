@@ -57,7 +57,7 @@ class TrackTest {
             urlparams = null
         )
 
-        val expectedResult = listOf("D", "B", "C")
+        val expectedResult = listOf("A", "B", "C")
         val actualResult = track.lyrics
 
         assertEquals(expectedResult, actualResult)
