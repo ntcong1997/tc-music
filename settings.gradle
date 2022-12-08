@@ -14,7 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TC Music"
 include ':app'
-include 'depconstraints'
 include ':domain'
 include ':data'
 include ':player'

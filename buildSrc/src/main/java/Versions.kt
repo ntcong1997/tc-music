@@ -10,11 +10,4 @@ object Versions {
     const val COMPILE_SDK = 33
     const val TARGET_SDK = 33
     const val MIN_SDK = 24
-
-    const val ANDROID_GRADLE_PLUGIN = "7.2.2"
-    const val COMPOSE = "1.2.0"
-    const val HILT = "2.44"
-    const val KOTLIN = "1.7.0"
-    const val GOOGLE_SERVICES = "4.3.13"
-    const val NAVIGATION = "2.5.2"
 }

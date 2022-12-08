@@ -9,9 +9,8 @@ java {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
     implementation(project(":model"))
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 }

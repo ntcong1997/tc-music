@@ -32,41 +32,33 @@ android {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
-    kapt(platform(project(":depconstraints")))
-
     implementation(project(":domain"))
     implementation(project(":model"))
 
-    implementation(Libs.CORE_KTX)
-
-    // UI
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.MATERIAL)
-
-    // Coroutines
-    api(Libs.COROUTINES)
+    implementation(libs.androidx.core.core.ktx)
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
+
+    // Coroutines
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
 
     // Dagger Hilt
-    implementation(Libs.HILT_ANDROID)
-    implementation(Libs.HILT_NAVIGATION_COMPOSE)
-    androidTestImplementation(Libs.HILT_TESTING)
-    kapt(Libs.HILT_COMPILER)
-    kaptAndroidTest(Libs.HILT_COMPILER)
+    implementation(libs.com.google.dagger.hilt.android)
+    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
+    kapt(libs.com.google.dagger.hilt.android.compiler)
+    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
     // Exo Player
-    implementation(Libs.EXO_PLAYER_CORE)
+    implementation(libs.com.google.android.exoplayer.exoplayer.core)
 
     // Utils
-    api(Libs.TIMBER)
+    implementation(libs.com.jakewharton.timber)
 
     // Instrumentation tests
-    androidTestImplementation(Libs.ESPRESSO_CORE)
-    androidTestImplementation(Libs.EXT_JUNIT)
+    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 
     // Local unit tests
-    testImplementation(Libs.JUNIT)
+    testImplementation(libs.androidx.test.ext.junit)
 }
