@@ -60,40 +60,36 @@ dependencies {
     implementation(project(":model"))
 
     // Core
-    implementation(Libs.CORE_KTX)
-    implementation(Libs.CORE_SPLASH_SCREEN)
+    implementation(libs.androidx.core.core.ktx)
+    implementation(libs.androidx.core.core.splashscreen)
 
     // UI
-    implementation(Libs.ACTIVITY_COMPOSE)
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.MATERIAL)
-    implementation(Libs.MATERIAL_ICONS_EXTENDED)
-    implementation(Libs.PAGER)
-    implementation(Libs.PAGER_INDICATORS)
+    implementation(libs.androidx.activity.activity.compose)
+    implementation(libs.androidx.appcompat.appcompat)
+    implementation(libs.com.google.android.material)
+    implementation(libs.androidx.compose.material.material.icons.extended)
+    implementation(libs.com.google.accompanist.accompanist.pager)
+    implementation(libs.com.google.accompanist.accompanist.pager.indicators)
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Architecture Components
-    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
-    implementation(Libs.LIFECYCLE_RUNTIME_KTX)
-    kapt(Libs.LIFECYCLE_COMPILER)
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
+    kapt(libs.androidx.lifecycle.lifecycle.compiler)
 
     // Compose
-    implementation(Libs.COMPOSE_LIVE_DATA)
-    implementation(Libs.COMPOSE_MATERIAL)
-    implementation(Libs.COMPOSE_UI)
-    implementation(Libs.COMPOSE_UI_TOOLING)
-    implementation(Libs.COMPOSE_UI_TOOLING_PREVIEW)
-    implementation(Libs.SWIPE_REFRESH)
-    androidTestImplementation(Libs.COMPOSE_TEST)
-    debugImplementation(Libs.COMPOSE_UI_TOOLING)
-
-    // Google
-    implementation(Libs.GOOGLE_SERVICES_AUTH)
+    implementation(libs.androidx.compose.material.material)
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.androidx.compose.ui.ui.tooling)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview)
+    implementation(libs.com.google.accompanist.accompanist.swiperefresh)
+    androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.ui.tooling)
 
     // Navigation
-    implementation(Libs.NAVIGATION_COMPOSE)
+    implementation(libs.androidx.navigation.navigation.compose)
 
     // Dagger Hilt
     implementation(Libs.HILT_ANDROID)
