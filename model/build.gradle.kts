@@ -9,14 +9,9 @@ java {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
+    // Kotlin
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Utils
-    implementation(Libs.GSON)
-
-    // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
-
-    // Local unit tests
-    testImplementation(Libs.JUNIT)
+    implementation(libs.com.google.code.gson)
 }

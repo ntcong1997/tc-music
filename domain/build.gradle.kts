@@ -32,46 +32,33 @@ android {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
-    kapt(platform(project(":depconstraints")))
-
     implementation(project(":model"))
 
-    implementation(Libs.CORE_KTX)
-
-    // UI
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.MATERIAL)
-
-    // Coroutines
-    api(Libs.COROUTINES)
+    implementation(libs.androidx.core.core.ktx)
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
+
+    // Coroutines
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
 
     // Dagger Hilt
-    implementation(Libs.HILT_ANDROID)
-    implementation(Libs.HILT_NAVIGATION_COMPOSE)
-    androidTestImplementation(Libs.HILT_TESTING)
-    kapt(Libs.HILT_COMPILER)
-    kaptAndroidTest(Libs.HILT_COMPILER)
-
-    // Retrofit & Okhttp
-    implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_CONVERTER)
-    implementation(Libs.OKHTTP_LOGGING)
+    implementation(libs.com.google.dagger.hilt.android)
+    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
+    kapt(libs.com.google.dagger.hilt.android.compiler)
+    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
     // Paging 3
-    implementation(Libs.PAGING)
+    implementation(libs.androidx.paging.paging.runtime)
 
     // Utils
-    api(Libs.TIMBER)
-    implementation(Libs.GSON)
+    implementation(libs.com.jakewharton.timber)
+    implementation(libs.com.google.code.gson)
 
     // Instrumentation tests
-    androidTestImplementation(Libs.ESPRESSO_CORE)
-    androidTestImplementation(Libs.EXT_JUNIT)
+    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 
     // Local unit tests
-    testImplementation(Libs.JUNIT)
+    testImplementation(libs.androidx.test.ext.junit)
 }

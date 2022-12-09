@@ -20,8 +20,6 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-
-
     buildTypes {
         getByName("release") {
             isDebuggable = false
@@ -46,83 +44,75 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.COMPOSE
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
-    kapt(platform(project(":depconstraints")))
-    androidTestApi(platform(project(":depconstraints")))
-
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":model"))
 
     // Core
-    implementation(Libs.CORE_KTX)
-    implementation(Libs.CORE_SPLASH_SCREEN)
+    implementation(libs.androidx.core.core.ktx)
+    implementation(libs.androidx.core.core.splashscreen)
 
     // UI
-    implementation(Libs.ACTIVITY_COMPOSE)
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.MATERIAL)
-    implementation(Libs.MATERIAL_ICONS_EXTENDED)
-    implementation(Libs.PAGER)
-    implementation(Libs.PAGER_INDICATORS)
+    implementation(libs.androidx.activity.activity.compose)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.com.google.android.material)
+    implementation(libs.androidx.compose.material.material.icons.extended)
+    implementation(libs.com.google.accompanist.accompanist.pager)
+    implementation(libs.com.google.accompanist.accompanist.pager.indicators)
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Architecture Components
-    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
-    implementation(Libs.LIFECYCLE_RUNTIME_KTX)
-    kapt(Libs.LIFECYCLE_COMPILER)
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
+    kapt(libs.androidx.lifecycle.lifecycle.compiler)
 
     // Compose
-    implementation(Libs.COMPOSE_LIVE_DATA)
-    implementation(Libs.COMPOSE_MATERIAL)
-    implementation(Libs.COMPOSE_UI)
-    implementation(Libs.COMPOSE_UI_TOOLING)
-    implementation(Libs.COMPOSE_UI_TOOLING_PREVIEW)
-    implementation(Libs.SWIPE_REFRESH)
-    androidTestImplementation(Libs.COMPOSE_TEST)
-    debugImplementation(Libs.COMPOSE_UI_TOOLING)
-
-    // Google
-    implementation(Libs.GOOGLE_SERVICES_AUTH)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.ui.tooling)
+    implementation(libs.androidx.compose.ui.ui.tooling.preview)
+    implementation(libs.com.google.accompanist.accompanist.swiperefresh)
+    androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.ui.tooling)
 
     // Navigation
-    implementation(Libs.NAVIGATION_COMPOSE)
+    implementation(libs.androidx.navigation.navigation.compose)
 
     // Dagger Hilt
-    implementation(Libs.HILT_ANDROID)
-    implementation(Libs.HILT_NAVIGATION_COMPOSE)
-    androidTestImplementation(Libs.HILT_TESTING)
-    kapt(Libs.HILT_COMPILER)
-    kaptAndroidTest(Libs.HILT_COMPILER)
+    implementation(libs.com.google.dagger.hilt.android)
+    implementation(libs.androidx.hilt.hilt.navigation.compose)
+    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
+    kapt(libs.com.google.dagger.hilt.android.compiler)
+    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
     // Coil
-    implementation(Libs.COIL_BASE)
-    implementation(Libs.COIL_COMPOSE)
+    implementation(libs.io.coil.kt.coil.base)
+    implementation(libs.io.coil.kt.coil.compose)
 
     // Paging 3
-    implementation(Libs.PAGING)
-    implementation(Libs.PAGING_COMPOSE)
+    implementation(libs.androidx.paging.paging.runtime)
+    implementation(libs.androidx.paging.paging.compose)
 
     // Retrofit & Okhttp
-    implementation(Libs.RETROFIT)
-    implementation(Libs.OKHTTP_LOGGING)
+    implementation(libs.com.squareup.retrofit2.retrofit)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     // Utils
-    implementation(Libs.COMPRESSOR)
-    api(Libs.TIMBER)
-    implementation(Libs.GSON)
+    implementation(libs.id.zelory.compressor)
+    implementation(libs.com.jakewharton.timber)
+    implementation(libs.com.google.code.gson)
 
     // Instrumentation tests
-    androidTestImplementation(Libs.ESPRESSO_CORE)
-    androidTestImplementation(Libs.EXT_JUNIT)
+    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 
     // Local unit tests
-    testImplementation(Libs.JUNIT)
+    testImplementation(libs.androidx.test.ext.junit)
 }

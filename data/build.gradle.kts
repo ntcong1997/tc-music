@@ -39,53 +39,49 @@ android {
 }
 
 dependencies {
-    api(platform(project(":depconstraints")))
-    kapt(platform(project(":depconstraints")))
-
     implementation(project(":domain"))
     implementation(project(":model"))
     testImplementation(project(":test-data"))
 
-    implementation(Libs.CORE_KTX)
+    implementation(libs.androidx.core.core.ktx)
 
     // Kotlin
-    implementation(Libs.KOTLIN_STDLIB)
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Dagger Hilt
-    implementation(Libs.HILT_ANDROID)
-    androidTestImplementation(Libs.HILT_TESTING)
-    kapt(Libs.HILT_COMPILER)
-    kaptAndroidTest(Libs.HILT_COMPILER)
+    implementation(libs.com.google.dagger.hilt.android)
+    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
+    kapt(libs.com.google.dagger.hilt.android.compiler)
+    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
     // Coroutines
-    api(Libs.COROUTINES)
-    testImplementation(Libs.COROUTINES_TEST)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+    testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
 
     // DataStore
-    implementation(Libs.DATA_STORE_PREFERENCES)
+    implementation(libs.androidx.datastore.datastore.core)
 
     // Paging 3
-    implementation(Libs.PAGING)
+    implementation(libs.androidx.paging.paging.runtime)
 
     // Retrofit & Okhttp
-    implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_CONVERTER)
-    implementation(Libs.OKHTTP_LOGGING)
+    implementation(libs.com.squareup.retrofit2.retrofit)
+    implementation(libs.com.squareup.retrofit2.converter.gson)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
 
     // Room database
-    implementation(Libs.ROOM_RUNTIME)
-    implementation(Libs.ROOM_KTX)
-    implementation(Libs.ROOM_PAGING)
-    kapt(Libs.ROOM_COMPILER)
+    implementation(libs.androidx.room.room.runtime)
+    implementation(libs.androidx.room.room.ktx)
+    implementation(libs.androidx.room.room.paging)
+    kapt(libs.androidx.room.room.compiler)
 
     // Utils
-    api(Libs.TIMBER)
+    implementation(libs.com.jakewharton.timber)
 
     // Instrumentation tests
-    androidTestImplementation(Libs.ESPRESSO_CORE)
-    androidTestImplementation(Libs.EXT_JUNIT)
+    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
 
     // Local unit tests
-    testImplementation(Libs.JUNIT)
+    testImplementation(libs.androidx.test.ext.junit)
 }

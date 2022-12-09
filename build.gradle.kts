@@ -2,20 +2,26 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         gradlePluginPortal()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
-        classpath("com.google.gms:google-services:${Versions.GOOGLE_SERVICES}")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.NAVIGATION}")
+        classpath(libs.com.android.tools.build.gradle)
+        classpath(libs.org.jetbrains.kotlin.kotlin.gradle.plugin)
+        classpath(libs.com.google.gms.google.services)
+        classpath(libs.com.google.dagger.hilt.android.gradle.plugin)
+        classpath(libs.androidx.navigation.navigation.safe.args.gradle.plugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
+
+plugins {
+    id("com.github.ben-manes.versions") version "0.43.0"
+    id("nl.littlerobots.version-catalog-update") version "0.7.0"
+}
+
+apply("${project.rootDir}/scripts/toml-updater-config.gradle")
 
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
