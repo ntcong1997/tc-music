@@ -32,6 +32,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
  * Created by TC on 02/12/2022.
  */
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun MainScreen(
@@ -78,6 +79,7 @@ fun MainScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun Home(

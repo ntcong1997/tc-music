@@ -78,7 +78,6 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.ui.tooling)
     implementation(libs.androidx.compose.ui.ui.tooling.preview)
-    implementation(libs.com.google.accompanist.accompanist.swiperefresh)
     androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
 

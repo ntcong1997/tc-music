@@ -19,7 +19,15 @@ class ChartRepositoryImpl @Inject constructor(
         return chartDataSource.loadWorldChart(pageSize)
     }
 
+    override fun refreshWorldChart() {
+        return chartDataSource.refreshWorldChart()
+    }
+
     override fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>> {
         return chartDataSource.loadWorldChartByGenre(genreCode, pageSize)
+    }
+
+    override fun refreshWorldChartByGenre(genreCode: GenreCode) {
+        return chartDataSource.refreshWorldChartByGenre(genreCode)
     }
 }

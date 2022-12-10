@@ -11,5 +11,9 @@ import kotlinx.coroutines.flow.Flow
 interface ChartRepository {
     fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>>
 
+    fun refreshWorldChart()
+
     fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>>
+
+    fun refreshWorldChartByGenre(genreCode: GenreCode)
 }

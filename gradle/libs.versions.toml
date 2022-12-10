@@ -23,6 +23,7 @@ com-squareup-retrofit2 = "2.9.0"
 io-coil-kt = "2.1.0"
 io-github-aakira = "1.4.1"
 org-jetbrains-kotlinx = "1.6.4"
+# @keep
 compose-compiler = "1.3.2"
 
 [libraries]
@@ -115,10 +116,10 @@ androidx-navigation-navigation-compose = "androidx.navigation:navigation-compose
 androidx-navigation-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidx-navigation" }
 androidx-navigation-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-navigation-safe-args-gradle-plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
-androidx-paging-paging-common = "androidx.paging:paging-common:3.2.0-alpha02"
-androidx-paging-paging-common-ktx = "androidx.paging:paging-common-ktx:3.2.0-alpha02"
+androidx-paging-paging-common = "androidx.paging:paging-common:3.1.1"
+androidx-paging-paging-common-ktx = "androidx.paging:paging-common-ktx:3.1.1"
 androidx-paging-paging-compose = "androidx.paging:paging-compose:1.0.0-alpha17"
-androidx-paging-paging-runtime = "androidx.paging:paging-runtime:3.2.0-alpha03"
+androidx-paging-paging-runtime = "androidx.paging:paging-runtime:3.1.1"
 androidx-print = "androidx.print:print:1.0.0"
 androidx-profileinstaller = "androidx.profileinstaller:profileinstaller:1.2.0"
 androidx-recyclerview = "androidx.recyclerview:recyclerview:1.2.1"

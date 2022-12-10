@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
  * Created by TC on 10/10/2022.
  */
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen(
@@ -45,6 +46,7 @@ fun HomeScreen(
     )
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen(
@@ -89,6 +91,7 @@ fun Header() {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun TabLayout(
@@ -154,6 +157,7 @@ fun Tabs(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun TabsContent(
@@ -176,6 +180,7 @@ fun TabsContent(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Preview
 @Composable

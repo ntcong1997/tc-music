@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Track
-import java.io.IOException
 import retrofit2.HttpException
+import java.io.IOException
 
 /**
  * Created by TC on 19/10/2022.
@@ -14,8 +14,8 @@ import retrofit2.HttpException
 class WorldChartPagingDataSource(
     private val shazamApiService: ShazamApiService
 ) : PagingSource<Int, Track>() {
-    override fun getRefreshKey(state: PagingState<Int, Track>): Int {
-        return 0
+    override fun getRefreshKey(state: PagingState<Int, Track>): Int? {
+        return null
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Track> {

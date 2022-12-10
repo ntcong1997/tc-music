@@ -8,8 +8,8 @@ import com.example.data.datasource.paging.WorldChartPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.GenreCode
 import com.example.model.Track
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 /**
  * Created by TC on 19/10/2022.
@@ -18,23 +18,40 @@ import kotlinx.coroutines.flow.Flow
 interface ChartDataSource {
     fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>>
 
+    fun refreshWorldChart()
+
     fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>>
+
+    fun refreshWorldChartByGenre(genreCode: GenreCode)
 }
 
 class ChartDataSourceImpl @Inject constructor(
     private val shazamApiService: ShazamApiService
 ) : ChartDataSource {
+    private var worldChartPagingDataSource: WorldChartPagingDataSource? = null
+    private var worldChartByGenrePagingDataSource: WorldChartByGenrePagingDataSource? = null
+
     override fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>> {
-        val worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
+        worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
         return Pager(PagingConfig(pageSize = pageSize)) {
-            worldChartPagingDataSource
+            worldChartPagingDataSource!!
         }.flow
     }
 
+    override fun refreshWorldChart() {
+        worldChartPagingDataSource?.invalidate()
+        worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
+    }
+
     override fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>> {
-        val worldChartByGenrePagingDataSource = WorldChartByGenrePagingDataSource(genreCode, shazamApiService)
+        worldChartByGenrePagingDataSource = WorldChartByGenrePagingDataSource(genreCode, shazamApiService)
         return Pager(PagingConfig(pageSize = pageSize)) {
-            worldChartByGenrePagingDataSource
+            worldChartByGenrePagingDataSource!!
         }.flow
+    }
+
+    override fun refreshWorldChartByGenre(genreCode: GenreCode) {
+        worldChartByGenrePagingDataSource?.invalidate()
+        worldChartByGenrePagingDataSource = WorldChartByGenrePagingDataSource(genreCode, shazamApiService)
     }
 }
