@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":model"))
+    implementation(project(":player"))
 
     // Core
     implementation(libs.androidx.core.core.ktx)
@@ -83,6 +84,9 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.navigation.compose)
+
+    // Media
+    implementation(libs.androidx.media)
 
     // Dagger Hilt
     implementation(libs.com.google.dagger.hilt.android)

@@ -10,21 +10,23 @@ androidx-databinding = "7.3.1"
 androidx-datastore = "1.0.0"
 androidx-emoji2 = "1.2.0"
 androidx-hilt = "1.0.0"
+androidx-media = "1.6.0"
 androidx-navigation = "2.5.2"
 androidx-room = "2.4.3"
 androidx-savedstate = "1.2.0"
 androidx-sqlite = "2.2.0"
 androidx-vectordrawable = "1.1.0"
+com-github-bumptech-glide = "4.13.2"
 com-google-android-exoplayer = "2.18.2"
 com-google-dagger = "2.44.2"
 com-squareup-okhttp3 = "4.10.0"
 com-squareup-okio = "3.0.0"
 com-squareup-retrofit2 = "2.9.0"
+# @keep
+compose-compiler = "1.3.2"
 io-coil-kt = "2.1.0"
 io-github-aakira = "1.4.1"
 org-jetbrains-kotlinx = "1.6.4"
-# @keep
-compose-compiler = "1.3.2"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
@@ -110,6 +112,7 @@ androidx-lifecycle-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewm
 androidx-lifecycle-lifecycle-viewmodel-savedstate = "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1"
 androidx-loader = "androidx.loader:loader:1.0.0"
 androidx-localbroadcastmanager = "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
+androidx-media = { module = "androidx.media:media", version.ref = "androidx-media" }
 androidx-navigation-navigation-common = { module = "androidx.navigation:navigation-common", version.ref = "androidx-navigation" }
 androidx-navigation-navigation-common-ktx = { module = "androidx.navigation:navigation-common-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-navigation-compose = "androidx.navigation:navigation-compose:2.5.3"
@@ -144,6 +147,8 @@ androidx-versionedparcelable = "androidx.versionedparcelable:versionedparcelable
 androidx-viewpager = "androidx.viewpager:viewpager:1.0.0"
 androidx-viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
 com-android-tools-build-gradle = "com.android.tools.build:gradle:7.3.1"
+com-github-bumptech-glide = { module = "com.github.bumptech.glide:glide", version.ref = "com-github-bumptech-glide" }
+com-github-bumptech-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "com-github-bumptech-glide" }
 com-google-accompanist-accompanist-drawablepainter = "com.google.accompanist:accompanist-drawablepainter:0.23.1"
 com-google-accompanist-accompanist-pager = "com.google.accompanist:accompanist-pager:0.28.0"
 com-google-accompanist-accompanist-pager-indicators = "com.google.accompanist:accompanist-pager-indicators:0.28.0"

@@ -49,8 +49,15 @@ dependencies {
     kapt(libs.com.google.dagger.hilt.android.compiler)
     kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
+    // Media
+    implementation(libs.androidx.media)
+
     // Exo Player
     implementation(libs.com.google.android.exoplayer.exoplayer.core)
+
+    // Glide
+    implementation(libs.com.github.bumptech.glide)
+    kapt(libs.com.github.bumptech.glide.compiler)
 
     // Utils
     implementation(libs.com.jakewharton.timber)

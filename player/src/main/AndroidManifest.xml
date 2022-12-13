@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.player">
+<manifest package="com.example.player"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <receiver android:name="androidx.media.session.MediaButtonReceiver" >
+        <intent-filter>
+            <action android:name="android.intent.action.MEDIA_BUTTON" />
+        </intent-filter>
+    </receiver>
 
 </manifest>

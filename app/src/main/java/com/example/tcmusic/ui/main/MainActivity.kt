@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 viewModel.isLoading.value
