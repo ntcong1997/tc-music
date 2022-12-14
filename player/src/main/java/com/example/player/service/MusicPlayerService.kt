@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.media.session.PlaybackState
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -204,6 +205,27 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
     private val playerEventListener = object : Player.Listener {
         private var serviceInStartedState = false
+
+        override fun onIsPlayingChanged(isPlaying: Boolean) {
+            super.onIsPlayingChanged(isPlaying)
+            Timber.d("$TAG: onIsPlayingChanged $isPlaying")
+
+            val state = getState(Player.STATE_READY)
+
+            val result = PlaybackStateCompat.Builder()
+                .setActions(getAvailableActions(state))
+                .setState(state, player?.currentPosition ?: 0L, 1.0f, SystemClock.elapsedRealtime())
+                .build()
+
+            Timber.d("$TAG: onPlaybackStateChanged $state $result")
+            when (result.state) {
+                PlaybackStateCompat.STATE_PLAYING -> moveServiceToStartedState(result)
+                PlaybackStateCompat.STATE_PAUSED -> updateNotificationForPause(result)
+                PlaybackStateCompat.STATE_STOPPED -> moveServiceOutOfStartedState()
+            }
+
+            mediaSession?.setPlaybackState(result)
+        }
 
         override fun onPlaybackStateChanged(playbackState: Int) {
             val state = getState(playbackState)

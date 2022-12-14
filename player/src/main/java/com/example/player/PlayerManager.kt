@@ -40,6 +40,10 @@ class PlayerManager @Inject constructor(
         override fun onPlaybackStateChanged(state: PlaybackStateCompat?) {
             super.onPlaybackStateChanged(state)
             Timber.d("$TAG: onPlaybackStateChanged $state")
+            when (state?.state) {
+                PlaybackStateCompat.STATE_PLAYING -> _isPlaying.trySend(true)
+                PlaybackStateCompat.STATE_PAUSED -> _isPlaying.trySend(false)
+            }
         }
 
         override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
