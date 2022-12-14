@@ -28,6 +28,15 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.example.player.service.MusicPlayerService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
         <receiver android:name="androidx.media.session.MediaButtonReceiver"
             android:exported="true">
             <intent-filter>

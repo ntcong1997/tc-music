@@ -30,14 +30,15 @@ fun TrackItem(
     track: Track,
     onClickTrack: () -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+            onClickTrack()
+        }) {
         Row(
             modifier = Modifier
                 .padding(16.dp, 16.dp, 0.dp, 16.dp)
                 .align(Alignment.Center)
-                .clickable {
-                    onClickTrack()
-                }
         ) {
             AsyncImage(
                 model = track.images?.coverart,

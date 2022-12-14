@@ -55,9 +55,8 @@ dependencies {
     // Exo Player
     implementation(libs.com.google.android.exoplayer.exoplayer.core)
 
-    // Glide
-    implementation(libs.com.github.bumptech.glide)
-    kapt(libs.com.github.bumptech.glide.compiler)
+    // Coil
+    implementation(libs.io.coil.kt.coil)
 
     // Utils
     implementation(libs.com.jakewharton.timber)

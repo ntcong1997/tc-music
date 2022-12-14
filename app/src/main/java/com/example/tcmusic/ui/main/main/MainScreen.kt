@@ -1,16 +1,24 @@
 package com.example.tcmusic.ui.main.main
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -18,6 +26,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
+import com.example.model.PlayingMediaInfo
+import com.example.tcmusic.R
 import com.example.tcmusic.ui.main.main.favorites.FavoritesScreen
 import com.example.tcmusic.ui.main.main.home.HomeScreen
 import com.example.tcmusic.ui.main.main.playlists.PlaylistsScreen
@@ -27,6 +38,7 @@ import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.ExperimentalPagerApi
+import timber.log.Timber
 
 /**
  * Created by TC on 02/12/2022.
@@ -36,9 +48,13 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @ExperimentalPagerApi
 @Composable
 fun MainScreen(
-    mainNavController: NavController
+    mainNavController: NavController,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
+
+    val playingMediaInfo = viewModel.playingMediaInfo.collectAsState()
+    val isPlaying = viewModel.isPlaying.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -75,6 +91,15 @@ fun MainScreen(
                     Settings()
                 }
             }
+
+            if (playingMediaInfo.value != null) {
+                PlayingMediaInfoBar(
+                    playingMediaInfo = playingMediaInfo.value!!,
+                    isPlaying = isPlaying.value,
+                    onClickPlay = viewModel::clickPlay,
+                    onClickPause = viewModel::clickPause
+                )
+            }
         }
     }
 }
@@ -106,6 +131,79 @@ fun Playlists() {
 @Composable
 fun Settings() {
     SettingsScreen()
+}
+
+@Composable
+fun BoxScope.PlayingMediaInfoBar(
+    playingMediaInfo: PlayingMediaInfo,
+    isPlaying: Boolean,
+    onClickPlay: () -> Unit,
+    onClickPause: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .align(Alignment.BottomCenter)
+            .background(GraySilverChalice, RoundedCornerShape(10.dp)),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        AsyncImage(
+            model = playingMediaInfo.coverArt,
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .padding(16.dp, 16.dp, 0.dp, 16.dp)
+                .size(48.dp)
+                .clip(RoundedCornerShape(10.dp))
+        )
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = playingMediaInfo.title ?: "",
+                color = White,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text(
+                text = playingMediaInfo.artist ?: "",
+                color = White,
+                fontSize = 12.sp
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(0.dp, 16.dp, 16.dp, 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (isPlaying) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_pause_2),
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onClickPause()
+                    }
+                )
+            }
+            else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_play_2),
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onClickPlay()
+                    }
+                )
+            }
+        }
+    }
 }
 
 @Composable

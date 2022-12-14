@@ -14,14 +14,18 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import androidx.media.session.MediaButtonReceiver
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by TC on 13/12/2022.
  */
 
-class MediaNotificationManager(
+@Singleton
+class MediaNotificationManager @Inject constructor(
     private val mediaNotificationConfig: MediaNotificationConfig,
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -33,21 +37,21 @@ class MediaNotificationManager(
             PlaybackStateCompat.ACTION_PLAY))
 
     private val pauseAction = NotificationCompat.Action(
-        mediaNotificationConfig.playDrawable,
+        mediaNotificationConfig.pauseDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
             PlaybackStateCompat.ACTION_PAUSE))
 
     private val previousAction = NotificationCompat.Action(
-        mediaNotificationConfig.playDrawable,
+        mediaNotificationConfig.previousDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
             PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS))
 
     private val nextAction = NotificationCompat.Action(
-        mediaNotificationConfig.playDrawable,
+        mediaNotificationConfig.nextDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,

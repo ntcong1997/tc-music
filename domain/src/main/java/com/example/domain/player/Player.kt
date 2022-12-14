@@ -1,5 +1,6 @@
 package com.example.domain.player
 
+import com.example.model.PlayingMediaInfo
 import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
 
@@ -8,9 +9,13 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface Player {
-    val trackPlaying: Flow<Track?>
-
-    fun play(track: Track)
-
+    suspend fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long)
+    
+    fun play()
+    
     fun pause()
+
+    val playingMediaInfo: Flow<PlayingMediaInfo?>
+
+    val isPlaying: Flow<Boolean>
 }
