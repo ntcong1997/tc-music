@@ -5,10 +5,9 @@ import com.example.domain.Result
 import com.example.domain.di.IoDispatcher
 import com.example.domain.player.Player
 import com.example.model.PlayingMediaInfo
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 
 /**
  * Created by TC on 14/12/2022.

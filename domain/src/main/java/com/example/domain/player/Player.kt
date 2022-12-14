@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface Player {
     suspend fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long)
-    
+
     fun play()
-    
+
     fun pause()
 
     val playingMediaInfo: Flow<PlayingMediaInfo?>

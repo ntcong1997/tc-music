@@ -11,12 +11,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.example.model.Track
-import com.example.tcmusic.ui.main.Screen
 import com.example.tcmusic.ui.main.main.home.TrackItem
 import java.util.*
 
@@ -27,7 +25,6 @@ import java.util.*
 @ExperimentalMaterialApi
 @Composable
 fun WorldChartScreen(
-    mainNavController: NavController,
     viewModel: WorldChartViewModel = hiltViewModel()
 ) {
     val tracks = viewModel.tracks.collectAsLazyPagingItems()

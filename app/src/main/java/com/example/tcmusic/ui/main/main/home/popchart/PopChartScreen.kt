@@ -10,12 +10,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.example.model.Track
-import com.example.tcmusic.ui.main.Screen
 import com.example.tcmusic.ui.main.main.home.TrackItem
 import java.util.*
 
@@ -26,7 +24,6 @@ import java.util.*
 @ExperimentalMaterialApi
 @Composable
 fun PopChartScreen(
-    mainNavController: NavController,
     viewModel: PopChartViewModel = hiltViewModel()
 ) {
     val tracks = viewModel.tracks.collectAsLazyPagingItems()
@@ -36,9 +33,7 @@ fun PopChartScreen(
         tracks = tracks,
         isRefreshing = isRefreshing.value,
         onRefreshTracks = viewModel::refresh,
-        onClickTrack = {
-            mainNavController.navigate(Screen.TrackDetailScreen.route + "?trackId=$it")
-        }
+        onClickTrack = viewModel::clickTrack
     )
 }
 
@@ -48,7 +43,7 @@ fun PopChartScreen(
     tracks: LazyPagingItems<Track>,
     isRefreshing: Boolean,
     onRefreshTracks: () -> Unit,
-    onClickTrack: (String?) -> Unit
+    onClickTrack: (Track) -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -69,7 +64,7 @@ fun PopChartScreen(
                     TrackItem(
                         track = it,
                         onClickTrack = {
-                            onClickTrack(it.key)
+                            onClickTrack(it)
                         }
                     )
                 }

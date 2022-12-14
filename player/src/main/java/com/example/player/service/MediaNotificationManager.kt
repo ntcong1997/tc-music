@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
@@ -27,35 +28,44 @@ class MediaNotificationManager @Inject constructor(
     private val mediaNotificationConfig: MediaNotificationConfig,
     @ApplicationContext private val context: Context
 ) {
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val playAction = NotificationCompat.Action(
         mediaNotificationConfig.playDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
-            PlaybackStateCompat.ACTION_PLAY))
+            PlaybackStateCompat.ACTION_PLAY
+        )
+    )
 
     private val pauseAction = NotificationCompat.Action(
         mediaNotificationConfig.pauseDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
-            PlaybackStateCompat.ACTION_PAUSE))
+            PlaybackStateCompat.ACTION_PAUSE
+        )
+    )
 
     private val previousAction = NotificationCompat.Action(
         mediaNotificationConfig.previousDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
-            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS))
+            PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+        )
+    )
 
     private val nextAction = NotificationCompat.Action(
         mediaNotificationConfig.nextDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
-            PlaybackStateCompat.ACTION_SKIP_TO_NEXT))
+            PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+        )
+    )
 
     fun createNotification(
         mediaMetadata: MediaMetadataCompat,
@@ -69,9 +79,13 @@ class MediaNotificationManager @Inject constructor(
             createNotificationChannel()
         }
 
-        val intent = Intent(context, mediaNotificationConfig.activityToOpenOnClick)
+        val intent = Intent(context, mediaNotificationConfig.activityToOpenOnClick).apply {
+            val bundle = Bundle()
+            bundle.putString(EXTRA_DATA_TRACK_ID, description.mediaId)
+            putExtras(bundle)
+        }
         val flagPendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
-        val pendingIntent =  PendingIntent.getActivity(context, MEDIA_NOTIFICATION_ID, intent, flagPendingIntent)
+        val pendingIntent = PendingIntent.getActivity(context, MEDIA_NOTIFICATION_ID, intent, flagPendingIntent)
 
         val builder = NotificationCompat.Builder(context, MEDIA_NOTIFICATION_CHANNEL_ID)
         builder.setStyle(
@@ -82,15 +96,21 @@ class MediaNotificationManager @Inject constructor(
                 .setCancelButtonIntent(
                     MediaButtonReceiver.buildMediaButtonPendingIntent(
                         context,
-                        PlaybackStateCompat.ACTION_STOP)))
+                        PlaybackStateCompat.ACTION_STOP
+                    )
+                )
+        )
             .setColor(ContextCompat.getColor(context, mediaNotificationConfig.colorResource))
             .setSmallIcon(mediaNotificationConfig.smallIconDrawable)
             .setContentIntent(pendingIntent)
             .setContentTitle(description.title)
             .setContentText(description.subtitle)
             .setLargeIcon(description.iconBitmap)
-            .setDeleteIntent(MediaButtonReceiver.buildMediaButtonPendingIntent(
-                context, PlaybackStateCompat.ACTION_PAUSE))
+            .setDeleteIntent(
+                MediaButtonReceiver.buildMediaButtonPendingIntent(
+                    context, PlaybackStateCompat.ACTION_PAUSE
+                )
+            )
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .priority = NotificationCompat.PRIORITY_MAX
 
@@ -135,6 +155,8 @@ class MediaNotificationManager @Inject constructor(
     companion object {
         private const val MEDIA_NOTIFICATION_CHANNEL_ID = "MEDIA_NOTIFICATION_CHANNEL_ID"
         private const val MEDIA_NOTIFICATION_ID = 10001
+
+        const val EXTRA_DATA_TRACK_ID = "EXTRA_DATA_TRACK_ID"
     }
 }
 

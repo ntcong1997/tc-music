@@ -8,8 +8,8 @@ import com.example.data.datasource.paging.WorldChartPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.GenreCode
 import com.example.model.Track
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 19/10/2022.

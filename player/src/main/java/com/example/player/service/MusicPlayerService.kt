@@ -4,7 +4,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.session.PlaybackState
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -14,7 +13,6 @@ import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.example.player.data.PlayerData
 import com.google.android.exoplayer2.ExoPlayer
@@ -22,9 +20,9 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import timber.log.Timber
 import java.util.ArrayList
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Created by TC on 13/12/2022.
@@ -43,6 +41,14 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     lateinit var context: Context
 
     private var player: ExoPlayer? = null
+
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+        }
+
+        override fun onServiceDisconnected(p0: ComponentName?) {
+        }
+    }
 
     private var mediaSession: MediaSessionCompat? = null
     private val mediaSessionCallback = object : MediaSessionCompat.Callback() {
@@ -129,7 +135,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         override fun onSkipToNext() {
             // This is an ugly workaround for a bug in ExoPlayer that sometimes skip twice fast
             val now = System.currentTimeMillis()
-            if (now-lastSkip < 100) {
+            if (now - lastSkip < 100) {
                 lastSkip = now
                 return
             }
@@ -221,7 +227,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             when (result.state) {
                 PlaybackStateCompat.STATE_PLAYING -> moveServiceToStartedState(result)
                 PlaybackStateCompat.STATE_PAUSED -> updateNotificationForPause(result)
-                PlaybackStateCompat.STATE_STOPPED -> moveServiceOutOfStartedState()
             }
 
             mediaSession?.setPlaybackState(result)
@@ -239,7 +244,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             when (result.state) {
                 PlaybackStateCompat.STATE_PLAYING -> moveServiceToStartedState(result)
                 PlaybackStateCompat.STATE_PAUSED -> updateNotificationForPause(result)
-                PlaybackStateCompat.STATE_STOPPED -> moveServiceOutOfStartedState()
             }
 
             mediaSession?.setPlaybackState(result)
@@ -262,20 +266,26 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
 
         private fun getAvailableActions(state: Int): Long {
-            var actions = (PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
+            var actions = (
+                PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
                     or PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
                     or PlaybackStateCompat.ACTION_SKIP_TO_NEXT
-                    or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
+                    or PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                )
             actions = when (state) {
                 PlaybackStateCompat.STATE_STOPPED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PAUSE)
-                PlaybackStateCompat.STATE_PLAYING -> actions or (PlaybackStateCompat.ACTION_STOP
+                PlaybackStateCompat.STATE_PLAYING -> actions or (
+                    PlaybackStateCompat.ACTION_STOP
                         or PlaybackStateCompat.ACTION_PAUSE
-                        or PlaybackStateCompat.ACTION_SEEK_TO)
+                        or PlaybackStateCompat.ACTION_SEEK_TO
+                    )
                 PlaybackStateCompat.STATE_PAUSED -> actions or (PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_STOP)
-                else -> actions or (PlaybackStateCompat.ACTION_PLAY
+                else -> actions or (
+                    PlaybackStateCompat.ACTION_PLAY
                         or PlaybackStateCompat.ACTION_PLAY_PAUSE
                         or PlaybackStateCompat.ACTION_STOP
-                        or PlaybackStateCompat.ACTION_PAUSE)
+                        or PlaybackStateCompat.ACTION_PAUSE
+                    )
             }
             return actions
         }
@@ -286,17 +296,11 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             }
 
             if (!serviceInStartedState) {
+                val intent = Intent(this@MusicPlayerService, MusicPlayerService::class.java)
+                context.startService(intent)
                 context.bindService(
-                    Intent(this@MusicPlayerService, MusicPlayerService::class.java),
-                    object : ServiceConnection {
-                        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
-
-                        }
-
-                        override fun onServiceDisconnected(p0: ComponentName?) {
-
-                        }
-                    },
+                    intent,
+                    serviceConnection,
                     Context.BIND_AUTO_CREATE
                 )
                 serviceInStartedState = true
@@ -318,11 +322,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
                 state,
                 sessionToken!!
             )
-        }
-
-        private fun moveServiceOutOfStartedState() {
-            mediaNotificationManager.cancelNotification()
-            serviceInStartedState = false
         }
     }
 
@@ -347,11 +346,22 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         mediaSession?.release()
     }
 
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        super.onTaskRemoved(rootIntent)
+
+        mediaNotificationManager.cancelNotification()
+        stopSelf()
+        context.unbindService(serviceConnection)
+    }
+
     override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot {
         return BrowserRoot("player", null)
     }
 
-    override fun onLoadChildren(parentId: String, result: Result<MutableList<MediaBrowserCompat.MediaItem>>) {
+    override fun onLoadChildren(
+        parentId: String,
+        result: Result<MutableList<MediaBrowserCompat.MediaItem>>
+    ) {
         result.sendResult(playerData.playerResources())
     }
 

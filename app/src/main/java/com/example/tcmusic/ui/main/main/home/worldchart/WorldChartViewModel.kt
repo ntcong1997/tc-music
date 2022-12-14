@@ -11,9 +11,9 @@ import com.example.domain.usecase.player.SetPlaylistAndPlayParams
 import com.example.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class WorldChartViewModel @Inject constructor(
     loadWorldChartUseCase: LoadWorldChartUseCase,
     private val refreshWorldChartUseCase: RefreshWorldChartUseCase,
-    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase,
+    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase
 ) : ViewModel() {
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()

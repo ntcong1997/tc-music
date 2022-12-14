@@ -30,11 +30,13 @@ fun TrackItem(
     track: Track,
     onClickTrack: () -> Unit
 ) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .clickable {
-            onClickTrack()
-        }) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onClickTrack()
+            }
+    ) {
         Row(
             modifier = Modifier
                 .padding(16.dp, 16.dp, 0.dp, 16.dp)

@@ -14,8 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.tcmusic.R
 import com.example.tcmusic.ui.main.main.home.dancechart.DanceChartScreen
 import com.example.tcmusic.ui.main.main.home.electronicchart.ElectronicChartScreen
@@ -38,20 +36,15 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 @Composable
 fun HomeScreen(
-    mainNavController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    HomeScreen(
-        mainNavController = mainNavController
-    )
+    HomeScreen()
 }
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun HomeScreen(
-    mainNavController: NavController
-) {
+fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +52,7 @@ fun HomeScreen(
     ) {
         Header()
 
-        TabLayout(mainNavController)
+        TabLayout()
     }
 }
 
@@ -94,9 +87,7 @@ fun Header() {
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun TabLayout(
-    mainNavController: NavController
-) {
+fun TabLayout() {
     val pagerState = rememberPagerState()
 
     val listTab = listOf(
@@ -110,7 +101,6 @@ fun TabLayout(
 
     Tabs(listTab = listTab, pagerState = pagerState)
     TabsContent(
-        mainNavController = mainNavController,
         listTabSize = listTab.size,
         pagerState = pagerState
     )
@@ -161,7 +151,6 @@ fun Tabs(
 @ExperimentalPagerApi
 @Composable
 fun TabsContent(
-    mainNavController: NavController,
     listTabSize: Int,
     pagerState: PagerState
 ) {
@@ -170,12 +159,12 @@ fun TabsContent(
         count = listTabSize
     ) { page ->
         when (page) {
-            0 -> WorldChartScreen(mainNavController)
-            1 -> PopChartScreen(mainNavController)
-            2 -> HipHopRapChartScreen(mainNavController)
-            3 -> DanceChartScreen(mainNavController)
-            4 -> ElectronicChartScreen(mainNavController)
-            5 -> RockChartScreen(mainNavController)
+            0 -> WorldChartScreen()
+            1 -> PopChartScreen()
+            2 -> HipHopRapChartScreen()
+            3 -> DanceChartScreen()
+            4 -> ElectronicChartScreen()
+            5 -> RockChartScreen()
         }
     }
 }
@@ -185,7 +174,5 @@ fun TabsContent(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    val navController = rememberNavController()
-
-    HomeScreen(navController)
+    HomeScreen()
 }

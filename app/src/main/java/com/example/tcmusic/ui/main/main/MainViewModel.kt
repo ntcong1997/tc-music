@@ -9,10 +9,10 @@ import com.example.domain.usecase.player.PauseUseCase
 import com.example.domain.usecase.player.PlayUseCase
 import com.example.tcmusic.util.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by TC on 14/12/2022.

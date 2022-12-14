@@ -14,11 +14,11 @@ import com.example.model.Track
 import com.example.player.data.PlayerData
 import com.example.player.service.MusicPlayerService
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Created by TC on 13/12/2022.

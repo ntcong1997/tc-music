@@ -38,7 +38,6 @@ import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.ExperimentalPagerApi
-import timber.log.Timber
 
 /**
  * Created by TC on 02/12/2022.
@@ -76,7 +75,7 @@ fun MainScreen(
                 startDestination = Screen.Home.route
             ) {
                 composable(route = Screen.Home.route) {
-                    Home(mainNavController)
+                    Home()
                 }
                 composable(route = Screen.Search.route) {
                     Search()
@@ -96,6 +95,9 @@ fun MainScreen(
                 PlayingMediaInfoBar(
                     playingMediaInfo = playingMediaInfo.value!!,
                     isPlaying = isPlaying.value,
+                    onClickPlayingMediaInfo = {
+                        mainNavController.navigate(com.example.tcmusic.ui.main.Screen.TrackDetailScreen.route + "?trackId=$it")
+                    },
                     onClickPlay = viewModel::clickPlay,
                     onClickPause = viewModel::clickPause
                 )
@@ -107,10 +109,8 @@ fun MainScreen(
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun Home(
-    mainNavController: NavController
-) {
-    HomeScreen(mainNavController)
+fun Home() {
+    HomeScreen()
 }
 
 @Composable
@@ -137,6 +137,7 @@ fun Settings() {
 fun BoxScope.PlayingMediaInfoBar(
     playingMediaInfo: PlayingMediaInfo,
     isPlaying: Boolean,
+    onClickPlayingMediaInfo: (String?) -> Unit,
     onClickPlay: () -> Unit,
     onClickPause: () -> Unit
 ) {
@@ -145,7 +146,10 @@ fun BoxScope.PlayingMediaInfoBar(
             .fillMaxWidth()
             .padding(16.dp)
             .align(Alignment.BottomCenter)
-            .background(GraySilverChalice, RoundedCornerShape(10.dp)),
+            .background(GraySilverChalice, RoundedCornerShape(10.dp))
+            .clickable {
+                onClickPlayingMediaInfo(playingMediaInfo.id)
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
@@ -192,8 +196,7 @@ fun BoxScope.PlayingMediaInfoBar(
                         onClickPause()
                     }
                 )
-            }
-            else {
+            } else {
                 Image(
                     painter = painterResource(id = R.drawable.ic_play_2),
                     contentDescription = null,
