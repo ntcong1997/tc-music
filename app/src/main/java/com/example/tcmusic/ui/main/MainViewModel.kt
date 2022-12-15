@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
 
-    private val _navigateToTrackDetail = Channel<String?>(Channel.CONFLATED)
+    private val _navigateToTrackDetail = Channel<Unit>(Channel.CONFLATED)
     val navigateToTrackDetail = _navigateToTrackDetail.receiveAsFlow()
 
     init {
@@ -30,7 +30,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun openTrackDetail(trackId: String?) {
-        _navigateToTrackDetail.trySend(trackId)
+    fun openTrackDetail() {
+        _navigateToTrackDetail.trySend(Unit)
     }
 }

@@ -16,9 +16,13 @@ interface Player {
 
     fun pause()
 
+    fun skipBackwards()
+
+    fun skipForward()
+
     fun seekTo(position: Long)
 
-    val playingMediaInfo: Flow<PlayingMediaInfo?>
+    val playingMediaInfo: SharedFlow<PlayingMediaInfo?>
 
     val isPlaying: SharedFlow<Boolean>
 

@@ -3,10 +3,7 @@ package com.example.tcmusic.ui.main.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.Result
-import com.example.domain.usecase.player.ObserveIsPlayingUseCase
-import com.example.domain.usecase.player.ObservePlayingMediaInfoUseCase
-import com.example.domain.usecase.player.PauseUseCase
-import com.example.domain.usecase.player.PlayUseCase
+import com.example.domain.usecase.player.*
 import com.example.tcmusic.util.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,7 +20,9 @@ class MainViewModel @Inject constructor(
     observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
     observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val playUseCase: PlayUseCase,
-    private val pauseUseCase: PauseUseCase
+    private val pauseUseCase: PauseUseCase,
+    private val skipBackwardsUseCase: SkipBackwardsUseCase,
+    private val skipForwardUseCase: SkipForwardUseCase
 ) : ViewModel() {
     val playingMediaInfo = observePlayingMediaInfoUseCase(Unit).map {
         if (it is Result.Success) it.data
@@ -44,6 +43,18 @@ class MainViewModel @Inject constructor(
     fun clickPause() {
         viewModelScope.launch {
             pauseUseCase(Unit)
+        }
+    }
+
+    fun clickSkipBackwards() {
+        viewModelScope.launch {
+            skipBackwardsUseCase(Unit)
+        }
+    }
+
+    fun clickSkipForward() {
+        viewModelScope.launch {
+            skipForwardUseCase(Unit)
         }
     }
 }

@@ -23,8 +23,8 @@ class MediaNotificationModule {
     fun provideMediaNotificationConfig() = MediaNotificationConfig(
         R.drawable.ic_play_2,
         R.drawable.ic_pause_2,
-        R.drawable.ic_next,
-        R.drawable.ic_previous,
+        R.drawable.ic_previous_2,
+        R.drawable.ic_next_2,
         R.drawable.ic_app,
         R.color.black,
         MainActivity::class.java

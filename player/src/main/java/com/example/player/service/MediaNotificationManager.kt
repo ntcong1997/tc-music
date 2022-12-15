@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.media.MediaMetadataCompat
@@ -32,7 +33,7 @@ class MediaNotificationManager @Inject constructor(
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val playAction = NotificationCompat.Action(
-        null,
+        mediaNotificationConfig.playDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -41,7 +42,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val pauseAction = NotificationCompat.Action(
-        null,
+        mediaNotificationConfig.pauseDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -50,7 +51,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val previousAction = NotificationCompat.Action(
-        null,
+        mediaNotificationConfig.previousDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -59,7 +60,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val nextAction = NotificationCompat.Action(
-        null,
+        mediaNotificationConfig.nextDrawable,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -163,8 +164,8 @@ class MediaNotificationManager @Inject constructor(
 data class MediaNotificationConfig(
     val playDrawable: Int,
     val pauseDrawable: Int,
-    val nextDrawable: Int,
     val previousDrawable: Int,
+    val nextDrawable: Int,
     val smallIconDrawable: Int,
     val colorResource: Int,
     val activityToOpenOnClick: Class<*>

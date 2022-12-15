@@ -27,7 +27,7 @@ class PlayerManager @Inject constructor(
     private val playerData: PlayerData,
     @ApplicationContext private val context: Context
 ) : Player {
-    private val _playingMediaInfo = Channel<PlayingMediaInfo?>(Channel.CONFLATED)
+    private val _playingMediaInfo = MutableSharedFlow<PlayingMediaInfo?>(replay = 1)
     private val _isPlaying = MutableSharedFlow<Boolean>(replay = 1)
     private val _duration = MutableSharedFlow<Long>(replay = 1)
     private val _progress = MutableSharedFlow<Long>(replay = 1)
@@ -59,7 +59,7 @@ class PlayerManager @Inject constructor(
             val duration = metadata?.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
             Timber.d("$TAG: onMetadataChanged $id, $title, $artist, $coverArt $duration")
 
-            _playingMediaInfo.trySend(PlayingMediaInfo(id, artist, coverArt, title))
+            _playingMediaInfo.tryEmit(PlayingMediaInfo(id, artist, coverArt, title))
             _duration.tryEmit(duration ?: 0L)
         }
     }
@@ -123,12 +123,21 @@ class PlayerManager @Inject constructor(
         mediaController?.transportControls?.pause()
     }
 
+    override fun skipBackwards() {
+        mediaController?.transportControls?.skipToPrevious()
+    }
+
+    override fun skipForward() {
+        mediaController?.transportControls?.skipToNext()
+    }
+
     override fun seekTo(position: Long) {
+        _progress.tryEmit(position)
         mediaController?.transportControls?.seekTo(position)
     }
 
-    override val playingMediaInfo: Flow<PlayingMediaInfo?>
-        get() = _playingMediaInfo.receiveAsFlow()
+    override val playingMediaInfo: SharedFlow<PlayingMediaInfo?>
+        get() = _playingMediaInfo.asSharedFlow()
 
     override val isPlaying: SharedFlow<Boolean>
         get() = _isPlaying.asSharedFlow()

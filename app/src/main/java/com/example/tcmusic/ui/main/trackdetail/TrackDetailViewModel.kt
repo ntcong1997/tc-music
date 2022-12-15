@@ -22,16 +22,25 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class TrackDetailViewModel @Inject constructor(
+    observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
     private val getTrackDetailUseCase: GetTrackDetailUseCase,
     observeDurationUseCase: ObserveDurationUseCase,
     observeProgressUseCase: ObserveProgressUseCase,
     observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val playUseCase: PlayUseCase,
     private val pauseUseCase: PauseUseCase,
+    private val skipBackwardsUseCase: SkipBackwardsUseCase,
+    private val skipForwardUseCase: SkipForwardUseCase,
     private val seekToUseCase: SeekToUseCase
 ) : ViewModel() {
-    private val _track = MutableStateFlow<Track?>(null)
-    val track = _track.asStateFlow()
+    val track = observePlayingMediaInfoUseCase(Unit).map {
+        if (it is Result.Success) {
+            val resultGetTrackDetail = getTrackDetailUseCase(it.data?.id)
+            if (resultGetTrackDetail is Result.Success) resultGetTrackDetail.data
+            else null
+        }
+        else null
+    }.stateIn(viewModelScope, WhileViewSubscribed, null)
 
     val trackDuration = observeDurationUseCase(Unit).map {
         if (it is Result.Success) it.data
@@ -48,15 +57,6 @@ class TrackDetailViewModel @Inject constructor(
         else true
     }.stateIn(viewModelScope, WhileViewSubscribed, true)
 
-    fun getTrackDetail(trackId: String?) {
-        viewModelScope.launch {
-            val resultGetTrackDetail = getTrackDetailUseCase(trackId)
-            if (resultGetTrackDetail is Result.Success) {
-                _track.value = resultGetTrackDetail.data
-            }
-        }
-    }
-
     fun clickPlay() {
         viewModelScope.launch {
             playUseCase(Unit)
@@ -66,6 +66,18 @@ class TrackDetailViewModel @Inject constructor(
     fun clickPause() {
         viewModelScope.launch {
             pauseUseCase(Unit)
+        }
+    }
+
+    fun clickSkipBackwards() {
+        viewModelScope.launch {
+            skipBackwardsUseCase(Unit)
+        }
+    }
+
+    fun clickSkipForward() {
+        viewModelScope.launch {
+            skipForwardUseCase(Unit)
         }
     }
 

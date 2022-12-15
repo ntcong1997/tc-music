@@ -39,7 +39,6 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun TrackDetailScreen(
-    trackId: String?,
     navController: NavController,
     viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
@@ -59,12 +58,10 @@ fun TrackDetailScreen(
         onClickMore = { },
         onProgressChange = viewModel::progressChange,
         onClickPlay = viewModel::clickPlay,
-        onClickPause = viewModel::clickPause
+        onClickPause = viewModel::clickPause,
+        onClickSkipBackwards = viewModel::clickSkipBackwards,
+        onClickSkipForward = viewModel::clickSkipForward
     )
-
-    LaunchedEffect(key1 = Unit) {
-        viewModel.getTrackDetail(trackId)
-    }
 }
 
 @ExperimentalMaterialApi
@@ -78,7 +75,9 @@ fun TrackDetailScreen(
     onProgressChange: (Float) -> Unit,
     onClickMore: () -> Unit,
     onClickPlay: () -> Unit,
-    onClickPause: () -> Unit
+    onClickPause: () -> Unit,
+    onClickSkipBackwards: () -> Unit,
+    onClickSkipForward: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -131,6 +130,12 @@ fun TrackDetailScreen(
                 },
                 onClickPause = {
                     onClickPause()
+                },
+                onClickSkipBackwards = {
+                    onClickSkipBackwards()
+                },
+                onClickSkipForward = {
+                    onClickSkipForward()
                 }
             )
 
@@ -289,7 +294,9 @@ fun TrackPlayingBar(
 fun TrackAction(
     isPlaying: Boolean,
     onClickPlay: () -> Unit,
-    onClickPause: () -> Unit
+    onClickPause: () -> Unit,
+    onClickSkipBackwards: () -> Unit,
+    onClickSkipForward: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -305,7 +312,9 @@ fun TrackAction(
             )
         }
 
-        IconButton(onClick = { }) {
+        IconButton(onClick = {
+            onClickSkipBackwards()
+        }) {
             Image(
                 painter = painterResource(id = R.drawable.ic_previous),
                 contentDescription = null
@@ -330,7 +339,9 @@ fun TrackAction(
             )
         }
 
-        IconButton(onClick = { }) {
+        IconButton(onClick = {
+            onClickSkipForward()
+        }) {
             Image(
                 painter = painterResource(id = R.drawable.ic_next),
                 contentDescription = null
@@ -411,6 +422,8 @@ fun TrackDetailScreenPreview() {
         },
         onClickMore = { },
         onClickPlay = { },
-        onClickPause = { }
+        onClickPause = { },
+        onClickSkipBackwards = { },
+        onClickSkipForward = { }
     )
 }

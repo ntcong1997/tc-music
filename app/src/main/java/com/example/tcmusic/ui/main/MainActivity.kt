@@ -54,18 +54,8 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.MainScreen.route) {
                             MainScreen(navController)
                         }
-                        composable(
-                            route = Screen.TrackDetailScreen.route + "?trackId={trackId}",
-                            arguments = listOf(
-                                navArgument(name = "trackId") {
-                                    type = NavType.StringType
-                                    defaultValue = ""
-                                }
-                            )
-                        ) {
-                            val trackId = it.arguments?.getString("trackId") ?: ""
+                        composable(route = Screen.TrackDetailScreen.route) {
                             TrackDetailScreen(
-                                trackId = trackId,
                                 navController = navController
                             )
                         }
@@ -74,21 +64,25 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = Unit) {
                     viewModel.navigateToTrackDetail.collect {
-                        navController.navigate(Screen.TrackDetailScreen.route + "?trackId=$it")
+                        navController.navigate(Screen.TrackDetailScreen.route)
                     }
                 }
             }
         }
 
         intent?.extras?.let {
-            viewModel.openTrackDetail(it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID))
+            it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID)?.let {
+                viewModel.openTrackDetail()
+            }
         }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         intent?.extras?.let {
-            viewModel.openTrackDetail(it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID))
+            it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID)?.let {
+                viewModel.openTrackDetail()
+            }
         }
     }
 }

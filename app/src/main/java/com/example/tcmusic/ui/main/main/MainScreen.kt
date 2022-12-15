@@ -99,7 +99,9 @@ fun MainScreen(
                         mainNavController.navigate(com.example.tcmusic.ui.main.Screen.TrackDetailScreen.route + "?trackId=$it")
                     },
                     onClickPlay = viewModel::clickPlay,
-                    onClickPause = viewModel::clickPause
+                    onClickPause = viewModel::clickPause,
+                    onClickSkipBackwards = viewModel::clickSkipBackwards,
+                    onClickSkipForward = viewModel::clickSkipForward
                 )
             }
         }
@@ -139,7 +141,9 @@ fun BoxScope.PlayingMediaInfoBar(
     isPlaying: Boolean,
     onClickPlayingMediaInfo: (String?) -> Unit,
     onClickPlay: () -> Unit,
-    onClickPause: () -> Unit
+    onClickPause: () -> Unit,
+    onClickSkipBackwards: () -> Unit,
+    onClickSkipForward: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -188,6 +192,16 @@ fun BoxScope.PlayingMediaInfoBar(
                 .padding(0.dp, 16.dp, 16.dp, 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_previous_2),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    onClickSkipBackwards()
+                }
+            )
+
+            Spacer(modifier = Modifier.width(12.dp))
+
             if (isPlaying) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_pause_2),
@@ -205,6 +219,16 @@ fun BoxScope.PlayingMediaInfoBar(
                     }
                 )
             }
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_next_2),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    onClickSkipForward()
+                }
+            )
         }
     }
 }

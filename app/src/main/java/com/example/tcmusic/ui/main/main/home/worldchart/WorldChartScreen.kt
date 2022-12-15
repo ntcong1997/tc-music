@@ -44,7 +44,7 @@ fun WorldChartScreen(
     tracks: LazyPagingItems<Track>,
     isRefreshing: Boolean,
     onRefreshTracks: () -> Unit,
-    onClickTrack: (Track) -> Unit
+    onClickTrack: (Track, List<Track>) -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = isRefreshing,
@@ -65,7 +65,7 @@ fun WorldChartScreen(
                     TrackItem(
                         track = it,
                         onClickTrack = {
-                            onClickTrack(it)
+                            onClickTrack(it, tracks.itemSnapshotList.items)
                         }
                     )
                 }

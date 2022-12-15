@@ -35,7 +35,7 @@ class WorldChartViewModel @Inject constructor(
         else PagingData.empty()
     }.cachedIn(viewModelScope)
 
-    fun clickTrack(track: Track) {
+    fun clickTrack(track: Track, playlist: List<Track>) {
         viewModelScope.launch {
             val startPlayingId = try {
                 track.key?.toLong() ?: 0L
@@ -43,7 +43,7 @@ class WorldChartViewModel @Inject constructor(
                 e.printStackTrace()
                 0L
             }
-            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), startPlayingId))
+            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(playlist, startPlayingId))
         }
     }
 
