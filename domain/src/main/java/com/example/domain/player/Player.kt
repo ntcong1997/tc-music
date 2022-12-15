@@ -3,6 +3,7 @@ package com.example.domain.player
 import com.example.model.PlayingMediaInfo
 import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 
 /**
  * Created by TC on 05/12/2022.
@@ -15,7 +16,13 @@ interface Player {
 
     fun pause()
 
+    fun seekTo(position: Long)
+
     val playingMediaInfo: Flow<PlayingMediaInfo?>
 
-    val isPlaying: Flow<Boolean>
+    val isPlaying: SharedFlow<Boolean>
+
+    val duration: SharedFlow<Long>
+
+    val progress: SharedFlow<Long>
 }

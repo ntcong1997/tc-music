@@ -16,8 +16,7 @@ import com.example.player.service.MusicPlayerService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
 /**
@@ -29,7 +28,9 @@ class PlayerManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) : Player {
     private val _playingMediaInfo = Channel<PlayingMediaInfo?>(Channel.CONFLATED)
-    private val _isPlaying = Channel<Boolean>(Channel.CONFLATED)
+    private val _isPlaying = MutableSharedFlow<Boolean>(replay = 1)
+    private val _duration = MutableSharedFlow<Long>(replay = 1)
+    private val _progress = MutableSharedFlow<Long>(replay = 1)
 
     private var mediaBrowser: MediaBrowserCompat? = null
     private var mediaController: MediaControllerCompat? = null
@@ -41,9 +42,11 @@ class PlayerManager @Inject constructor(
             super.onPlaybackStateChanged(state)
             Timber.d("$TAG: onPlaybackStateChanged $state")
             when (state?.state) {
-                PlaybackStateCompat.STATE_PLAYING -> _isPlaying.trySend(true)
-                PlaybackStateCompat.STATE_PAUSED -> _isPlaying.trySend(false)
+                PlaybackStateCompat.STATE_PLAYING -> _isPlaying.tryEmit(true)
+                PlaybackStateCompat.STATE_PAUSED -> _isPlaying.tryEmit(false)
             }
+
+            _progress.tryEmit(state?.position ?: 0L)
         }
 
         override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
@@ -53,9 +56,11 @@ class PlayerManager @Inject constructor(
             val title = metadata?.getString(MediaMetadataCompat.METADATA_KEY_TITLE)
             val artist = metadata?.getString(MediaMetadataCompat.METADATA_KEY_ARTIST)
             val coverArt = metadata?.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI)
-            Timber.d("$TAG: onMetadataChanged $id, $title, $artist, $coverArt")
+            val duration = metadata?.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
+            Timber.d("$TAG: onMetadataChanged $id, $title, $artist, $coverArt $duration")
 
             _playingMediaInfo.trySend(PlayingMediaInfo(id, artist, coverArt, title))
+            _duration.tryEmit(duration ?: 0L)
         }
     }
 
@@ -118,11 +123,21 @@ class PlayerManager @Inject constructor(
         mediaController?.transportControls?.pause()
     }
 
+    override fun seekTo(position: Long) {
+        mediaController?.transportControls?.seekTo(position)
+    }
+
     override val playingMediaInfo: Flow<PlayingMediaInfo?>
         get() = _playingMediaInfo.receiveAsFlow()
 
-    override val isPlaying: Flow<Boolean>
-        get() = _isPlaying.receiveAsFlow()
+    override val isPlaying: SharedFlow<Boolean>
+        get() = _isPlaying.asSharedFlow()
+
+    override val duration: SharedFlow<Long>
+        get() = _duration.asSharedFlow()
+
+    override val progress: SharedFlow<Long>
+        get() = _progress.asSharedFlow()
 
     private fun connectMediaBrowser() {
         Handler(Looper.getMainLooper()).post {

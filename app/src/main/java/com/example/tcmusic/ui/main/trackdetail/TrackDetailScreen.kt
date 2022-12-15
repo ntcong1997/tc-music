@@ -13,7 +13,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +29,7 @@ import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRoyal
 import com.example.tcmusic.ui.theme.GrayMercury
 import com.example.tcmusic.ui.theme.White
+import com.example.tcmusic.util.convertTimeInMillisToMinuteSecondFormat
 import kotlinx.coroutines.launch
 
 /**
@@ -43,18 +43,23 @@ fun TrackDetailScreen(
     navController: NavController,
     viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
-
     val track = viewModel.track.collectAsState()
+    val trackDuration = viewModel.trackDuration.collectAsState()
+    val trackProgress = viewModel.trackProgress.collectAsState()
+    val trackIsPlaying = viewModel.trackIsPlaying.collectAsState()
 
     TrackDetailScreen(
         track = track.value,
+        trackDuration = trackDuration.value,
+        trackProgress = trackProgress.value,
+        trackIsPlaying = trackIsPlaying.value,
         onClickBack = {
             navController.navigateUp()
         },
         onClickMore = { },
-        onClickPlay = {
-        }
+        onProgressChange = viewModel::progressChange,
+        onClickPlay = viewModel::clickPlay,
+        onClickPause = viewModel::clickPause
     )
 
     LaunchedEffect(key1 = Unit) {
@@ -66,9 +71,14 @@ fun TrackDetailScreen(
 @Composable
 fun TrackDetailScreen(
     track: Track?,
+    trackDuration: Long,
+    trackProgress: Long,
+    trackIsPlaying: Boolean,
     onClickBack: () -> Unit,
+    onProgressChange: (Float) -> Unit,
     onClickMore: () -> Unit,
-    onClickPlay: () -> Unit
+    onClickPlay: () -> Unit,
+    onClickPause: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -104,13 +114,23 @@ fun TrackDetailScreen(
 
             Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
 
-            TrackPlayingBar()
+            TrackPlayingBar(
+                duration = trackDuration,
+                progress = trackProgress,
+                onProgressChange = {
+                    onProgressChange(it)
+                }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             TrackAction(
+                isPlaying = trackIsPlaying,
                 onClickPlay = {
                     onClickPlay()
+                },
+                onClickPause = {
+                    onClickPause()
                 }
             )
 
@@ -224,19 +244,24 @@ fun TrackInfo(
 }
 
 @Composable
-fun TrackPlayingBar() {
+fun TrackPlayingBar(
+    duration: Long,
+    progress: Long,
+    onProgressChange: (Float) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
     ) {
         Slider(
-            value = 5f,
-            onValueChange = { },
-            valueRange = 0f..100f,
+            value = progress / 1000f,
+            onValueChange = {
+                onProgressChange(it)
+            },
+            valueRange = 0f..(duration / 1000f),
+            steps = 1,
             modifier = Modifier.padding(horizontal = 10.dp)
         )
-
-        Spacer(modifier = Modifier.height(4.dp))
 
         Box(
             modifier = Modifier
@@ -244,14 +269,14 @@ fun TrackPlayingBar() {
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "00:00",
+                text = convertTimeInMillisToMinuteSecondFormat(progress),
                 color = Black,
                 fontSize = 14.sp,
                 modifier = Modifier.align(Alignment.CenterStart)
             )
 
             Text(
-                text = "03:50",
+                text = convertTimeInMillisToMinuteSecondFormat(duration),
                 color = Black,
                 fontSize = 14.sp,
                 modifier = Modifier.align(Alignment.CenterEnd)
@@ -262,7 +287,9 @@ fun TrackPlayingBar() {
 
 @Composable
 fun TrackAction(
-    onClickPlay: () -> Unit
+    isPlaying: Boolean,
+    onClickPlay: () -> Unit,
+    onClickPause: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -285,13 +312,23 @@ fun TrackAction(
             )
         }
 
-        Image(
-            painter = painterResource(id = R.drawable.ic_play),
-            contentDescription = null,
-            modifier = Modifier.clickable {
-                onClickPlay()
-            }
-        )
+        if (isPlaying) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_pause),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    onClickPause()
+                }
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.ic_play),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    onClickPlay()
+                }
+            )
+        }
 
         IconButton(onClick = { }) {
             Image(
@@ -366,8 +403,14 @@ fun TrackDetailScreenPreview() {
             url = null,
             urlparams = null
         ),
+        trackDuration = 60000L,
+        trackProgress = 20000L,
+        trackIsPlaying = true,
         onClickBack = { },
+        onProgressChange = { _ ->
+        },
         onClickMore = { },
-        onClickPlay = { }
+        onClickPlay = { },
+        onClickPause = { }
     )
 }

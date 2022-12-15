@@ -32,7 +32,7 @@ class MediaNotificationManager @Inject constructor(
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val playAction = NotificationCompat.Action(
-        mediaNotificationConfig.playDrawable,
+        null,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -41,7 +41,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val pauseAction = NotificationCompat.Action(
-        mediaNotificationConfig.pauseDrawable,
+        null,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -50,7 +50,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val previousAction = NotificationCompat.Action(
-        mediaNotificationConfig.previousDrawable,
+        null,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -59,7 +59,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val nextAction = NotificationCompat.Action(
-        mediaNotificationConfig.nextDrawable,
+        null,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
