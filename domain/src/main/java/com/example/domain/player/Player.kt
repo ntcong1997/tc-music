@@ -2,7 +2,6 @@ package com.example.domain.player
 
 import com.example.model.PlayingMediaInfo
 import com.example.model.Track
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 
 /**

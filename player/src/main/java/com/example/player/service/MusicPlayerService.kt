@@ -12,9 +12,10 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.media.MediaBrowserServiceCompat
+import com.example.player.adapter.ExoPlayerAdapter
+import com.example.player.adapter.ExoPlayerStateChangeListener
 import com.example.player.data.PlayerData
 import com.example.player.util.addDurationToMediaMetadata
-import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,22 +40,13 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     @Inject
     lateinit var context: Context
 
-    private var player: ExoPlayer? = null
+    private var player: ExoPlayerAdapter? = null
 
     private var serviceInStartedState = false
-
-    private var lastKnownExoPlayerState: Int? = null
 
     private var preparedMedia: MediaMetadataCompat? = null
 
     private var durationSet = false
-
-    private val playerProgressionRunnable = Runnable {
-        if (lastKnownExoPlayerState != null) {
-            handlePlaybackStateChange(lastKnownExoPlayerState!!)
-        }
-        postPlayerProgression()
-    }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
@@ -71,8 +63,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         private var queueIndex = -1
         private var shouldContinue = false
         private var lastSkip = 0L
-        private val isReadyToPlay: Boolean
-            get() = !playlist.isEmpty()
 
         override fun onAddQueueItem(description: MediaDescriptionCompat) {
             playlist.add(MediaSessionCompat.QueueItem(description, description.hashCode().toLong()))
@@ -88,8 +78,8 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
 
         override fun onPrepare() {
-            if (queueIndex < 0 && playlist.isEmpty()) {
-                // Nothing to play.
+            if (queueIndex < 0 || playlist.isEmpty()) {
+                // Nothing to prepare
                 return
             }
 
@@ -98,10 +88,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             mediaSession?.setMetadata(preparedMedia)
             durationSet = false
 
-            val uri = Uri.parse(preparedMedia?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI))
-            val mediaItem = MediaItem.fromUri(uri)
-            player?.setMediaItem(mediaItem)
-            player?.prepare()
+            player?.prepare(Uri.parse(preparedMedia?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI)))
 
             if (mediaSession?.isActive == false) {
                 mediaSession?.isActive = true
@@ -111,13 +98,13 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
         override fun onPlay() {
             Timber.d("$TAG: onPlay")
-            if (!isReadyToPlay) {
+            if (playlist.isEmpty()) {
+                // Nothing to play
                 return
             }
 
             if (shouldContinue && preparedMedia != null) {
                 player?.play()
-                postPlayerProgression()
                 shouldContinue = false
                 return
             }
@@ -127,7 +114,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             }
 
             player?.play()
-            postPlayerProgression()
             shouldContinue = false
         }
 
@@ -135,12 +121,10 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             Timber.d("$TAG: onPause")
             shouldContinue = true
             player?.pause()
-            handler.removeCallbacks(playerProgressionRunnable)
         }
 
         override fun onStop() {
-            player?.pause()
-            handler.removeCallbacks(playerProgressionRunnable)
+            player?.stop()
             mediaSession?.isActive = false
             playlist.clear()
             queueIndex = -1
@@ -161,15 +145,12 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
             preparedMedia = null
 
-            if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_ALL) {
-                queueIndex = ++queueIndex % playlist.size
-            } else if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_NONE) {
-                queueIndex = ++queueIndex % playlist.size
-                if (queueIndex == 0) {
-                    onPause()
-                    onPrepare()
-                    return
-                }
+            queueIndex = ++queueIndex % playlist.size
+
+            if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_NONE && queueIndex == 0) {
+                onPause()
+                onPrepare()
+                return
             }
             // REPEAT_MODE_ONE: nothing happens, don't change the queueIndex
 
@@ -227,29 +208,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
     }
 
-    private val playerEventListener = object : Player.Listener {
-        override fun onIsPlayingChanged(isPlaying: Boolean) {
-            super.onIsPlayingChanged(isPlaying)
-            Timber.d("$TAG: onIsPlayingChanged $isPlaying")
-            lastKnownExoPlayerState = Player.STATE_READY
-            handlePlaybackStateChange(lastKnownExoPlayerState!!)
-        }
-
-        override fun onPlaybackStateChanged(playbackState: Int) {
-            Timber.d("$TAG: onPlaybackStateChanged $playbackState")
-            if (playbackState == Player.STATE_READY && !durationSet) {
-                mediaSession?.setMetadata(addDurationToMediaMetadata(preparedMedia, player?.duration ?: 0L))
-                durationSet = true
-            }
-
-            lastKnownExoPlayerState = playbackState
-            handlePlaybackStateChange(lastKnownExoPlayerState!!)
-        }
-    }
-
-    private val handler = Handler(Looper.getMainLooper())
-
-    private fun handlePlaybackStateChange(exoPlayerState: Int) {
+    private fun handleExoPlayerStateChange(exoPlayerState: Int) {
         val state = getState(exoPlayerState)
 
         val result = PlaybackStateCompat.Builder()
@@ -267,11 +226,6 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         if (exoPlayerState == Player.STATE_ENDED) {
             mediaSession?.controller?.transportControls?.skipToNext()
         }
-    }
-
-    private fun postPlayerProgression() {
-        handler.removeCallbacks(playerProgressionRunnable)
-        handler.postDelayed(playerProgressionRunnable, 1000L)
     }
 
     private fun getState(exoPlayerState: Int): Int {
@@ -349,8 +303,15 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     override fun onCreate() {
         super.onCreate()
 
-        player = ExoPlayer.Builder(this).build()
-        player?.addListener(playerEventListener)
+        player = ExoPlayerAdapter(
+            context,
+            object : ExoPlayerStateChangeListener {
+                override fun onStateChange(playbackState: Int) {
+                    setMediaMetadataDuration(playbackState)
+                    handleExoPlayerStateChange(playbackState)
+                }
+            }
+        )
 
         mediaSession = MediaSessionCompat(this, "TCMusicMediaSession").apply {
             setFlags(MediaSessionCompat.FLAG_HANDLES_QUEUE_COMMANDS)
@@ -359,13 +320,20 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         sessionToken = mediaSession?.sessionToken
     }
 
+    private fun setMediaMetadataDuration(playbackState: Int) {
+        if (playbackState == Player.STATE_READY && !durationSet) {
+            val duration = player?.duration ?: 0L
+            if (duration > 0L) {
+                mediaSession?.setMetadata(addDurationToMediaMetadata(preparedMedia, duration))
+                durationSet = true
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 
-        handler.removeCallbacks(playerProgressionRunnable)
-
-        player?.pause()
-        player?.release()
+        player?.stop()
         mediaSession?.release()
     }
 

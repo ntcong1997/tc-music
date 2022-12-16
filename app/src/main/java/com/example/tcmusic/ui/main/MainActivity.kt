@@ -12,11 +12,9 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.player.service.MediaNotificationManager
 import com.example.tcmusic.ui.main.main.MainScreen
 import com.example.tcmusic.ui.main.trackdetail.TrackDetailScreen

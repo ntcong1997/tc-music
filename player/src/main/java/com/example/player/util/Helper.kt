@@ -12,6 +12,7 @@ fun addDurationToMediaMetadata(mediaMetadata: MediaMetadataCompat?, duration: Lo
         .putString(MediaMetadataCompat.METADATA_KEY_TITLE, mediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_TITLE))
         .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, mediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI))
         .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, mediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_ARTIST))
+        .putString(MediaMetadataCompat.METADATA_KEY_GENRE, mediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_GENRE))
         .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, mediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI))
         .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, mediaMetadata?.getBitmap(MediaMetadataCompat.METADATA_KEY_ARTIST))
         .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)

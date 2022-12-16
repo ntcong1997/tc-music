@@ -10,7 +10,7 @@ import org.junit.Test
 
 class TrackTest {
     @Test
-    fun track_has_lyrics() {
+    fun `track has lyrics`() {
         val track = Track(
             alias = null,
             artists = listOf(),
@@ -64,7 +64,7 @@ class TrackTest {
     }
 
     @Test
-    fun track_has_no_lyrics_sections_is_null() {
+    fun `track has no lyrics case sections is null`() {
         val track = Track(
             alias = null,
             artists = listOf(),
@@ -108,7 +108,7 @@ class TrackTest {
     }
 
     @Test
-    fun track_has_no_lyrics_sections_have_no_element_lyrics() {
+    fun `track has no lyrics case sections have no element lyrics`() {
         val track = Track(
             alias = null,
             artists = listOf(),
@@ -162,7 +162,7 @@ class TrackTest {
     }
 
     @Test
-    fun track_has_media_uri() {
+    fun `track has media uri`() {
         val track = Track(
             alias = null,
             artists = listOf(),
@@ -206,7 +206,7 @@ class TrackTest {
     }
 
     @Test
-    fun track_has_no_media_uri_hub_is_null() {
+    fun `track has no media uri case hub is null`() {
         val track = Track(
             alias = null,
             artists = listOf(),
@@ -236,7 +236,7 @@ class TrackTest {
     }
 
     @Test
-    fun track_has_no_media_uri_hub_has_no_element_uri() {
+    fun `track has no media uri case hub has no element uri`() {
         val track = Track(
             alias = null,
             artists = listOf(),
