@@ -43,9 +43,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     private var player: ExoPlayerAdapter? = null
 
     private var serviceInStartedState = false
-
-    private var preparedMedia: MediaMetadataCompat? = null
-
+    
     private var durationSet = false
 
     private val serviceConnection = object : ServiceConnection {
@@ -58,37 +56,30 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
     private var mediaSession: MediaSessionCompat? = null
     private val mediaSessionCallback = object : MediaSessionCompat.Callback() {
-        private var playlist = ArrayList<MediaSessionCompat.QueueItem>()
-        private var sortedPlaylist = ArrayList<MediaSessionCompat.QueueItem>()
-        private var queueIndex = -1
         private var shouldContinue = false
         private var lastSkip = 0L
 
         override fun onAddQueueItem(description: MediaDescriptionCompat) {
-            playlist.add(MediaSessionCompat.QueueItem(description, description.hashCode().toLong()))
-            queueIndex = if (queueIndex == -1) 0 else queueIndex
-            val distinctPlaylist = playlist.distinctBy { it.description.mediaId }
-            playlist.clear()
-            playlist.addAll(distinctPlaylist)
+            playerData.addPlaylistQueueItem(description)
         }
 
         override fun onRemoveQueueItem(description: MediaDescriptionCompat) {
-            playlist.remove(MediaSessionCompat.QueueItem(description, description.hashCode().toLong()))
-            queueIndex = if (playlist.isEmpty()) -1 else queueIndex
+            playerData.removePlaylistQueueItem(description)
         }
 
         override fun onPrepare() {
-            if (queueIndex < 0 || playlist.isEmpty()) {
+            if (playerData.playlistQueueIndex < 0 || playerData.playlist.isEmpty()) {
                 // Nothing to prepare
                 return
             }
 
-            val mediaId = playlist[queueIndex].description.mediaId
-            preparedMedia = playerData.getMediaMetadataById(mediaId)
-            mediaSession?.setMetadata(preparedMedia)
+            playerData.prepareMedia()
+            mediaSession?.setMetadata(playerData.preparedMediaMetadata)
+
+            // Every time prepare media reset this var to get current media's duration
             durationSet = false
 
-            player?.prepare(Uri.parse(preparedMedia?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI)))
+            player?.prepare(Uri.parse(playerData.preparedMediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI)))
 
             if (mediaSession?.isActive == false) {
                 mediaSession?.isActive = true
@@ -98,18 +89,14 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
         override fun onPlay() {
             Timber.d("$TAG: onPlay")
-            if (playlist.isEmpty()) {
-                // Nothing to play
-                return
-            }
 
-            if (shouldContinue && preparedMedia != null) {
+            if (shouldContinue && playerData.preparedMediaMetadata != null) {
                 player?.play()
                 shouldContinue = false
                 return
             }
 
-            if (preparedMedia == null) {
+            if (playerData.preparedMediaMetadata == null) {
                 onPrepare()
             }
 
@@ -124,11 +111,8 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
 
         override fun onStop() {
-            player?.stop()
+            playerData.resetMedia()
             mediaSession?.isActive = false
-            playlist.clear()
-            queueIndex = -1
-            preparedMedia = null
             shouldContinue = false
             mediaNotificationManager.cancelNotification()
             stopSelf()
@@ -143,16 +127,14 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
             }
             lastSkip = now
 
-            preparedMedia = null
+            playerData.skipToNext()
 
-            queueIndex = ++queueIndex % playlist.size
-
-            if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_NONE && queueIndex == 0) {
+            if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_NONE && playerData.playlistQueueIndex == 0) {
+                // REPEAT_MODE_ONE: nothing happens, don't change the queueIndex
                 onPause()
                 onPrepare()
                 return
             }
-            // REPEAT_MODE_ONE: nothing happens, don't change the queueIndex
 
             if (player?.isPlaying == true) {
                 onPlay()
@@ -162,13 +144,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
 
         override fun onSkipToPrevious() {
-            preparedMedia = null
-            if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_ALL) {
-                queueIndex = if (queueIndex > 0) queueIndex - 1 else playlist.size - 1
-            } else if (mediaSession?.controller?.repeatMode == PlaybackStateCompat.REPEAT_MODE_NONE) {
-                queueIndex = if (queueIndex > 0) queueIndex - 1 else 0
-            }
-            // REPEAT_MODE_ONE: nothing happens, don't change the queueIndex
+            playerData.skipToPrevious(mediaSession?.controller?.repeatMode)
 
             if (player?.isPlaying == true) {
                 onPlay()
@@ -183,19 +159,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
         override fun onSetShuffleMode(shuffleMode: Int) {
             mediaSession?.setShuffleMode(shuffleMode)
-            if (shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_ALL) {
-                sortedPlaylist.clear()
-                sortedPlaylist.addAll(playlist)
-                val thisSong = playlist[queueIndex]
-                playlist.remove(thisSong)
-                playlist.shuffle()
-                playlist.add(queueIndex, thisSong)
-            } else if (shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_NONE) {
-                val thisSongIndex = sortedPlaylist.indexOf(playlist[queueIndex])
-                playlist.clear()
-                playlist.addAll(sortedPlaylist)
-                queueIndex = thisSongIndex
-            }
+            playerData.shuffleModeChange(shuffleMode)
         }
 
         override fun onSetRepeatMode(repeatMode: Int) {
@@ -204,7 +168,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
         override fun onSkipToQueueItem(id: Long) {
             super.onSkipToQueueItem(id)
-            queueIndex = playlist.indexOf(playlist.first { it.description.mediaId?.toLong() == id })
+            playerData.skipToQueueItem(id)
         }
     }
 
@@ -267,7 +231,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     }
 
     private fun moveServiceToStartedState(state: PlaybackStateCompat) {
-        if (preparedMedia == null || sessionToken == null) {
+        if (playerData.preparedMediaMetadata == null || sessionToken == null) {
             return
         }
 
@@ -283,18 +247,18 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
 
         mediaNotificationManager.createNotification(
-            preparedMedia!!,
+            playerData.preparedMediaMetadata!!,
             state,
             sessionToken!!
         )
     }
 
     private fun updateNotificationForPause(state: PlaybackStateCompat) {
-        if (preparedMedia == null || sessionToken == null) {
+        if (playerData.preparedMediaMetadata == null || sessionToken == null) {
             return
         }
         mediaNotificationManager.createNotification(
-            preparedMedia!!,
+            playerData.preparedMediaMetadata!!,
             state,
             sessionToken!!
         )
@@ -324,7 +288,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         if (playbackState == Player.STATE_READY && !durationSet) {
             val duration = player?.duration ?: 0L
             if (duration > 0L) {
-                mediaSession?.setMetadata(addDurationToMediaMetadata(preparedMedia, duration))
+                mediaSession?.setMetadata(addDurationToMediaMetadata(playerData.preparedMediaMetadata, duration))
                 durationSet = true
             }
         }
