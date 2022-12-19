@@ -15,6 +15,7 @@ fun List<Track>.toMediaMetadata(imageCache: ImageCache): List<MediaMetadataCompa
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, it.title)
             .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, it.mediaUri)
             .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, it.subtitle)
+            .putString(MediaMetadataCompat.METADATA_KEY_GENRE, it.genres?.primary)
             .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, it.images?.coverart)
             .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, imageCache.getBitmap(it.images?.coverart))
             .build()

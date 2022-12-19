@@ -15,7 +15,6 @@ import com.example.player.data.PlayerData
 import com.example.player.service.MusicPlayerService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import timber.log.Timber
 
