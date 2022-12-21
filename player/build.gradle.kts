@@ -67,4 +67,5 @@ dependencies {
 
     // Local unit tests
     testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.org.mockito.kotlin)
 }
