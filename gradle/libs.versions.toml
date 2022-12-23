@@ -27,6 +27,7 @@ io-coil-kt = "2.2.2"
 io-github-aakira = "1.4.1"
 org-jetbrains-kotlinx = "1.6.4"
 org-mockito-kotlin = "4.1.0"
+org-robolectric = "4.8"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
@@ -214,6 +215,7 @@ org-jetbrains-kotlinx-kotlinx-coroutines-core = { module = "org.jetbrains.kotlin
 org-jetbrains-kotlinx-kotlinx-coroutines-core-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "org-jetbrains-kotlinx" }
 org-jetbrains-kotlinx-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx" }
 org-mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "org-mockito-kotlin" }
+org-robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robolectric" }
 
 [plugins]
 android = "android:7.3.1"
