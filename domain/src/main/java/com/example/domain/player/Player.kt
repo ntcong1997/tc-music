@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.SharedFlow
  */
 
 interface Player {
-    suspend fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long)
+    fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long)
 
     fun play()
 

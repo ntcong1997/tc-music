@@ -34,6 +34,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":model"))
+    testImplementation(project(":test-data"))
 
     implementation(libs.androidx.core.core.ktx)
 
@@ -68,4 +69,5 @@ dependencies {
     // Local unit tests
     testImplementation(libs.androidx.test.ext.junit)
     testImplementation(libs.org.mockito.kotlin)
+    testImplementation(libs.org.robolectric)
 }

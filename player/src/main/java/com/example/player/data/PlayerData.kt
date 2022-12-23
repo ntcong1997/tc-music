@@ -15,9 +15,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class PlayerData @Inject constructor(
-    private val imageCache: ImageCache
-) {
+class PlayerData @Inject constructor() {
     private var playlistResources: List<MediaMetadataCompat> = emptyList()
     var startPlayingId = 0L
 
@@ -32,14 +30,9 @@ class PlayerData @Inject constructor(
 
     var preparedMediaMetadata: MediaMetadataCompat? = null
 
-    suspend fun setPlaylist(playlist: List<Track>, startPlayingId: Long) {
+    fun setPlaylist(playlist: List<Track>, startPlayingId: Long) {
         this.startPlayingId = startPlayingId
-        imageCache.loadAllImagesAsync(
-            playlist.map {
-                it.images?.coverart
-            }.filterNotNull()
-        )
-        this.playlistResources = playlist.toMediaMetadata(imageCache)
+        this.playlistResources = playlist.toMediaMetadata()
     }
 
     fun playerResources(): MutableList<MediaBrowserCompat.MediaItem> {
@@ -68,9 +61,8 @@ class PlayerData @Inject constructor(
     }
 
     fun removePlaylistQueueItem(description: MediaDescriptionCompat) {
-        val queueItem = MediaSessionCompat.QueueItem(description, description.hashCode().toLong())
-        originalPlaylist.remove(queueItem)
-        playlist.remove(queueItem)
+        originalPlaylist.removeIf { it.queueId == description.hashCode().toLong() }
+        playlist.removeIf { it.queueId == description.hashCode().toLong() }
 
         playlistQueueIndex = if (playlist.isEmpty()) -1 else playlistQueueIndex
     }

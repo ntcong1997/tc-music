@@ -59,9 +59,11 @@ class ExoPlayerAdapter(
     }
 
     fun prepare(uri: Uri) {
-        val mediaItem = MediaItem.fromUri(uri)
-        exoPlayer.setMediaItem(mediaItem)
-        exoPlayer.prepare()
+        handler.post {
+            val mediaItem = MediaItem.fromUri(uri)
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
+        }
     }
 
     fun play() {

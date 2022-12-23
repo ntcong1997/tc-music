@@ -12,16 +12,20 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.media.MediaBrowserServiceCompat
+import com.example.domain.di.ApplicationScope
 import com.example.player.adapter.ExoPlayerAdapter
 import com.example.player.adapter.ExoPlayerStateChangeListener
+import com.example.player.data.ImageLoader
 import com.example.player.data.PlayerData
+import com.example.player.util.addAlbumArtToMediaMetadata
 import com.example.player.util.addDurationToMediaMetadata
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.ArrayList
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -40,10 +44,14 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
     @Inject
     lateinit var context: Context
 
+    @ApplicationScope
+    @Inject
+    lateinit var coroutineScope: CoroutineScope
+
     private var player: ExoPlayerAdapter? = null
 
     private var serviceInStartedState = false
-    
+
     private var durationSet = false
 
     private val serviceConnection = object : ServiceConnection {
@@ -73,13 +81,28 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
                 return
             }
 
-            playerData.prepareMedia()
-            mediaSession?.setMetadata(playerData.preparedMediaMetadata)
-
             // Every time prepare media reset this var to get current media's duration
             durationSet = false
 
-            player?.prepare(Uri.parse(playerData.preparedMediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI)))
+            playerData.prepareMedia()
+
+            coroutineScope.launch {
+                val albumArtUrl =
+                    playerData.preparedMediaMetadata?.getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI)
+                playerData.preparedMediaMetadata = addAlbumArtToMediaMetadata(
+                    playerData.preparedMediaMetadata,
+                    ImageLoader.loadImageAsync(this@MusicPlayerService, albumArtUrl)
+                )
+                mediaSession?.setMetadata(playerData.preparedMediaMetadata)
+
+                player?.prepare(
+                    Uri.parse(
+                        playerData.preparedMediaMetadata?.getString(
+                            MediaMetadataCompat.METADATA_KEY_MEDIA_URI
+                        )
+                    )
+                )
+            }
 
             if (mediaSession?.isActive == false) {
                 mediaSession?.isActive = true
@@ -288,7 +311,12 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         if (playbackState == Player.STATE_READY && !durationSet) {
             val duration = player?.duration ?: 0L
             if (duration > 0L) {
-                mediaSession?.setMetadata(addDurationToMediaMetadata(playerData.preparedMediaMetadata, duration))
+                mediaSession?.setMetadata(
+                    addDurationToMediaMetadata(
+                        playerData.preparedMediaMetadata,
+                        duration
+                    )
+                )
                 durationSet = true
             }
         }
@@ -309,7 +337,11 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         context.unbindService(serviceConnection)
     }
 
-    override fun onGetRoot(clientPackageName: String, clientUid: Int, rootHints: Bundle?): BrowserRoot {
+    override fun onGetRoot(
+        clientPackageName: String,
+        clientUid: Int,
+        rootHints: Bundle?
+    ): BrowserRoot {
         return BrowserRoot("player", null)
     }
 

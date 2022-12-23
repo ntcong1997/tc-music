@@ -101,7 +101,7 @@ class PlayerManager @Inject constructor(
         }
     }
 
-    override suspend fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long) {
+    override fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long) {
         playerData.setPlaylist(playlist, startPlayingId)
         playWhenReady = true
         if (mediaBrowser == null || mediaBrowser?.isConnected == false) {
