@@ -465,3 +465,16 @@ val Track_10 = Track(
     url = "https://...",
     urlparams = null
 )
+
+val Tracks = listOf(
+    Track_1,
+    Track_2,
+    Track_3,
+    Track_4,
+    Track_5,
+    Track_6,
+    Track_7,
+    Track_8,
+    Track_9,
+    Track_10
+)

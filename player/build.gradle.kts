@@ -34,7 +34,6 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":model"))
-    testImplementation(project(":test-data"))
 
     implementation(libs.androidx.core.core.ktx)
 
@@ -43,6 +42,10 @@ dependencies {
 
     // Coroutines
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+
+    // Architecture Components
+    // Add dependency to avoid error androidTest
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
 
     // Dagger Hilt
     implementation(libs.com.google.dagger.hilt.android)
@@ -62,12 +65,8 @@ dependencies {
     // Utils
     implementation(libs.com.jakewharton.timber)
 
-    // Instrumentation tests
-    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-
     // Local unit tests
-    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.junit)
     testImplementation(libs.org.mockito.kotlin)
     testImplementation(libs.org.robolectric)
 }

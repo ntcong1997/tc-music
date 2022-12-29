@@ -50,9 +50,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.com.google.dagger.hilt.android)
-    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
     kapt(libs.com.google.dagger.hilt.android.compiler)
-    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
     // Coroutines
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
@@ -78,10 +76,6 @@ dependencies {
     // Utils
     implementation(libs.com.jakewharton.timber)
 
-    // Instrumentation tests
-    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-
     // Local unit tests
-    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.junit)
 }

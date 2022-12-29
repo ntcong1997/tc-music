@@ -83,6 +83,8 @@ class PlayerManager @Inject constructor(
         ) {
             super.onChildrenLoaded(parentId, children)
 
+            println("Hahaha123")
+
             for (mediaItem in children) {
                 mediaController?.addQueueItem(mediaItem.description)
             }
@@ -105,6 +107,7 @@ class PlayerManager @Inject constructor(
         playerData.setPlaylist(playlist, startPlayingId)
         playWhenReady = true
         if (mediaBrowser == null || mediaBrowser?.isConnected == false) {
+            println("Hahaha")
             connectMediaBrowser()
         } else {
             mediaController?.transportControls?.stop()

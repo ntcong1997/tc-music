@@ -53,10 +53,12 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":model"))
     implementation(project(":player"))
+    testImplementation(project(":test-data"))
 
     // Core
     implementation(libs.androidx.core.core.ktx)
     implementation(libs.androidx.core.core.splashscreen)
+    testImplementation(libs.androidx.arch.core.core.testing)
 
     // UI
     implementation(libs.androidx.activity.activity.compose)
@@ -95,6 +97,9 @@ dependencies {
     kapt(libs.com.google.dagger.hilt.android.compiler)
     kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
 
+    // Coroutines
+    testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
+
     // Coil
     implementation(libs.io.coil.kt.coil.base)
     implementation(libs.io.coil.kt.coil.compose)
@@ -117,5 +122,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
 
     // Local unit tests
-    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.junit)
 }

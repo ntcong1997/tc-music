@@ -55,10 +55,6 @@ dependencies {
     implementation(libs.com.jakewharton.timber)
     implementation(libs.com.google.code.gson)
 
-    // Instrumentation tests
-    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-
     // Local unit tests
-    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.junit)
 }
