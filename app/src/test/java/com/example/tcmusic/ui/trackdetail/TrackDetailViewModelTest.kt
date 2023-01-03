@@ -1,6 +1,7 @@
 package com.example.tcmusic.ui.trackdetail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.domain.player.Player
 import com.example.domain.usecase.player.*
 import com.example.domain.usecase.track.GetTrackDetailUseCase
 import com.example.tcmusic.player.FakePlayer
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,17 +36,14 @@ class TrackDetailViewModelTest {
 
     private lateinit var fakePlayer: FakePlayer
 
-    private lateinit var fakeTrackRepository: FakeTrackRepository
+    private lateinit var viewModel: TrackDetailViewModel
 
     @Before
     fun setup() {
         fakePlayer = FakePlayer()
-        fakeTrackRepository = FakeTrackRepository()
-    }
+        val fakeTrackRepository = FakeTrackRepository()
 
-    @Test
-    fun trackIsLoaded() = runTest {
-        val viewModel = TrackDetailViewModel(
+        viewModel = TrackDetailViewModel(
             observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(fakePlayer, coroutineRule.testDispatcher),
             getTrackDetailUseCase = GetTrackDetailUseCase(fakeTrackRepository, coroutineRule.testDispatcher),
             observeDurationUseCase = ObserveDurationUseCase(fakePlayer, coroutineRule.testDispatcher),
@@ -56,9 +55,26 @@ class TrackDetailViewModelTest {
             skipForwardUseCase = SkipForwardUseCase(fakePlayer, coroutineRule.testDispatcher),
             seekToUseCase = SeekToUseCase(fakePlayer, coroutineRule.testDispatcher)
         )
+    }
 
+    @Test
+    fun `get track detail from playing media`() = runTest {
         fakePlayer.setPlayingMediaInfo(PlayingMediaInfo)
         val track = viewModel.track.first()
         assertThat(track, equalTo(Track_1))
+    }
+
+    @Test
+    fun `play media`() = runTest {
+        viewModel.clickPlay()
+        val isPlaying = viewModel.trackIsPlaying.first()
+        assertEquals(isPlaying, true)
+    }
+
+    @Test
+    fun `pause media`() = runTest {
+        viewModel.clickPause()
+        val isPlaying = viewModel.trackIsPlaying.first()
+        assertEquals(isPlaying, false)
     }
 }

@@ -24,9 +24,11 @@ class FakePlayer : Player {
     }
 
     override fun play() {
+        _isPlaying.tryEmit(true)
     }
 
     override fun pause() {
+        _isPlaying.tryEmit(false)
     }
 
     override fun skipBackwards() {
