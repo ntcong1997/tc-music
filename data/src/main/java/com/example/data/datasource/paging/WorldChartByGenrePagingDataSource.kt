@@ -27,7 +27,7 @@ class WorldChartByGenrePagingDataSource(
             LoadResult.Page(
                 data = response,
                 prevKey = null, // Only paging forward.
-                nextKey = if (response.isEmpty()) null else offset + 1
+                nextKey = if (response.isEmpty()) null else offset + response.size
             )
         } catch (e: IOException) {
             // IOException for network failures.
