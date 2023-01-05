@@ -44,7 +44,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
     }
 }
 
@@ -64,7 +64,6 @@ dependencies {
     implementation(libs.androidx.activity.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.com.google.android.material)
-    implementation(libs.androidx.compose.material.material.icons.extended)
     implementation(libs.com.google.accompanist.accompanist.pager)
     implementation(libs.com.google.accompanist.accompanist.pager.indicators)
 
@@ -78,6 +77,7 @@ dependencies {
 
     // Compose
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.ui.tooling)
     implementation(libs.androidx.compose.ui.ui.tooling.preview)
