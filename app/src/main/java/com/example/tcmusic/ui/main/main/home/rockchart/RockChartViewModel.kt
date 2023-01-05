@@ -32,7 +32,7 @@ class RockChartViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
-    val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.ROCK, PAGE_SIZE)).map {
+    val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.ROCK)).map {
         if (it is Result.Success) it.data
         else PagingData.empty()
     }.cachedIn(viewModelScope)
@@ -55,9 +55,5 @@ class RockChartViewModel @Inject constructor(
             refreshWorldChartByGenreUseCase(GenreCode.ROCK)
             _isRefreshing.value = false
         }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }

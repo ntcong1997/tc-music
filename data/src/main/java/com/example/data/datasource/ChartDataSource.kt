@@ -16,11 +16,11 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface ChartDataSource {
-    fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>>
+    fun loadWorldChart(): Flow<PagingData<Track>>
 
     fun refreshWorldChart()
 
-    fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>>
+    fun loadWorldChartByGenre(genreCode: GenreCode): Flow<PagingData<Track>>
 
     fun refreshWorldChartByGenre(genreCode: GenreCode)
 }
@@ -31,9 +31,9 @@ class ChartDataSourceImpl @Inject constructor(
     private var worldChartPagingDataSource: WorldChartPagingDataSource? = null
     private var worldChartByGenrePagingDataSource: WorldChartByGenrePagingDataSource? = null
 
-    override fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>> {
+    override fun loadWorldChart(): Flow<PagingData<Track>> {
         worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
-        return Pager(PagingConfig(pageSize = pageSize)) {
+        return Pager(PagingConfig(pageSize = 20)) {
             worldChartPagingDataSource!!
         }.flow
     }
@@ -43,9 +43,9 @@ class ChartDataSourceImpl @Inject constructor(
         worldChartPagingDataSource = WorldChartPagingDataSource(shazamApiService)
     }
 
-    override fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>> {
+    override fun loadWorldChartByGenre(genreCode: GenreCode): Flow<PagingData<Track>> {
         worldChartByGenrePagingDataSource = WorldChartByGenrePagingDataSource(genreCode, shazamApiService)
-        return Pager(PagingConfig(pageSize = pageSize)) {
+        return Pager(PagingConfig(pageSize = 20)) {
             worldChartByGenrePagingDataSource!!
         }.flow
     }

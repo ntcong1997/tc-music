@@ -30,7 +30,7 @@ class WorldChartViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
-    val tracks = loadWorldChartUseCase(PAGE_SIZE).map {
+    val tracks = loadWorldChartUseCase(Unit).map {
         if (it is Result.Success) it.data
         else PagingData.empty()
     }.cachedIn(viewModelScope)
@@ -53,9 +53,5 @@ class WorldChartViewModel @Inject constructor(
             refreshWorldChartUseCase(Unit)
             _isRefreshing.value = false
         }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }

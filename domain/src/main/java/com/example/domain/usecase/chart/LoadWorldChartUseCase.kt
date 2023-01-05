@@ -18,9 +18,9 @@ import kotlinx.coroutines.flow.map
 class LoadWorldChartUseCase @Inject constructor(
     private val chartRepository: ChartRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : FlowUseCase<Int, PagingData<Track>>(dispatcher) {
-    override fun execute(parameters: Int): Flow<Result<PagingData<Track>>> {
-        return chartRepository.loadWorldChart(parameters).map {
+) : FlowUseCase<Unit, PagingData<Track>>(dispatcher) {
+    override fun execute(parameters: Unit): Flow<Result<PagingData<Track>>> {
+        return chartRepository.loadWorldChart().map {
             Result.Success(it)
         }
     }
