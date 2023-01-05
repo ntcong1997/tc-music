@@ -15,9 +15,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class PlayerData @Inject constructor(
-
-) {
+class PlayerData @Inject constructor() {
     private var playlistResources: List<MediaMetadataCompat> = emptyList()
     var startPlayingId = 0L
 

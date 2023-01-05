@@ -1,15 +1,14 @@
 package com.example.tcmusic.ui.trackdetail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.domain.player.Player
 import com.example.domain.usecase.player.*
 import com.example.domain.usecase.track.GetTrackDetailUseCase
 import com.example.tcmusic.player.FakePlayer
 import com.example.tcmusic.repository.FakeTrackRepository
 import com.example.tcmusic.ui.main.trackdetail.TrackDetailViewModel
 import com.example.test.MainCoroutineRule
-import com.example.test.data.PlayingMediaInfo
 import com.example.test.data.Track_1
+import com.example.test.data.Tracks
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -59,7 +58,7 @@ class TrackDetailViewModelTest {
 
     @Test
     fun `get track detail from playing media`() = runTest {
-        fakePlayer.setPlayingMediaInfo(PlayingMediaInfo)
+        fakePlayer.setPlaylistAndPlay(Tracks, Track_1.key?.toLong() ?: 0L)
         val track = viewModel.track.first()
         assertThat(track, equalTo(Track_1))
     }
