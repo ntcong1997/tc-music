@@ -7,6 +7,7 @@ import com.example.data.datasource.paging.SearchTracksPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Track
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**

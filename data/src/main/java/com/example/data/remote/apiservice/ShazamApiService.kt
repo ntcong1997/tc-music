@@ -4,6 +4,8 @@ import com.example.data.remote.API_GET_TRACK_DETAIL
 import com.example.data.remote.API_GET_WORLD_CHART
 import com.example.data.remote.API_GET_WORLD_CHART_BY_GENRE
 import com.example.data.remote.API_MULTI_SEARCH
+import com.example.model.SearchArtistsResult
+import com.example.model.SearchTracksResult
 import com.example.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -29,5 +31,12 @@ interface ShazamApiService {
         @Query("query") query: String?,
         @Query("search_type") searchType: String? = "SONGS",
         @Query("offset") offset: Int
-    ): List<Track>
+    ): SearchTracksResult
+
+    @GET(API_MULTI_SEARCH)
+    suspend fun searchArtists(
+        @Query("query") query: String?,
+        @Query("search_type") searchType: String? = "ARTISTS",
+        @Query("offset") offset: Int
+    ): SearchArtistsResult
 }

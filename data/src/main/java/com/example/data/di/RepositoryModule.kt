@@ -1,7 +1,9 @@
 package com.example.data.di
 
+import com.example.data.repositoryimpl.ArtistRepositoryImpl
 import com.example.data.repositoryimpl.ChartRepositoryImpl
 import com.example.data.repositoryimpl.TrackRepositoryImpl
+import com.example.domain.repository.ArtistRepository
 import com.example.domain.repository.ChartRepository
 import com.example.domain.repository.TrackRepository
 import dagger.Binds
@@ -24,4 +26,8 @@ abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindTrackRepository(trackRepositoryImpl: TrackRepositoryImpl): TrackRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindArtistRepository(artistRepositoryImpl: ArtistRepositoryImpl): ArtistRepository
 }

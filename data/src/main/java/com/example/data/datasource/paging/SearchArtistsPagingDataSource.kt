@@ -3,28 +3,28 @@ package com.example.data.datasource.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.remote.apiservice.ShazamApiService
-import com.example.model.Track
+import com.example.model.Artist
 import retrofit2.HttpException
 import java.io.IOException
 
 /**
  * Created by TC on 05/01/2023.
  */
-class SearchTracksPagingDataSource(
+class SearchArtistsPagingDataSource(
     private val shazamApiService: ShazamApiService,
     private val query: String?
-) : PagingSource<Int, Track>() {
-    override fun getRefreshKey(state: PagingState<Int, Track>): Int? {
+) : PagingSource<Int, Artist>() {
+    override fun getRefreshKey(state: PagingState<Int, Artist>): Int? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Track> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Artist> {
         val offset = params.key ?: 0
         return try {
-            val response = shazamApiService.searchTracks(
+            val response = shazamApiService.searchArtists(
                 query = query,
                 offset = offset
-            ).tracks?.hits?.mapNotNull { it.track } ?: listOf()
+            ).artists?.hits?.mapNotNull { it.artist } ?: listOf()
             LoadResult.Page(
                 data = response,
                 prevKey = null, // Only paging forward.

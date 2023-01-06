@@ -38,11 +38,13 @@ import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Created by TC on 02/12/2022.
  */
 
+@ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
@@ -115,6 +117,7 @@ fun Home() {
     HomeScreen()
 }
 
+@ExperimentalCoroutinesApi
 @Composable
 fun Search() {
     SearchScreen()
