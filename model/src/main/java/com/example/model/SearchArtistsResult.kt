@@ -20,4 +20,3 @@ data class ArtistsHit(
     @SerializedName("artist")
     val artist: Artist?
 )
-

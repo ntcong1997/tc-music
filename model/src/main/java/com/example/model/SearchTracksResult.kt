@@ -20,4 +20,3 @@ data class TracksHit(
     @SerializedName("track")
     val track: Track?
 )
-

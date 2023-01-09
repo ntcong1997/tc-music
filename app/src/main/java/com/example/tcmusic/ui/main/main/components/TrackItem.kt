@@ -57,9 +57,11 @@ fun TrackItem(
                         .clip(RoundedCornerShape(10.dp))
                 )
             else
-                Box(modifier = Modifier
-                    .size(60.dp)
-                    .background(BlueRibbon, CircleShape)) {
+                Box(
+                    modifier = Modifier
+                        .size(60.dp)
+                        .background(BlueRibbon, CircleShape)
+                ) {
                     Text(
                         text = track.shortTitle,
                         color = White,

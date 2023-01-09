@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Track
-import retrofit2.HttpException
 import java.io.IOException
+import retrofit2.HttpException
 
 /**
  * Created by TC on 05/01/2023.

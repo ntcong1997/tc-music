@@ -4,8 +4,8 @@ import androidx.paging.PagingData
 import com.example.data.datasource.ArtistDataSource
 import com.example.domain.repository.ArtistRepository
 import com.example.model.Artist
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 06/01/2023.

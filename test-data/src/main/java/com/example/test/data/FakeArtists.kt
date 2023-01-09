@@ -20,20 +20,22 @@ val Artist_2 = Artist(
     adamid = "2",
     alias = null,
     avatar = null,
-    data = listOf(Data(
-        attributes = Attributes(
-            artistBio = null,
-            artwork = null,
-            genreNames = null,
-            name = "One Direction",
-            origin = null,
-            url = null
-        ),
-        href = null,
-        id = "2",
-        relationships = null,
-        type = null
-    )),
+    data = listOf(
+        Data(
+            attributes = Attributes(
+                artistBio = null,
+                artwork = null,
+                genreNames = null,
+                name = "One Direction",
+                origin = null,
+                url = null
+            ),
+            href = null,
+            id = "2",
+            relationships = null,
+            type = null
+        )
+    ),
     name = null
 )
 
@@ -49,20 +51,22 @@ val Artist_4 = Artist(
     adamid = "4",
     alias = null,
     avatar = null,
-    data = listOf(Data(
-        attributes = Attributes(
-            artistBio = null,
-            artwork = null,
-            genreNames = null,
-            name = "Adam Levine",
-            origin = null,
-            url = null
-        ),
-        href = null,
-        id = "4",
-        relationships = null,
-        type = null
-    )),
+    data = listOf(
+        Data(
+            attributes = Attributes(
+                artistBio = null,
+                artwork = null,
+                genreNames = null,
+                name = "Adam Levine",
+                origin = null,
+                url = null
+            ),
+            href = null,
+            id = "4",
+            relationships = null,
+            type = null
+        )
+    ),
     name = null
 )
 
@@ -70,20 +74,22 @@ val Artist_5 = Artist(
     adamid = "5",
     alias = null,
     avatar = null,
-    data = listOf(Data(
-        attributes = Attributes(
-            artistBio = null,
-            artwork = null,
-            genreNames = null,
-            name = "Adele",
-            origin = null,
-            url = null
-        ),
-        href = null,
-        id = "5",
-        relationships = null,
-        type = null
-    )),
+    data = listOf(
+        Data(
+            attributes = Attributes(
+                artistBio = null,
+                artwork = null,
+                genreNames = null,
+                name = "Adele",
+                origin = null,
+                url = null
+            ),
+            href = null,
+            id = "5",
+            relationships = null,
+            type = null
+        )
+    ),
     name = null
 )
 
@@ -115,20 +121,22 @@ val Artist_9 = Artist(
     adamid = "9",
     alias = null,
     avatar = null,
-    data = listOf(Data(
-        attributes = Attributes(
-            artistBio = null,
-            artwork = null,
-            genreNames = null,
-            name = "Pitbull",
-            origin = null,
-            url = null
-        ),
-        href = null,
-        id = "9",
-        relationships = null,
-        type = null
-    )),
+    data = listOf(
+        Data(
+            attributes = Attributes(
+                artistBio = null,
+                artwork = null,
+                genreNames = null,
+                name = "Pitbull",
+                origin = null,
+                url = null
+            ),
+            href = null,
+            id = "9",
+            relationships = null,
+            type = null
+        )
+    ),
     name = null
 )
 
@@ -136,20 +144,22 @@ val Artist_10 = Artist(
     adamid = "10",
     alias = null,
     avatar = null,
-    data = listOf(Data(
-        attributes = Attributes(
-            artistBio = null,
-            artwork = null,
-            genreNames = null,
-            name = "Alan Walker",
-            origin = null,
-            url = null
-        ),
-        href = null,
-        id = "10",
-        relationships = null,
-        type = null
-    )),
+    data = listOf(
+        Data(
+            attributes = Attributes(
+                artistBio = null,
+                artwork = null,
+                genreNames = null,
+                name = "Alan Walker",
+                origin = null,
+                url = null
+            ),
+            href = null,
+            id = "10",
+            relationships = null,
+            type = null
+        )
+    ),
     name = null
 )
 

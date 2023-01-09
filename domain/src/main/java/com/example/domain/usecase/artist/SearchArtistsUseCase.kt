@@ -6,10 +6,10 @@ import com.example.domain.Result
 import com.example.domain.di.IoDispatcher
 import com.example.domain.repository.ArtistRepository
 import com.example.model.Artist
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 /**
  * Created by TC on 05/01/2023.

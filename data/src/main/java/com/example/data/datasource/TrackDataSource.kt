@@ -6,9 +6,8 @@ import androidx.paging.PagingData
 import com.example.data.datasource.paging.SearchTracksPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Track
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 01/12/2022.

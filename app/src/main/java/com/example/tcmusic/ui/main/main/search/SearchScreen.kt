@@ -264,7 +264,6 @@ fun Artists(
                 ArtistItem(
                     artist = it,
                     onClickArtist = {
-
                     }
                 )
             }
@@ -280,10 +279,8 @@ fun SearchScreenPreview() {
         tracks = flowOf(PagingData.empty<Track>()).collectAsLazyPagingItems(),
         artists = flowOf(PagingData.empty<Artist>()).collectAsLazyPagingItems(),
         onTextSearchChanged = { _ ->
-
         },
         onClickTrack = { _ ->
-
         }
     )
 }

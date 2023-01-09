@@ -4,7 +4,6 @@ import com.example.model.Artist
 import com.example.model.Artwork
 import com.example.model.Attributes
 import com.example.model.Data
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -33,22 +32,24 @@ class ArtistTest {
             adamid = "1",
             alias = null,
             avatar = null,
-            data = listOf(Data(
-                attributes = Attributes(
-                    artistBio = null,
-                    artwork = Artwork(
-                        url = "https://"
+            data = listOf(
+                Data(
+                    attributes = Attributes(
+                        artistBio = null,
+                        artwork = Artwork(
+                            url = "https://"
+                        ),
+                        genreNames = null,
+                        name = "Bruno",
+                        origin = null,
+                        url = null
                     ),
-                    genreNames = null,
-                    name = "Bruno",
-                    origin = null,
-                    url = null
-                ),
-                href = null,
-                id = "1",
-                relationships = null,
-                type = null
-            )),
+                    href = null,
+                    id = "1",
+                    relationships = null,
+                    type = null
+                )
+            ),
             name = null
         )
 

@@ -39,11 +39,13 @@ import com.example.tcmusic.ui.theme.GraySilverChalice
 import com.example.tcmusic.ui.theme.White
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 /**
  * Created by TC on 02/12/2022.
  */
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -117,6 +119,7 @@ fun Home() {
     HomeScreen()
 }
 
+@FlowPreview
 @ExperimentalCoroutinesApi
 @Composable
 fun Search() {

@@ -22,11 +22,13 @@ import com.example.tcmusic.ui.theme.TCMusicTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
+    @FlowPreview
     @ExperimentalCoroutinesApi
     @ExperimentalMaterialApi
     @ExperimentalPagerApi

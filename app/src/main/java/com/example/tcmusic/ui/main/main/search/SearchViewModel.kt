@@ -11,11 +11,11 @@ import com.example.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.domain.usecase.track.SearchTracksUseCase
 import com.example.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by TC on 05/01/2023.

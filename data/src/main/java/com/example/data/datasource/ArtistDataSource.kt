@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.example.data.datasource.paging.SearchArtistsPagingDataSource
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Artist
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 06/01/2023.
