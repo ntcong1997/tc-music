@@ -21,13 +21,12 @@ class LoadWorldChartByGenreUseCase @Inject constructor(
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : FlowUseCase<LoadWorldChartByGenreParams, PagingData<Track>>(dispatcher) {
     override fun execute(parameters: LoadWorldChartByGenreParams): Flow<Result<PagingData<Track>>> {
-        return chartRepository.loadWorldChartByGenre(parameters.genreCode, parameters.offset).map {
+        return chartRepository.loadWorldChartByGenre(parameters.genreCode).map {
             Result.Success(it)
         }
     }
 }
 
 data class LoadWorldChartByGenreParams(
-    val genreCode: GenreCode,
-    val offset: Int
+    val genreCode: GenreCode
 )

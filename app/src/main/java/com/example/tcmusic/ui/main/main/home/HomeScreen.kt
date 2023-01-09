@@ -7,7 +7,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,27 +58,25 @@ fun HomeScreen() {
 @ExperimentalPagerApi
 @Composable
 fun Header() {
-    val context = LocalContext.current
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(vertical = 20.dp)
     ) {
         Spacer(modifier = Modifier.width(20.dp))
 
         Image(
             painter = painterResource(id = R.drawable.ic_app),
-            contentDescription = null,
-            modifier = Modifier.padding(vertical = 20.dp)
+            contentDescription = null
         )
 
         Text(
-            text = context.getString(R.string.home_screen_text_app_name),
+            text = stringResource(id = R.string.home_screen_text_app_name),
             color = Black,
             fontSize = 16.sp,
             modifier = Modifier
                 .weight(1f)
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
         )
     }
 }

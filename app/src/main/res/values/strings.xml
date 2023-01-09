@@ -17,6 +17,12 @@
     <string name="home_screen_text_electronic_chart">Electronic chart</string>
     <string name="home_screen_text_rock_chart">Rock chart</string>
 
+    <!-- Search Screen -->
+    <string name="search_screen_text_app_name">TC Music</string>
+    <string name="search_screen_hint_search">What do you want to listen to? (must be more than 2 characters)</string>
+    <string name="search_screen_text_songs">Songs</string>
+    <string name="search_screen_text_artists">Artists</string>
+
     <!-- Track Detail Screen -->
     <string name="track_detail_screen_text_lyrics">Lyrics</string>
 </resources>

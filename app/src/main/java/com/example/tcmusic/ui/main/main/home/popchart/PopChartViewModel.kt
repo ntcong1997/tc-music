@@ -32,7 +32,7 @@ class PopChartViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing = _isRefreshing.asStateFlow()
 
-    val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.POP, PAGE_SIZE)).map {
+    val tracks = loadWorldChartByGenreUseCase(LoadWorldChartByGenreParams(GenreCode.POP)).map {
         if (it is Result.Success) it.data
         else PagingData.empty()
     }.cachedIn(viewModelScope)
@@ -55,9 +55,5 @@ class PopChartViewModel @Inject constructor(
             refreshWorldChartByGenreUseCase(GenreCode.POP)
             _isRefreshing.value = false
         }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }

@@ -34,8 +34,7 @@ class ElectronicChartViewModel @Inject constructor(
 
     val tracks = loadWorldChartByGenreUseCase(
         LoadWorldChartByGenreParams(
-            GenreCode.ELECTRONIC,
-            PAGE_SIZE
+            GenreCode.ELECTRONIC
         )
     ).map {
         if (it is Result.Success) it.data
@@ -60,9 +59,5 @@ class ElectronicChartViewModel @Inject constructor(
             refreshWorldChartByGenreUseCase(GenreCode.ELECTRONIC)
             _isRefreshing.value = false
         }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }

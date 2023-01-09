@@ -2,10 +2,7 @@ package com.example.data.di
 
 import android.content.Context
 import com.example.data.BuildConfig
-import com.example.data.datasource.ChartDataSource
-import com.example.data.datasource.ChartDataSourceImpl
-import com.example.data.datasource.TrackDataSource
-import com.example.data.datasource.TrackDataSourceImpl
+import com.example.data.datasource.*
 import com.example.data.remote.SHAZAM_DOMAIN_API
 import com.example.data.remote.apiservice.ShazamApiService
 import com.google.gson.Gson
@@ -87,4 +84,10 @@ class NetworkModule {
     fun provideTrackDataSource(
         shazamApiService: ShazamApiService
     ): TrackDataSource = TrackDataSourceImpl(shazamApiService)
+
+    @Singleton
+    @Provides
+    fun provideArtistDataSource(
+        shazamApiService: ShazamApiService
+    ): ArtistDataSource = ArtistDataSourceImpl(shazamApiService)
 }

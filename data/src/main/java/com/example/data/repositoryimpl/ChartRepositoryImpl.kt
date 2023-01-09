@@ -15,16 +15,16 @@ import kotlinx.coroutines.flow.Flow
 class ChartRepositoryImpl @Inject constructor(
     private val chartDataSource: ChartDataSource
 ) : ChartRepository {
-    override fun loadWorldChart(pageSize: Int): Flow<PagingData<Track>> {
-        return chartDataSource.loadWorldChart(pageSize)
+    override fun loadWorldChart(): Flow<PagingData<Track>> {
+        return chartDataSource.loadWorldChart()
     }
 
     override fun refreshWorldChart() {
         return chartDataSource.refreshWorldChart()
     }
 
-    override fun loadWorldChartByGenre(genreCode: GenreCode, pageSize: Int): Flow<PagingData<Track>> {
-        return chartDataSource.loadWorldChartByGenre(genreCode, pageSize)
+    override fun loadWorldChartByGenre(genreCode: GenreCode): Flow<PagingData<Track>> {
+        return chartDataSource.loadWorldChartByGenre(genreCode)
     }
 
     override fun refreshWorldChartByGenre(genreCode: GenreCode) {

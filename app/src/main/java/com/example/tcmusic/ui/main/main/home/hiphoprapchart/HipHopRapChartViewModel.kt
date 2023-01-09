@@ -34,8 +34,7 @@ class HipHopRapChartViewModel @Inject constructor(
 
     val tracks = loadWorldChartByGenreUseCase(
         LoadWorldChartByGenreParams(
-            GenreCode.HIP_HOP_RAP,
-            PAGE_SIZE
+            GenreCode.HIP_HOP_RAP
         )
     ).map {
         if (it is Result.Success) it.data
@@ -60,9 +59,5 @@ class HipHopRapChartViewModel @Inject constructor(
             refreshWorldChartByGenreUseCase(GenreCode.HIP_HOP_RAP)
             _isRefreshing.value = false
         }
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 20
     }
 }

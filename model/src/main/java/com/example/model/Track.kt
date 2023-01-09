@@ -51,16 +51,15 @@ data class Track(
             if (lyrics.isNullOrEmpty()) listOf()
             else lyrics
         } else listOf()
-}
 
-data class Artist(
-    @SerializedName("adamid")
-    val adamid: String?,
-    @SerializedName("alias")
-    val alias: String?,
-    @SerializedName("id")
-    val id: String?
-)
+    val shortTitle: String
+        get() {
+            val titleDivided = title?.split(" ") ?: listOf()
+            val firstLetter = titleDivided.firstOrNull()?.firstOrNull()?.uppercase() ?: ""
+            val lastLetter = if (titleDivided.size < 2) "" else titleDivided.lastOrNull()?.firstOrNull()?.uppercase() ?: ""
+            return "$firstLetter$lastLetter"
+        }
+}
 
 data class Genres(
     @SerializedName("primary")
