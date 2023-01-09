@@ -6,11 +6,15 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.domain.Result
 import com.example.domain.usecase.artist.SearchArtistsUseCase
+import com.example.domain.usecase.player.SetPlaylistAndPlayParams
+import com.example.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.domain.usecase.track.SearchTracksUseCase
+import com.example.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -22,7 +26,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchTracksUseCase: SearchTracksUseCase,
-    private val searchArtistsUseCase: SearchArtistsUseCase
+    private val searchArtistsUseCase: SearchArtistsUseCase,
+    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase
 ) : ViewModel() {
     private val _textSearch = MutableStateFlow("")
     val textSearch = _textSearch.asStateFlow()
@@ -61,5 +66,11 @@ class SearchViewModel @Inject constructor(
 
     fun search(text: String) {
         _textSearch.value = text
+    }
+
+    fun clickTrack(track: Track) {
+        viewModelScope.launch {
+            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.key?.toLong() ?: 0L))
+        }
     }
 }

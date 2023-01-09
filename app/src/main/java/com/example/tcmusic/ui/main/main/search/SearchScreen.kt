@@ -57,7 +57,8 @@ fun SearchScreen(
         textSearch = textSearch.value,
         tracks = tracks,
         artists = artists,
-        onTextSearchChanged = viewModel::search
+        onTextSearchChanged = viewModel::search,
+        onClickTrack = viewModel::clickTrack
     )
 }
 
@@ -66,7 +67,8 @@ fun SearchScreen(
     textSearch: String,
     tracks: LazyPagingItems<Track>,
     artists: LazyPagingItems<Artist>,
-    onTextSearchChanged: (String) -> Unit
+    onTextSearchChanged: (String) -> Unit,
+    onClickTrack: (Track) -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) }
 
@@ -97,7 +99,12 @@ fun SearchScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             when (selectedTab) {
-                0 -> Tracks(tracks = tracks)
+                0 -> Tracks(
+                    tracks = tracks,
+                    onClickTrack = {
+                        onClickTrack(it)
+                    }
+                )
                 1 -> Artists(artists = artists)
             }
         }
@@ -225,7 +232,8 @@ fun SearchCategoryTabs(
 
 @Composable
 fun Tracks(
-    tracks: LazyPagingItems<Track>
+    tracks: LazyPagingItems<Track>,
+    onClickTrack: (Track) -> Unit
 ) {
     // Do not use key because api search has error (duplicate item)
     LazyColumn {
@@ -236,7 +244,7 @@ fun Tracks(
                 TrackItem(
                     track = it,
                     onClickTrack = {
-
+                        onClickTrack(it)
                     }
                 )
             }
@@ -272,6 +280,9 @@ fun SearchScreenPreview() {
         tracks = flowOf(PagingData.empty<Track>()).collectAsLazyPagingItems(),
         artists = flowOf(PagingData.empty<Artist>()).collectAsLazyPagingItems(),
         onTextSearchChanged = { _ ->
+
+        },
+        onClickTrack = { _ ->
 
         }
     )
