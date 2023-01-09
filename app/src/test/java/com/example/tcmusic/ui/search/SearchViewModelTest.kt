@@ -4,9 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.*
 import app.cash.turbine.test
 import com.example.domain.usecase.artist.SearchArtistsUseCase
+import com.example.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.domain.usecase.track.SearchTracksUseCase
 import com.example.model.Artist
 import com.example.model.Track
+import com.example.tcmusic.player.FakePlayer
 import com.example.tcmusic.repository.FakeArtistRepository
 import com.example.tcmusic.repository.FakeTrackRepository
 import com.example.tcmusic.ui.main.main.search.SearchViewModel
@@ -16,10 +18,6 @@ import com.example.test.data.Artists
 import com.example.test.data.Tracks
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -46,10 +44,12 @@ class SearchViewModelTest {
     fun setup() {
         val fakeTrackRepository = FakeTrackRepository()
         val fakeArtistRepository = FakeArtistRepository()
+        val fakePlayer = FakePlayer()
 
         viewModel = SearchViewModel(
             SearchTracksUseCase(fakeTrackRepository, coroutineRule.testDispatcher),
-            SearchArtistsUseCase(fakeArtistRepository, coroutineRule.testDispatcher)
+            SearchArtistsUseCase(fakeArtistRepository, coroutineRule.testDispatcher),
+            SetPlaylistAndPlayUseCase(fakePlayer, coroutineRule.testDispatcher)
         )
     }
 
