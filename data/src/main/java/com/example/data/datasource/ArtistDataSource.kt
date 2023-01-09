@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ArtistDataSource {
     fun searchArtists(query: String?): Flow<PagingData<Artist>>
+
+    suspend fun getArtistDetail(artistId: String?): Artist?
 }
 
 class ArtistDataSourceImpl @Inject constructor(
@@ -25,5 +27,9 @@ class ArtistDataSourceImpl @Inject constructor(
         return Pager(PagingConfig(pageSize = 20)) {
             searchArtistsPagingDataSource
         }.flow
+    }
+
+    override suspend fun getArtistDetail(artistId: String?): Artist? {
+        return shazamApiService.getArtistDetail(artistId)
     }
 }

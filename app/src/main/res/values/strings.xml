@@ -25,4 +25,18 @@
 
     <!-- Track Detail Screen -->
     <string name="track_detail_screen_text_lyrics">Lyrics</string>
+
+    <!-- Artist Detail Screen -->
+    <string name="artist_detail_screen_action_play">Play</string>
+    <string name="artist_detail_screen_text_top_songs">Top songs</string>
+
+    <!-- Loading Dialog -->
+    <string name="loading_dialog_text_loading">Loading</string>
+
+    <!-- Error Dialog -->
+    <string name="error_dialog_text_message">Message</string>
+
+    <!-- Error -->
+    <string name="error_network">You\'re offline. Please check your internet connection and try again</string>
+    <string name="error_unknown">Something went wrong. Please try again later</string>
 </resources>

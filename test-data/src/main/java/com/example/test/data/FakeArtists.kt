@@ -33,7 +33,8 @@ val Artist_2 = Artist(
             href = null,
             id = "2",
             relationships = null,
-            type = null
+            type = null,
+            views = null
         )
     ),
     name = null
@@ -64,7 +65,8 @@ val Artist_4 = Artist(
             href = null,
             id = "4",
             relationships = null,
-            type = null
+            type = null,
+            views = null
         )
     ),
     name = null
@@ -87,7 +89,8 @@ val Artist_5 = Artist(
             href = null,
             id = "5",
             relationships = null,
-            type = null
+            type = null,
+            views = null
         )
     ),
     name = null
@@ -134,7 +137,8 @@ val Artist_9 = Artist(
             href = null,
             id = "9",
             relationships = null,
-            type = null
+            type = null,
+            views = null
         )
     ),
     name = null
@@ -157,7 +161,8 @@ val Artist_10 = Artist(
             href = null,
             id = "10",
             relationships = null,
-            type = null
+            type = null,
+            views = null
         )
     ),
     name = null

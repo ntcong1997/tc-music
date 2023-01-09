@@ -7,4 +7,5 @@ package com.example.tcmusic.ui.main
 sealed class Screen(val route: String) {
     object MainScreen : Screen("main")
     object TrackDetailScreen : Screen("track_detail")
+    object ArtistDetailScreen : Screen("artist_detail")
 }

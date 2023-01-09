@@ -47,7 +47,8 @@ class ArtistTest {
                     href = null,
                     id = "1",
                     relationships = null,
-                    type = null
+                    type = null,
+                    views = null
                 )
             ),
             name = null
@@ -55,31 +56,5 @@ class ArtistTest {
 
         assertEquals("Bruno", artist.artistName)
         assertEquals("https://", artist.artistAvatar)
-    }
-
-    @Test
-    fun `artist has short name 1 char`() {
-        val artist = Artist(
-            adamid = "1",
-            alias = null,
-            avatar = "https://",
-            data = null,
-            name = "Bruno"
-        )
-
-        assertEquals("B", artist.shortArtistName)
-    }
-
-    @Test
-    fun `artist has short name 2 char`() {
-        val artist = Artist(
-            adamid = "1",
-            alias = null,
-            avatar = "https://",
-            data = null,
-            name = "One Direction"
-        )
-
-        assertEquals("OD", artist.shortArtistName)
     }
 }
