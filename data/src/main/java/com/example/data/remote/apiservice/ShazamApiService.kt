@@ -1,9 +1,7 @@
 package com.example.data.remote.apiservice
 
-import com.example.data.remote.API_GET_TRACK_DETAIL
-import com.example.data.remote.API_GET_WORLD_CHART
-import com.example.data.remote.API_GET_WORLD_CHART_BY_GENRE
-import com.example.data.remote.API_MULTI_SEARCH
+import com.example.data.remote.*
+import com.example.model.Artist
 import com.example.model.SearchArtistsResult
 import com.example.model.SearchTracksResult
 import com.example.model.Track
@@ -23,9 +21,6 @@ interface ShazamApiService {
         @Query("offset") offset: Int
     ): List<Track>
 
-    @GET(API_GET_TRACK_DETAIL)
-    suspend fun getTrackDetail(@Query("track_id") trackId: String?): Track?
-
     @GET(API_MULTI_SEARCH)
     suspend fun searchTracks(
         @Query("query") query: String?,
@@ -39,4 +34,10 @@ interface ShazamApiService {
         @Query("search_type") searchType: String? = "ARTISTS",
         @Query("offset") offset: Int
     ): SearchArtistsResult
+
+    @GET(API_GET_TRACK_DETAIL)
+    suspend fun getTrackDetail(@Query("track_id") trackId: String?): Track?
+
+    @GET(API_GET_ARTIST_DETAIL)
+    suspend fun getArtistDetail(@Query("artist_id") artistId: String?): Artist?
 }

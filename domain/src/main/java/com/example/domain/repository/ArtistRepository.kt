@@ -9,4 +9,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface ArtistRepository {
     fun searchArtists(query: String?): Flow<PagingData<Artist>>
+
+    suspend fun getArtistDetail(artistId: String?): Artist?
 }

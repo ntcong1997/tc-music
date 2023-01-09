@@ -17,4 +17,8 @@ class ArtistRepositoryImpl @Inject constructor(
     override fun searchArtists(query: String?): Flow<PagingData<Artist>> {
         return artistDataSource.searchArtists(query)
     }
+
+    override suspend fun getArtistDetail(artistId: String?): Artist? {
+        return artistDataSource.getArtistDetail(artistId)
+    }
 }
