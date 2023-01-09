@@ -13,7 +13,9 @@ import kotlinx.coroutines.flow.flow
 
 class FakeTrackRepository : TrackRepository {
     override fun searchTracks(query: String?): Flow<PagingData<Track>> {
-        return flow {  }
+        return flow {
+            emit(PagingData.from(Tracks.filter { it.title?.contains(query ?: "", ignoreCase = true) == true }))
+        }
     }
 
     override suspend fun getTrackDetail(trackId: String?): Track? {

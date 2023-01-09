@@ -227,6 +227,7 @@ fun SearchCategoryTabs(
 fun Tracks(
     tracks: LazyPagingItems<Track>
 ) {
+    // Do not use key because api search has error (duplicate item)
     LazyColumn {
         items(
             items = tracks

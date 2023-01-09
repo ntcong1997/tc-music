@@ -27,8 +27,8 @@ class PlayerDataTest {
 
         playerData.addPlaylistQueueItem(MediaDescriptionCompat.Builder().build())
 
-        assertEquals(playerData.playlist.size, 2)
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(2, playerData.playlist.size)
+        assertEquals(0, playerData.playlistQueueIndex)
     }
 
     @Test
@@ -40,13 +40,13 @@ class PlayerDataTest {
 
         playerData.removePlaylistQueueItem(mediaDescriptionCompat1)
 
-        assertEquals(playerData.playlist.size, 1)
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(1, playerData.playlist.size)
+        assertEquals(0, playerData.playlistQueueIndex)
 
         playerData.removePlaylistQueueItem(mediaDescriptionCompat2)
 
-        assertEquals(playerData.playlist.size, 0)
-        assertEquals(playerData.playlistQueueIndex, -1)
+        assertEquals(0, playerData.playlist.size)
+        assertEquals(-1, playerData.playlistQueueIndex)
     }
 
     @Test
@@ -56,11 +56,11 @@ class PlayerDataTest {
 
         playerData.skipToNext()
 
-        assertEquals(playerData.playlistQueueIndex, 1)
+        assertEquals(1, playerData.playlistQueueIndex)
 
         playerData.skipToNext()
 
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(0, playerData.playlistQueueIndex)
     }
 
     @Test
@@ -70,11 +70,11 @@ class PlayerDataTest {
 
         playerData.skipToPrevious(PlaybackStateCompat.REPEAT_MODE_ALL)
 
-        assertEquals(playerData.playlistQueueIndex, 1)
+        assertEquals(1, playerData.playlistQueueIndex)
 
         playerData.skipToPrevious(PlaybackStateCompat.REPEAT_MODE_ALL)
 
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(0, playerData.playlistQueueIndex)
     }
 
     @Test
@@ -84,7 +84,7 @@ class PlayerDataTest {
 
         playerData.skipToPrevious(PlaybackStateCompat.REPEAT_MODE_NONE)
 
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(0, playerData.playlistQueueIndex)
     }
 
     @Test
@@ -93,19 +93,19 @@ class PlayerDataTest {
         playerData.addPlaylistQueueItem(MediaDescriptionCompat.Builder().setMediaId("2").build())
         playerData.addPlaylistQueueItem(MediaDescriptionCompat.Builder().setMediaId("3").build())
 
-        assertEquals(playerData.playlist.size, 3)
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(3, playerData.playlist.size)
+        assertEquals(0, playerData.playlistQueueIndex)
 
         playerData.skipToQueueItem(2L)
 
-        assertEquals(playerData.playlistQueueIndex, 1)
+        assertEquals(1, playerData.playlistQueueIndex)
 
         playerData.skipToQueueItem(1L)
 
-        assertEquals(playerData.playlistQueueIndex, 0)
+        assertEquals(0, playerData.playlistQueueIndex)
 
         playerData.skipToQueueItem(3L)
 
-        assertEquals(playerData.playlistQueueIndex, 2)
+        assertEquals(2, playerData.playlistQueueIndex)
     }
 }

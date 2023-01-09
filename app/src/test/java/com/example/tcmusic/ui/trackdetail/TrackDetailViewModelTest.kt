@@ -67,13 +67,13 @@ class TrackDetailViewModelTest {
     fun `play media`() = runTest {
         viewModel.clickPlay()
         val isPlaying = viewModel.trackIsPlaying.first()
-        assertEquals(isPlaying, true)
+        assertEquals(true, isPlaying)
     }
 
     @Test
     fun `pause media`() = runTest {
         viewModel.clickPause()
         val isPlaying = viewModel.trackIsPlaying.first()
-        assertEquals(isPlaying, false)
+        assertEquals(false, isPlaying)
     }
 }

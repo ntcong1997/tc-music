@@ -124,4 +124,5 @@ dependencies {
     // Local unit tests
     testImplementation(libs.junit)
     testImplementation(libs.org.mockito.kotlin)
+    testImplementation(libs.app.cash.turbine)
 }
