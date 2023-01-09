@@ -34,9 +34,23 @@ jobs:
       with:
         arguments: build
 
+    - name: Upload app module test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-test-reports-tc-music
+          path: app/build/reports/tests
+
     - name: Upload domain module test reports
       if: always()
       uses: actions/upload-artifact@v3
       with:
         name: doamin-test-reports-tc-music
         path: domain/build/reports/tests
+
+    - name: Upload player module test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: player-test-reports-tc-music
+          path: player/build/reports/tests
