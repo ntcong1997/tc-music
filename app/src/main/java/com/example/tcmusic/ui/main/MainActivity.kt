@@ -12,10 +12,13 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.player.service.MediaNotificationManager
+import com.example.tcmusic.ui.main.artistdetail.ArtistDetailScreen
 import com.example.tcmusic.ui.main.main.MainScreen
 import com.example.tcmusic.ui.main.trackdetail.TrackDetailScreen
 import com.example.tcmusic.ui.theme.TCMusicTheme
@@ -58,6 +61,21 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = Screen.TrackDetailScreen.route) {
                             TrackDetailScreen(
+                                navController = navController
+                            )
+                        }
+                        composable(
+                            route = Screen.ArtistDetailScreen.route + "?artistId={artistId}",
+                            arguments = listOf(
+                                navArgument(name = "artistId") {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                }
+                            )
+                        ) {
+                            val artistId = it.arguments?.getString("artistId") ?: ""
+                            ArtistDetailScreen(
+                                artistId = artistId,
                                 navController = navController
                             )
                         }

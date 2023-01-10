@@ -24,14 +24,6 @@ data class Artist(
     val artistAvatar: String?
         get() = if (avatar.isNullOrBlank()) data?.firstOrNull()?.attributes?.artwork?.url else avatar
 
-    val shortArtistName: String
-        get() {
-            val artistNameDivided = artistName?.split(" ") ?: listOf()
-            val firstLetter = artistNameDivided.firstOrNull()?.firstOrNull()?.uppercase() ?: ""
-            val lastLetter = if (artistNameDivided.size < 2) "" else artistNameDivided.lastOrNull()?.firstOrNull()?.uppercase() ?: ""
-            return "$firstLetter$lastLetter"
-        }
-
     val topSongs: List<TopSongsData>
         get() {
             return data?.firstOrNull()?.views?.topSongs?.data ?: listOf()
