@@ -1,4 +1,4 @@
-package com.example.tcmusic.ui.search
+package com.example.tcmusic.ui.main.main.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.*
