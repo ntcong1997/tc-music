@@ -82,7 +82,9 @@ fun MainScreen(
                     Home()
                 }
                 composable(route = Screen.Search.route) {
-                    Search()
+                    Search(
+                        mainNavController = mainNavController
+                    )
                 }
                 composable(route = Screen.Favorites.route) {
                     Favorites()
@@ -122,8 +124,10 @@ fun Home() {
 @FlowPreview
 @ExperimentalCoroutinesApi
 @Composable
-fun Search() {
-    SearchScreen()
+fun Search(
+    mainNavController: NavController
+) {
+    SearchScreen(mainNavController)
 }
 
 @Composable

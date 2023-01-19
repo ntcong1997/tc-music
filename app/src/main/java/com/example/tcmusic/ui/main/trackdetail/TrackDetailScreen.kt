@@ -24,10 +24,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.model.Track
 import com.example.tcmusic.R
-import com.example.tcmusic.ui.theme.Black
-import com.example.tcmusic.ui.theme.BlueRoyal
-import com.example.tcmusic.ui.theme.GrayMercury
-import com.example.tcmusic.ui.theme.White
+import com.example.tcmusic.ui.theme.*
+import com.example.tcmusic.util.compact
 import com.example.tcmusic.util.convertTimeInMillisToMinuteSecondFormat
 import kotlinx.coroutines.launch
 
@@ -217,14 +215,29 @@ fun TrackInfo(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AsyncImage(
-            model = image,
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(10.dp))
-        )
+        if (image.isNullOrBlank())
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .aspectRatio(1f)
+                    .background(BlueRibbon, RoundedCornerShape(10.dp))
+            ) {
+                Text(
+                    text = title.compact(),
+                    color = White,
+                    fontSize = 24.sp,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        else
+            AsyncImage(
+                model = image,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(10.dp))
+            )
 
         Spacer(modifier = Modifier.height(16.dp))
 

@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -29,8 +30,9 @@ import androidx.paging.compose.items
 import com.example.model.Artist
 import com.example.model.Track
 import com.example.tcmusic.R
-import com.example.tcmusic.ui.main.main.components.ArtistItem
-import com.example.tcmusic.ui.main.main.components.TrackItem
+import com.example.tcmusic.ui.components.ArtistItem
+import com.example.tcmusic.ui.components.TrackItem
+import com.example.tcmusic.ui.main.Screen
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueMystic
 import com.example.tcmusic.ui.theme.BlueRibbon
@@ -47,6 +49,7 @@ import kotlinx.coroutines.flow.flowOf
 @FlowPreview
 @Composable
 fun SearchScreen(
+    mainNavController: NavController,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val textSearch = viewModel.textSearch.collectAsState()
@@ -58,7 +61,10 @@ fun SearchScreen(
         tracks = tracks,
         artists = artists,
         onTextSearchChanged = viewModel::search,
-        onClickTrack = viewModel::clickTrack
+        onClickTrack = viewModel::clickTrack,
+        onClickArtist = {
+            mainNavController.navigate(Screen.ArtistDetailScreen.route + "?artistId=${it.adamid}")
+        }
     )
 }
 
@@ -68,7 +74,8 @@ fun SearchScreen(
     tracks: LazyPagingItems<Track>,
     artists: LazyPagingItems<Artist>,
     onTextSearchChanged: (String) -> Unit,
-    onClickTrack: (Track) -> Unit
+    onClickTrack: (Track) -> Unit,
+    onClickArtist: (Artist) -> Unit
 ) {
     var selectedTab by remember { mutableStateOf(0) }
 
@@ -105,7 +112,12 @@ fun SearchScreen(
                         onClickTrack(it)
                     }
                 )
-                1 -> Artists(artists = artists)
+                1 -> Artists(
+                    artists = artists,
+                    onClickArtist = {
+                        onClickArtist(it)
+                    }
+                )
             }
         }
     }
@@ -254,7 +266,8 @@ fun Tracks(
 
 @Composable
 fun Artists(
-    artists: LazyPagingItems<Artist>
+    artists: LazyPagingItems<Artist>,
+    onClickArtist: (Artist) -> Unit
 ) {
     LazyColumn {
         items(
@@ -264,6 +277,7 @@ fun Artists(
                 ArtistItem(
                     artist = it,
                     onClickArtist = {
+                        onClickArtist(it)
                     }
                 )
             }
@@ -281,6 +295,8 @@ fun SearchScreenPreview() {
         onTextSearchChanged = { _ ->
         },
         onClickTrack = { _ ->
+        },
+        onClickArtist = { _ ->
         }
     )
 }

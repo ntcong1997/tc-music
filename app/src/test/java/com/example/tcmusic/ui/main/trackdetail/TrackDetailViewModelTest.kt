@@ -1,4 +1,4 @@
-package com.example.tcmusic.ui.trackdetail
+package com.example.tcmusic.ui.main.trackdetail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.usecase.player.*
@@ -43,11 +43,26 @@ class TrackDetailViewModelTest {
         val fakeTrackRepository = FakeTrackRepository()
 
         viewModel = TrackDetailViewModel(
-            observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(fakePlayer, coroutineRule.testDispatcher),
-            getTrackDetailUseCase = GetTrackDetailUseCase(fakeTrackRepository, coroutineRule.testDispatcher),
-            observeDurationUseCase = ObserveDurationUseCase(fakePlayer, coroutineRule.testDispatcher),
-            observeProgressUseCase = ObserveProgressUseCase(fakePlayer, coroutineRule.testDispatcher),
-            observeIsPlayingUseCase = ObserveIsPlayingUseCase(fakePlayer, coroutineRule.testDispatcher),
+            observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(
+                fakePlayer,
+                coroutineRule.testDispatcher
+            ),
+            getTrackDetailUseCase = GetTrackDetailUseCase(
+                fakeTrackRepository,
+                coroutineRule.testDispatcher
+            ),
+            observeDurationUseCase = ObserveDurationUseCase(
+                fakePlayer,
+                coroutineRule.testDispatcher
+            ),
+            observeProgressUseCase = ObserveProgressUseCase(
+                fakePlayer,
+                coroutineRule.testDispatcher
+            ),
+            observeIsPlayingUseCase = ObserveIsPlayingUseCase(
+                fakePlayer,
+                coroutineRule.testDispatcher
+            ),
             playUseCase = PlayUseCase(fakePlayer, coroutineRule.testDispatcher),
             pauseUseCase = PauseUseCase(fakePlayer, coroutineRule.testDispatcher),
             skipBackwardsUseCase = SkipBackwardsUseCase(fakePlayer, coroutineRule.testDispatcher),

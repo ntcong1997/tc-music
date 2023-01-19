@@ -16,4 +16,8 @@ class FakeArtistRepository : ArtistRepository {
             emit(PagingData.from(Artists.filter { it.artistName?.contains(query ?: "", ignoreCase = true) == true }))
         }
     }
+
+    override suspend fun getArtistDetail(artistId: String?): Artist? {
+        return Artists.find { it.adamid == artistId }
+    }
 }

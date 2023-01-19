@@ -51,14 +51,6 @@ data class Track(
             if (lyrics.isNullOrEmpty()) listOf()
             else lyrics
         } else listOf()
-
-    val shortTitle: String
-        get() {
-            val titleDivided = title?.split(" ") ?: listOf()
-            val firstLetter = titleDivided.firstOrNull()?.firstOrNull()?.uppercase() ?: ""
-            val lastLetter = if (titleDivided.size < 2) "" else titleDivided.lastOrNull()?.firstOrNull()?.uppercase() ?: ""
-            return "$firstLetter$lastLetter"
-        }
 }
 
 data class Genres(

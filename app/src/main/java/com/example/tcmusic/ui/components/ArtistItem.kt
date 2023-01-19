@@ -1,11 +1,10 @@
-package com.example.tcmusic.ui.main.main.components
+package com.example.tcmusic.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,26 +18,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.model.Track
+import com.example.model.Artist
 import com.example.tcmusic.R
 import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.White
+import com.example.tcmusic.util.compact
 
 /**
  * Created by TC on 21/11/2022.
  */
 
 @Composable
-fun TrackItem(
-    track: Track,
-    onClickTrack: () -> Unit
+fun ArtistItem(
+    artist: Artist,
+    onClickArtist: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {
-                onClickTrack()
+                onClickArtist()
             }
     ) {
         Row(
@@ -47,14 +47,14 @@ fun TrackItem(
                 .align(Alignment.Center),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!track.images?.coverart.isNullOrBlank())
+            if (!artist.artistAvatar.isNullOrBlank())
                 AsyncImage(
-                    model = track.images?.coverart,
+                    model = artist.artistAvatar,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(60.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                        .clip(CircleShape)
                 )
             else
                 Box(
@@ -63,7 +63,7 @@ fun TrackItem(
                         .background(BlueRibbon, CircleShape)
                 ) {
                     Text(
-                        text = track.shortTitle,
+                        text = artist.artistName.compact(),
                         color = White,
                         fontSize = 16.sp,
                         modifier = Modifier.align(Alignment.Center)
@@ -76,18 +76,10 @@ fun TrackItem(
                     .padding(horizontal = 10.dp)
             ) {
                 Text(
-                    text = track.title ?: "",
+                    text = artist.artistName ?: "",
                     color = Black,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = track.subtitle ?: "",
-                    color = Black,
-                    fontSize = 12.sp
                 )
             }
 
@@ -103,25 +95,15 @@ fun TrackItem(
 
 @Preview
 @Composable
-fun TrackItemPreview() {
-    TrackItem(
-        track = Track(
+fun ArtistItemPreview() {
+    ArtistItem(
+        artist = Artist(
+            adamid = "1",
             alias = null,
-            artists = null,
-            genres = null,
-            hub = null,
-            images = null,
-            key = null,
-            layout = null,
-            releasedate = null,
-            sections = null,
-            share = null,
-            subtitle = "Bruno Mars",
-            title = "It will rain",
-            type = null,
-            url = null,
-            urlparams = null
+            avatar = "https://",
+            data = null,
+            name = "Bruno"
         ),
-        onClickTrack = { }
+        onClickArtist = { }
     )
 }
