@@ -4,18 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.Result
 import com.example.domain.usecase.artist.GetArtistDetailUseCase
-import com.example.domain.usecase.player.SetPlaylistAndPlayParams
-import com.example.domain.usecase.player.SetPlaylistAndPlayUseCase
+import com.example.domain.usecase.player.*
 import com.example.model.Artist
 import com.example.model.Track
 import com.example.model.mapper.toTrack
+import com.example.tcmusic.util.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -25,9 +22,25 @@ import retrofit2.HttpException
 
 @HiltViewModel
 class ArtistDetailViewModel @Inject constructor(
+    observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
+    observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val getArtistDetailUseCase: GetArtistDetailUseCase,
-    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase
+    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase,
+    private val playUseCase: PlayUseCase,
+    private val pauseUseCase: PauseUseCase,
+    private val skipBackwardsUseCase: SkipBackwardsUseCase,
+    private val skipForwardUseCase: SkipForwardUseCase
 ) : ViewModel() {
+    val playingMediaInfo = observePlayingMediaInfoUseCase(Unit).map {
+        if (it is Result.Success) it.data
+        else null
+    }.stateIn(viewModelScope, WhileViewSubscribed, null)
+
+    val isPlaying = observeIsPlayingUseCase(Unit).map {
+        if (it is Result.Success) it.data
+        else true
+    }.stateIn(viewModelScope, WhileViewSubscribed, true)
+
     private val _artist = MutableStateFlow<Artist?>(null)
     val artist = _artist.asStateFlow()
 
@@ -72,6 +85,30 @@ class ArtistDetailViewModel @Inject constructor(
     fun clickTrack(track: Track) {
         viewModelScope.launch {
             setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.key?.toLong() ?: 0L))
+        }
+    }
+
+    fun clickPlayingMediaInfoPlay() {
+        viewModelScope.launch {
+            playUseCase(Unit)
+        }
+    }
+
+    fun clickPlayingMediaInfoPause() {
+        viewModelScope.launch {
+            pauseUseCase(Unit)
+        }
+    }
+
+    fun clickPlayingMediaInfoSkipBackwards() {
+        viewModelScope.launch {
+            skipBackwardsUseCase(Unit)
+        }
+    }
+
+    fun clickPlayingMediaInfoSkipForward() {
+        viewModelScope.launch {
+            skipForwardUseCase(Unit)
         }
     }
 
