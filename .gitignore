@@ -84,4 +84,8 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
+# keystore file
 keystore.jks
+
+# shazam properties
+shazam.properties
