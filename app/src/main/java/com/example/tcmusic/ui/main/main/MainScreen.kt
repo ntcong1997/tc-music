@@ -102,7 +102,7 @@ fun MainScreen(
                     playingMediaInfo = playingMediaInfo.value!!,
                     isPlaying = isPlaying.value,
                     onClickPlayingMediaInfo = {
-                        mainNavController.navigate(com.example.tcmusic.ui.main.Screen.TrackDetailScreen.route + "?trackId=$it")
+                        mainNavController.navigate(com.example.tcmusic.ui.main.Screen.TrackDetailScreen.route + "?trackId=${it.id}&trackVersion=${it.version}")
                     },
                     onClickPlay = viewModel::clickPlay,
                     onClickPause = viewModel::clickPause,
@@ -149,7 +149,7 @@ fun Settings() {
 fun BoxScope.PlayingMediaInfoBar(
     playingMediaInfo: PlayingMediaInfo,
     isPlaying: Boolean,
-    onClickPlayingMediaInfo: (String?) -> Unit,
+    onClickPlayingMediaInfo: (PlayingMediaInfo) -> Unit,
     onClickPlay: () -> Unit,
     onClickPause: () -> Unit,
     onClickSkipBackwards: () -> Unit,
@@ -162,7 +162,7 @@ fun BoxScope.PlayingMediaInfoBar(
             .align(Alignment.BottomCenter)
             .background(GraySilverChalice, RoundedCornerShape(10.dp))
             .clickable {
-                onClickPlayingMediaInfo(playingMediaInfo.id)
+                onClickPlayingMediaInfo(playingMediaInfo)
             },
         verticalAlignment = Alignment.CenterVertically
     ) {

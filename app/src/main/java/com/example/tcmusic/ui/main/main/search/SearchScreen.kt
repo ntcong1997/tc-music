@@ -63,7 +63,7 @@ fun SearchScreen(
         onTextSearchChanged = viewModel::search,
         onClickTrack = viewModel::clickTrack,
         onClickArtist = {
-            mainNavController.navigate(Screen.ArtistDetailScreen.route + "?artistId=${it.adamid}")
+            mainNavController.navigate(Screen.ArtistDetailScreen.route + "?artistId=${it.id}")
         }
     )
 }

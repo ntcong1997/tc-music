@@ -70,7 +70,7 @@ class SearchViewModel @Inject constructor(
 
     fun clickTrack(track: Track) {
         viewModelScope.launch {
-            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.key?.toLong() ?: 0L))
+            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.id?.toLong() ?: 0L))
         }
     }
 }

@@ -18,7 +18,7 @@ class TrackRepositoryImpl @Inject constructor(
         return trackDataSource.searchTracks(query)
     }
 
-    override suspend fun getTrackDetail(trackId: String?): Track? {
-        return trackDataSource.getTrackDetail(trackId)
+    override suspend fun getTrackDetail(trackId: String?, trackVersion: String?): Track? {
+        return trackDataSource.getTrackDetail(trackId, trackVersion)
     }
 }

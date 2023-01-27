@@ -10,12 +10,12 @@ import com.example.model.Track
 fun List<Track>.toMediaMetadata(): List<MediaMetadataCompat> {
     return map {
         MediaMetadataCompat.Builder()
-            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, it.key)
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, it.id)
             .putString(MediaMetadataCompat.METADATA_KEY_TITLE, it.title)
-            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, it.mediaUri)
-            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, it.subtitle)
-            .putString(MediaMetadataCompat.METADATA_KEY_GENRE, it.genres?.primary)
-            .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, it.images?.coverart)
+            .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_URI, it.uri)
+            .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, it.subTitle)
+            .putString(MediaMetadataCompat.METADATA_KEY_GENRE, it.genre)
+            .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, it.image)
             .build()
     }
 }

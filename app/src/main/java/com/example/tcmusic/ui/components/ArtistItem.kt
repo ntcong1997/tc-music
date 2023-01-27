@@ -24,6 +24,7 @@ import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.White
 import com.example.tcmusic.util.compact
+import com.example.test.data.Artist_1
 
 /**
  * Created by TC on 21/11/2022.
@@ -47,9 +48,9 @@ fun ArtistItem(
                 .align(Alignment.Center),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!artist.artistAvatar.isNullOrBlank())
+            if (!artist.avatar.isNullOrBlank())
                 AsyncImage(
-                    model = artist.artistAvatar,
+                    model = artist.avatar,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -63,7 +64,7 @@ fun ArtistItem(
                         .background(BlueRibbon, CircleShape)
                 ) {
                     Text(
-                        text = artist.artistName.compact(),
+                        text = artist.name.compact(),
                         color = White,
                         fontSize = 16.sp,
                         modifier = Modifier.align(Alignment.Center)
@@ -76,7 +77,7 @@ fun ArtistItem(
                     .padding(horizontal = 10.dp)
             ) {
                 Text(
-                    text = artist.artistName ?: "",
+                    text = artist.name ?: "",
                     color = Black,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -97,13 +98,7 @@ fun ArtistItem(
 @Composable
 fun ArtistItemPreview() {
     ArtistItem(
-        artist = Artist(
-            adamid = "1",
-            alias = null,
-            avatar = "https://",
-            data = null,
-            name = "Bruno"
-        ),
+        artist = Artist_1,
         onClickArtist = { }
     )
 }

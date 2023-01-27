@@ -82,8 +82,9 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideTrackDataSource(
-        shazamApiService: ShazamApiService
-    ): TrackDataSource = TrackDataSourceImpl(shazamApiService)
+        shazamApiService: ShazamApiService,
+        gson: Gson
+    ): TrackDataSource = TrackDataSourceImpl(shazamApiService, gson)
 
     @Singleton
     @Provides

@@ -7,6 +7,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.example.model.Track
 import com.example.player.util.toMediaMetadata
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,6 +19,9 @@ import javax.inject.Singleton
 class PlayerData @Inject constructor() {
     private var playlistResources: List<MediaMetadataCompat> = emptyList()
     var startPlayingId = 0L
+
+    // Mark version of track to get track detail
+    var currentTrackVersion: String? = null
 
     // Original playlist without modified
     private val originalPlaylist = ArrayList<MediaSessionCompat.QueueItem>()
@@ -33,6 +37,8 @@ class PlayerData @Inject constructor() {
     fun setPlaylist(playlist: List<Track>, startPlayingId: Long) {
         this.startPlayingId = startPlayingId
         this.playlistResources = playlist.toMediaMetadata()
+
+        currentTrackVersion = playlist.firstOrNull()?.version
     }
 
     fun playerResources(): MutableList<MediaBrowserCompat.MediaItem> {

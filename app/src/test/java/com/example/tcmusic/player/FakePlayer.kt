@@ -19,8 +19,8 @@ class FakePlayer : Player {
     private val _progress = MutableSharedFlow<Long>(replay = 1)
 
     override fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long) {
-        val playingTrack = playlist.first { it.key?.toLong() == startPlayingId }
-        val playingMediaInfo = PlayingMediasInfo.find { it.id == playingTrack.key }
+        val playingTrack = playlist.first { it.id?.toLong() == startPlayingId }
+        val playingMediaInfo = PlayingMediasInfo.find { it.id == playingTrack.id }
         _playingMediaInfo.tryEmit(playingMediaInfo)
     }
 

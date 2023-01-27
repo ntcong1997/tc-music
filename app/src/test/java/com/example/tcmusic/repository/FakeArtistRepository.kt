@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.flow
 class FakeArtistRepository : ArtistRepository {
     override fun searchArtists(query: String?): Flow<PagingData<Artist>> {
         return flow {
-            emit(PagingData.from(Artists.filter { it.artistName?.contains(query ?: "", ignoreCase = true) == true }))
+            emit(PagingData.from(Artists.filter { it.name?.contains(query ?: "", ignoreCase = true) == true }))
         }
     }
 
     override suspend fun getArtistDetail(artistId: String?): Artist? {
-        return Artists.find { it.adamid == artistId }
+        return Artists.find { it.id == artistId }
     }
 }

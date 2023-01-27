@@ -53,6 +53,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":model"))
     implementation(project(":player"))
+    implementation(project(":test-data"))
     testImplementation(project(":test-data"))
 
     // Core

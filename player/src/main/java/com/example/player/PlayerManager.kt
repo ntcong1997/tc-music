@@ -58,7 +58,7 @@ class PlayerManager @Inject constructor(
             val duration = metadata?.getLong(MediaMetadataCompat.METADATA_KEY_DURATION)
             Timber.d("$TAG: onMetadataChanged $id, $title, $artist, $coverArt $duration")
 
-            _playingMediaInfo.tryEmit(PlayingMediaInfo(id, artist, coverArt, title))
+            _playingMediaInfo.tryEmit(PlayingMediaInfo(id, artist, coverArt, title, playerData.currentTrackVersion))
             _duration.tryEmit(duration ?: 0L)
         }
     }

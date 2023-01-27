@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Created by TC on 09/10/2022.
@@ -20,7 +21,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
 
-    private val _navigateToTrackDetail = Channel<Unit>(Channel.CONFLATED)
+    private val _navigateToTrackDetail = Channel<DataTrackDetail>(Channel.CONFLATED)
     val navigateToTrackDetail = _navigateToTrackDetail.receiveAsFlow()
 
     init {
@@ -30,7 +31,12 @@ class MainViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun openTrackDetail() {
-        _navigateToTrackDetail.trySend(Unit)
+    fun openTrackDetail(trackId: String?, version: String?) {
+        _navigateToTrackDetail.trySend(DataTrackDetail(trackId, version))
     }
 }
+
+data class DataTrackDetail(
+    val trackId: String?,
+    val trackVersion: String?
+)

@@ -1,20 +1,16 @@
-package com.example.domain.model
+package com.example.data.entity
 
-import com.example.model.Artist
-import com.example.model.Artwork
-import com.example.model.Attributes
-import com.example.model.Data
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 
 /**
- * Created by TC on 06/01/2023.
+ * Created by TC on 27/01/2023.
  */
 
-class ArtistTest {
+class ArtistEntityTest {
     @Test
     fun `artist does not have data param but has name and avatar param`() {
-        val artist = Artist(
+        val artist = ArtistEntity(
             adamid = "1",
             alias = null,
             avatar = "https://",
@@ -22,13 +18,13 @@ class ArtistTest {
             name = "Bruno"
         )
 
-        assertEquals("Bruno", artist.artistName)
-        assertEquals("https://", artist.artistAvatar)
+        Assert.assertEquals("Bruno", artist.artistName)
+        Assert.assertEquals("https://", artist.artistAvatar)
     }
 
     @Test
     fun `artist does not have name and avatar param but has data param`() {
-        val artist = Artist(
+        val artist = ArtistEntity(
             adamid = "1",
             alias = null,
             avatar = null,
@@ -54,7 +50,7 @@ class ArtistTest {
             name = null
         )
 
-        assertEquals("Bruno", artist.artistName)
-        assertEquals("https://", artist.artistAvatar)
+        Assert.assertEquals("Bruno", artist.artistName)
+        Assert.assertEquals("https://", artist.artistAvatar)
     }
 }

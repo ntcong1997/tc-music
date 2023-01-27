@@ -271,6 +271,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
 
         mediaNotificationManager.createNotification(
             playerData.preparedMediaMetadata!!,
+            playerData.currentTrackVersion,
             state,
             sessionToken!!
         )
@@ -282,6 +283,7 @@ class MusicPlayerService : MediaBrowserServiceCompat() {
         }
         mediaNotificationManager.createNotification(
             playerData.preparedMediaMetadata!!,
+            playerData.currentTrackVersion,
             state,
             sessionToken!!
         )

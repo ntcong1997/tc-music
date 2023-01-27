@@ -1,10 +1,7 @@
 package com.example.data.remote.apiservice
 
+import com.example.data.entity.*
 import com.example.data.remote.*
-import com.example.model.Artist
-import com.example.model.SearchArtistsResult
-import com.example.model.SearchTracksResult
-import com.example.model.Track
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,13 +10,13 @@ import retrofit2.http.Query
  */
 interface ShazamApiService {
     @GET(API_GET_WORLD_CHART)
-    suspend fun getWorldChart(@Query("offset") offset: Int): List<Track>
+    suspend fun getWorldChart(@Query("offset") offset: Int): List<TrackEntity>
 
     @GET(API_GET_WORLD_CHART_BY_GENRE)
     suspend fun getWorldChartByGenre(
         @Query("genre_code") genreCode: String?,
         @Query("offset") offset: Int
-    ): List<Track>
+    ): List<TrackEntity>
 
     @GET(API_MULTI_SEARCH)
     suspend fun searchTracks(
@@ -35,9 +32,12 @@ interface ShazamApiService {
         @Query("offset") offset: Int
     ): SearchArtistsResult
 
-    @GET(API_GET_TRACK_DETAIL)
-    suspend fun getTrackDetail(@Query("track_id") trackId: String?): Track?
+    @GET(API_GET_TRACK_DETAIL_V1)
+    suspend fun getTrackDetailV1(@Query("track_id") trackId: String?): TrackEntity?
+
+    @GET(API_GET_TRACK_DETAIL_V2)
+    suspend fun getTrackDetailV2(@Query("track_id") trackId: String?): TrackV2Entity?
 
     @GET(API_GET_ARTIST_DETAIL)
-    suspend fun getArtistDetail(@Query("artist_id") artistId: String?): Artist?
+    suspend fun getArtistDetail(@Query("artist_id") artistId: String?): ArtistEntity?
 }

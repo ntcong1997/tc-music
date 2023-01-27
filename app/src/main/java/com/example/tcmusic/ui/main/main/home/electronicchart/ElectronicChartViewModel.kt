@@ -44,7 +44,7 @@ class ElectronicChartViewModel @Inject constructor(
     fun clickTrack(track: Track) {
         viewModelScope.launch {
             val startPlayingId = try {
-                track.key?.toLong() ?: 0L
+                track.id?.toLong() ?: 0L
             } catch (e: Exception) {
                 e.printStackTrace()
                 0L

@@ -1,171 +1,79 @@
 package com.example.test.data
 
 import com.example.model.Artist
-import com.example.model.Attributes
-import com.example.model.Data
 
 /**
  * Created by TC on 09/01/2023.
  */
 
 val Artist_1 = Artist(
-    adamid = "1",
-    alias = null,
     avatar = null,
-    data = null,
-    name = "Bruno Mars"
+    id = "1",
+    name = "Bruno Mars",
+    topSongs = listOf()
 )
 
 val Artist_2 = Artist(
-    adamid = "2",
-    alias = null,
     avatar = null,
-    data = listOf(
-        Data(
-            attributes = Attributes(
-                artistBio = null,
-                artwork = null,
-                genreNames = null,
-                name = "One Direction",
-                origin = null,
-                url = null
-            ),
-            href = null,
-            id = "2",
-            relationships = null,
-            type = null,
-            views = null
-        )
-    ),
-    name = null
+    id = "2",
+    name = "One Direction",
+    topSongs = listOf()
 )
 
 val Artist_3 = Artist(
-    adamid = "3",
-    alias = null,
     avatar = null,
-    data = null,
-    name = "Taylor Swift"
+    id = "3",
+    name = "Taylor Swift",
+    topSongs = listOf()
 )
 
 val Artist_4 = Artist(
-    adamid = "4",
-    alias = null,
     avatar = null,
-    data = listOf(
-        Data(
-            attributes = Attributes(
-                artistBio = null,
-                artwork = null,
-                genreNames = null,
-                name = "Adam Levine",
-                origin = null,
-                url = null
-            ),
-            href = null,
-            id = "4",
-            relationships = null,
-            type = null,
-            views = null
-        )
-    ),
-    name = null
+    id = "4",
+    name = "Adam Levine",
+    topSongs = listOf()
 )
 
 val Artist_5 = Artist(
-    adamid = "5",
-    alias = null,
     avatar = null,
-    data = listOf(
-        Data(
-            attributes = Attributes(
-                artistBio = null,
-                artwork = null,
-                genreNames = null,
-                name = "Adele",
-                origin = null,
-                url = null
-            ),
-            href = null,
-            id = "5",
-            relationships = null,
-            type = null,
-            views = null
-        )
-    ),
-    name = null
+    id = "5",
+    name = "Adele",
+    topSongs = listOf()
 )
 
 val Artist_6 = Artist(
-    adamid = "6",
-    alias = null,
     avatar = null,
-    data = null,
-    name = "Ed Sheeran"
+    id = "6",
+    name = "Ed Sheeran",
+    topSongs = listOf()
 )
 
 val Artist_7 = Artist(
-    adamid = "7",
-    alias = null,
     avatar = null,
-    data = null,
-    name = "Charlie Puth"
+    id = "7",
+    name = "Charlie Puth",
+    topSongs = listOf()
 )
 
 val Artist_8 = Artist(
-    adamid = "8",
-    alias = null,
     avatar = null,
-    data = null,
-    name = "Sia"
+    id = "8",
+    name = "Sia",
+    topSongs = listOf()
 )
 
 val Artist_9 = Artist(
-    adamid = "9",
-    alias = null,
     avatar = null,
-    data = listOf(
-        Data(
-            attributes = Attributes(
-                artistBio = null,
-                artwork = null,
-                genreNames = null,
-                name = "Pitbull",
-                origin = null,
-                url = null
-            ),
-            href = null,
-            id = "9",
-            relationships = null,
-            type = null,
-            views = null
-        )
-    ),
-    name = null
+    id = "9",
+    name = "Pitbull",
+    topSongs = listOf()
 )
 
 val Artist_10 = Artist(
-    adamid = "10",
-    alias = null,
     avatar = null,
-    data = listOf(
-        Data(
-            attributes = Attributes(
-                artistBio = null,
-                artwork = null,
-                genreNames = null,
-                name = "Alan Walker",
-                origin = null,
-                url = null
-            ),
-            href = null,
-            id = "10",
-            relationships = null,
-            type = null,
-            views = null
-        )
-    ),
-    name = null
+    id = "10",
+    name = "Alan Walker",
+    topSongs = listOf()
 )
 
 val Artists = listOf(

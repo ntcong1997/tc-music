@@ -1,4 +1,4 @@
-package com.example.model
+package com.example.data.entity
 
 import com.google.gson.annotations.SerializedName
 
@@ -18,5 +18,5 @@ data class Artists(
 
 data class ArtistsHit(
     @SerializedName("artist")
-    val artist: Artist?
+    val artist: ArtistEntity?
 )

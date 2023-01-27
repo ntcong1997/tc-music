@@ -11,7 +11,6 @@ import com.example.model.Track
 import com.example.tcmusic.player.FakePlayer
 import com.example.tcmusic.repository.FakeArtistRepository
 import com.example.tcmusic.repository.FakeTrackRepository
-import com.example.tcmusic.ui.main.main.search.SearchViewModel
 import com.example.tcmusic.util.collectData
 import com.example.test.MainCoroutineRule
 import com.example.test.data.Artists
@@ -91,7 +90,7 @@ class SearchViewModelTest {
         viewModel.search("le")
         viewModel.artists.test {
             assertEquals(
-                Artists.filter { it.artistName?.contains("le", ignoreCase = true) == true },
+                Artists.filter { it.name?.contains("le", ignoreCase = true) == true },
                 awaitItem().collectData(coroutineRule.testDispatcher)
             )
         }

@@ -26,6 +26,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -59,8 +60,24 @@ class MainActivity : ComponentActivity() {
                         composable(route = Screen.MainScreen.route) {
                             MainScreen(navController)
                         }
-                        composable(route = Screen.TrackDetailScreen.route) {
+                        composable(
+                            route = Screen.TrackDetailScreen.route + "?trackId={trackId}&trackVersion={trackVersion}",
+                            arguments = listOf(
+                                navArgument(name = "trackId") {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                },
+                                navArgument(name = "trackVersion") {
+                                    type = NavType.StringType
+                                    defaultValue = ""
+                                }
+                            )
+                        ) {
+                            val trackId = it.arguments?.getString("trackId") ?: ""
+                            val trackVersion = it.arguments?.getString("trackVersion") ?: ""
                             TrackDetailScreen(
+                                trackId = trackId,
+                                trackVersion = trackVersion,
                                 navController = navController
                             )
                         }
@@ -84,25 +101,27 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(key1 = Unit) {
                     viewModel.navigateToTrackDetail.collect {
-                        navController.navigate(Screen.TrackDetailScreen.route)
+                        navController.navigate(Screen.TrackDetailScreen.route + "?trackId=${it.trackId}&trackVersion=${it.trackVersion}")
                     }
                 }
             }
         }
 
         intent?.extras?.let {
-            it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID)?.let {
-                viewModel.openTrackDetail()
-            }
+            viewModel.openTrackDetail(
+                it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID),
+                it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_VERSION)
+            )
         }
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         intent?.extras?.let {
-            it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID)?.let {
-                viewModel.openTrackDetail()
-            }
+            viewModel.openTrackDetail(
+                it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_ID),
+                it.getString(MediaNotificationManager.EXTRA_DATA_TRACK_VERSION)
+            )
         }
     }
 }

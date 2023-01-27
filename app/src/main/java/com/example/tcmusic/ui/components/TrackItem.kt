@@ -25,6 +25,7 @@ import com.example.tcmusic.ui.theme.Black
 import com.example.tcmusic.ui.theme.BlueRibbon
 import com.example.tcmusic.ui.theme.White
 import com.example.tcmusic.util.compact
+import com.example.test.data.Track_1
 
 /**
  * Created by TC on 21/11/2022.
@@ -48,9 +49,9 @@ fun TrackItem(
                 .align(Alignment.Center),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!track.images?.coverart.isNullOrBlank())
+            if (!track.image.isNullOrBlank())
                 AsyncImage(
-                    model = track.images?.coverart,
+                    model = track.image,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -86,7 +87,7 @@ fun TrackItem(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = track.subtitle ?: "",
+                    text = track.subTitle ?: "",
                     color = Black,
                     fontSize = 12.sp
                 )
@@ -106,23 +107,7 @@ fun TrackItem(
 @Composable
 fun TrackItemPreview() {
     TrackItem(
-        track = Track(
-            alias = null,
-            artists = null,
-            genres = null,
-            hub = null,
-            images = null,
-            key = null,
-            layout = null,
-            releasedate = null,
-            sections = null,
-            share = null,
-            subtitle = "Bruno Mars",
-            title = "It will rain",
-            type = null,
-            url = null,
-            urlparams = null
-        ),
+        track = Track_1,
         onClickTrack = { }
     )
 }

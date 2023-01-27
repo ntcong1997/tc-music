@@ -14,8 +14,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 class GetTrackDetailUseCase @Inject constructor(
     private val trackRepository: TrackRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : CoroutineUseCase<String?, Track?>(dispatcher) {
-    override suspend fun execute(parameters: String?): Track? {
-        return trackRepository.getTrackDetail(parameters)
+) : CoroutineUseCase<GetTrackDetailParams, Track?>(dispatcher) {
+    override suspend fun execute(parameters: GetTrackDetailParams): Track? {
+        return trackRepository.getTrackDetail(parameters.trackId, parameters.trackVersion)
     }
 }
+
+data class GetTrackDetailParams(
+    val trackId: String?,
+    val trackVersion: String?
+)
