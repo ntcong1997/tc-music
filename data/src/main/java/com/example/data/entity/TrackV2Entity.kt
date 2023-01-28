@@ -12,15 +12,15 @@ data class TrackV2Entity(
 
 data class Resources(
     @SerializedName("albums")
-    val albums: HashMap<String, Any?>?,
+    val albums: Map<String, Any?>?,
     @SerializedName("artists")
-    val artists: HashMap<String, Any?>?,
+    val artists: Map<String, Any?>?,
     @SerializedName("lyrics")
-    val lyrics: HashMap<String, Any?>?,
+    val lyrics: Map<String, Any?>?,
     @SerializedName("related-tracks")
-    val relatedTracks: HashMap<String, Any?>?,
+    val relatedTracks: Map<String, Any?>?,
     @SerializedName("shazam-songs")
-    val shazamSongs: HashMap<String, Any?>?,
+    val shazamSongs: Map<String, Any?>?,
 )
 
 data class Album(

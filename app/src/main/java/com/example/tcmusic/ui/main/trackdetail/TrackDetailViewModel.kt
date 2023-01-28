@@ -8,13 +8,12 @@ import com.example.domain.usecase.track.GetTrackDetailParams
 import com.example.domain.usecase.track.GetTrackDetailUseCase
 import com.example.tcmusic.util.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import kotlin.math.roundToLong
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Created by TC on 01/12/2022.
@@ -39,8 +38,7 @@ class TrackDetailViewModel @Inject constructor(
             val resultGetTrackDetail = getTrackDetailUseCase(it)
             if (resultGetTrackDetail is Result.Success) resultGetTrackDetail.data
             else null
-        }
-        else null
+        } else null
     }.stateIn(viewModelScope, WhileViewSubscribed, null)
 
     val trackDuration = observeDurationUseCase(Unit).map {

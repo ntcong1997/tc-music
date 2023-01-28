@@ -7,7 +7,6 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import com.example.model.Track
 import com.example.player.util.toMediaMetadata
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -3,7 +3,6 @@ package com.example.data.mapper
 import com.example.data.entity.*
 import com.example.model.*
 import com.google.gson.Gson
-import timber.log.Timber
 
 /**
  * Created by TC on 09/01/2023.
