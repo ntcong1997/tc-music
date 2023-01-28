@@ -10,7 +10,11 @@ plugins {
 }
 
 val shazamProperties = Properties().apply {
-    load(FileInputStream(File(rootProject.rootDir, "shazam.properties")))
+    try {
+        load(FileInputStream(File(rootProject.rootDir, "shazam.properties")))
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }
 
 android {
