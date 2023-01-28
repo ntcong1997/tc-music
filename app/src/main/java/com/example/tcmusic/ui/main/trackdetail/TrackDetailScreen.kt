@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import com.example.tcmusic.R
 import com.example.tcmusic.ui.theme.*
 import com.example.tcmusic.util.compact
 import com.example.tcmusic.util.convertTimeInMillisToMinuteSecondFormat
+import com.example.test.data.Track_1
 import kotlinx.coroutines.launch
 
 /**
@@ -36,6 +38,8 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @Composable
 fun TrackDetailScreen(
+    trackId: String?,
+    trackVersion: String?,
     navController: NavController,
     viewModel: TrackDetailViewModel = hiltViewModel()
 ) {
@@ -59,6 +63,10 @@ fun TrackDetailScreen(
         onClickSkipBackwards = viewModel::clickSkipBackwards,
         onClickSkipForward = viewModel::clickSkipForward
     )
+
+    LaunchedEffect(key1 = trackId) {
+        viewModel.track(trackId, trackVersion)
+    }
 }
 
 @ExperimentalMaterialApi
@@ -103,9 +111,9 @@ fun TrackDetailScreen(
                 .verticalScroll(scrollState)
         ) {
             TrackInfo(
-                image = track?.images?.coverart,
+                image = track?.image,
                 title = track?.title,
-                subTitle = track?.subtitle
+                subTitle = track?.subTitle
             )
 
             Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
@@ -409,23 +417,7 @@ fun TrackLyrics(
 @Composable
 fun TrackDetailScreenPreview() {
     TrackDetailScreen(
-        track = Track(
-            alias = null,
-            artists = null,
-            genres = null,
-            hub = null,
-            images = null,
-            key = null,
-            layout = null,
-            releasedate = null,
-            sections = null,
-            share = null,
-            subtitle = "Bruno Mars",
-            title = "It will rain",
-            type = null,
-            url = null,
-            urlparams = null
-        ),
+        track = Track_1,
         trackDuration = 60000L,
         trackProgress = 20000L,
         trackIsPlaying = true,

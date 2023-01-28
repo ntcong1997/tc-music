@@ -2,6 +2,7 @@ package com.example.data.datasource.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.data.mapper.toArtist
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Artist
 import java.io.IOException
@@ -24,7 +25,7 @@ class SearchArtistsPagingDataSource(
             val response = shazamApiService.searchArtists(
                 query = query,
                 offset = offset
-            ).artists?.hits?.mapNotNull { it.artist } ?: listOf()
+            ).artists?.hits?.mapNotNull { it.artist?.toArtist() } ?: listOf()
             LoadResult.Page(
                 data = response,
                 prevKey = null, // Only paging forward.

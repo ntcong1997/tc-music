@@ -19,6 +19,9 @@ class PlayerData @Inject constructor() {
     private var playlistResources: List<MediaMetadataCompat> = emptyList()
     var startPlayingId = 0L
 
+    // Mark version of track to get track detail
+    var currentTrackVersion: String? = null
+
     // Original playlist without modified
     private val originalPlaylist = ArrayList<MediaSessionCompat.QueueItem>()
     // Modified playlist by shuffle mode
@@ -33,6 +36,8 @@ class PlayerData @Inject constructor() {
     fun setPlaylist(playlist: List<Track>, startPlayingId: Long) {
         this.startPlayingId = startPlayingId
         this.playlistResources = playlist.toMediaMetadata()
+
+        currentTrackVersion = playlist.firstOrNull()?.version
     }
 
     fun playerResources(): MutableList<MediaBrowserCompat.MediaItem> {

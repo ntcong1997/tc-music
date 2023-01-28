@@ -11,7 +11,6 @@ import com.example.test.data.Artist_1
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -66,7 +65,7 @@ class ArtistDetailViewModelTest {
 
     @Test
     fun `get artist detail success`() = runTest {
-        viewModel.getArtistDetail(Artist_1.adamid)
+        viewModel.getArtistDetail(Artist_1.id)
         viewModel.artist.test {
             assertEquals(awaitItem(), Artist_1)
         }

@@ -2,6 +2,7 @@ package com.example.data.datasource.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.data.mapper.toTrack
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.GenreCode
 import com.example.model.Track
@@ -23,7 +24,7 @@ class WorldChartByGenrePagingDataSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Track> {
         val offset = params.key ?: 0
         return try {
-            val response = shazamApiService.getWorldChartByGenre(genreCode.value, offset)
+            val response = shazamApiService.getWorldChartByGenre(genreCode.value, offset).map { it.toTrack() }
             LoadResult.Page(
                 data = response,
                 prevKey = null, // Only paging forward.

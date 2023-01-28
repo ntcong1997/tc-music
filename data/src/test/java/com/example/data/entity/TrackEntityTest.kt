@@ -1,17 +1,16 @@
-package com.example.domain.model
+package com.example.data.entity
 
-import com.example.model.*
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Test
 
 /**
- * Created by TC on 04/12/2022.
+ * Created by TC on 27/01/2023.
  */
 
-class TrackTest {
+class TrackEntityTest {
     @Test
     fun `track has lyrics`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
@@ -30,7 +29,7 @@ class TrackTest {
                 options = null,
                 type = null
             ),
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -60,12 +59,12 @@ class TrackTest {
         val expectedResult = listOf("A", "B", "C")
         val actualResult = track.lyrics
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `track has no lyrics case sections is null`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
@@ -84,7 +83,7 @@ class TrackTest {
                 options = null,
                 type = null
             ),
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -104,12 +103,12 @@ class TrackTest {
         val expectedResult = listOf<String>()
         val actualResult = track.lyrics
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `track has no lyrics case sections have no element lyrics`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
@@ -128,7 +127,7 @@ class TrackTest {
                 options = null,
                 type = null
             ),
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -158,12 +157,12 @@ class TrackTest {
         val expectedResult = listOf<String>()
         val actualResult = track.lyrics
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `track has media uri`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
@@ -182,7 +181,7 @@ class TrackTest {
                 options = null,
                 type = null
             ),
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -202,17 +201,17 @@ class TrackTest {
         val expectedResult = "https://..."
         val actualResult = track.mediaUri
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `track has no media uri case hub is null`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
             hub = null,
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -232,12 +231,12 @@ class TrackTest {
         val expectedResult = ""
         val actualResult = track.mediaUri
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 
     @Test
     fun `track has no media uri case hub has no element uri`() {
-        val track = Track(
+        val track = TrackEntity(
             alias = null,
             artists = listOf(),
             genres = Genres("POP"),
@@ -256,7 +255,7 @@ class TrackTest {
                 options = null,
                 type = null
             ),
-            images = Images(
+            images = TrackImages(
                 background = null,
                 coverart = null,
                 coverarthq = null
@@ -276,6 +275,6 @@ class TrackTest {
         val expectedResult = ""
         val actualResult = track.mediaUri
 
-        assertEquals(expectedResult, actualResult)
+        Assert.assertEquals(expectedResult, actualResult)
     }
 }

@@ -5,7 +5,6 @@ import com.example.domain.usecase.player.*
 import com.example.domain.usecase.track.GetTrackDetailUseCase
 import com.example.tcmusic.player.FakePlayer
 import com.example.tcmusic.repository.FakeTrackRepository
-import com.example.tcmusic.ui.main.trackdetail.TrackDetailViewModel
 import com.example.test.MainCoroutineRule
 import com.example.test.data.Track_1
 import com.example.test.data.Tracks
@@ -73,7 +72,7 @@ class TrackDetailViewModelTest {
 
     @Test
     fun `get track detail from playing media`() = runTest {
-        fakePlayer.setPlaylistAndPlay(Tracks, Track_1.key?.toLong() ?: 0L)
+        fakePlayer.setPlaylistAndPlay(Tracks, Track_1.id?.toLong() ?: 0L)
         val track = viewModel.track.first()
         assertThat(track, equalTo(Track_1))
     }

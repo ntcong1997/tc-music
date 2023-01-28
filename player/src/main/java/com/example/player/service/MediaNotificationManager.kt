@@ -69,6 +69,7 @@ class MediaNotificationManager @Inject constructor(
 
     fun createNotification(
         mediaMetadata: MediaMetadataCompat,
+        currentTrackVersion: String?,
         playbackState: PlaybackStateCompat,
         token: MediaSessionCompat.Token
     ) {
@@ -80,11 +81,13 @@ class MediaNotificationManager @Inject constructor(
         }
 
         val intent = Intent(context, mediaNotificationConfig.activityToOpenOnClick).apply {
-            val bundle = Bundle()
-            bundle.putString(EXTRA_DATA_TRACK_ID, description.mediaId)
+            val bundle = Bundle().apply {
+                putString(EXTRA_DATA_TRACK_ID, description.mediaId)
+                putString(EXTRA_DATA_TRACK_VERSION, currentTrackVersion)
+            }
             putExtras(bundle)
         }
-        val flagPendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
+        val flagPendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT else PendingIntent.FLAG_UPDATE_CURRENT
         val pendingIntent = PendingIntent.getActivity(context, MEDIA_NOTIFICATION_ID, intent, flagPendingIntent)
 
         val builder = NotificationCompat.Builder(context, MEDIA_NOTIFICATION_CHANNEL_ID)
@@ -157,6 +160,7 @@ class MediaNotificationManager @Inject constructor(
         private const val MEDIA_NOTIFICATION_ID = 10001
 
         const val EXTRA_DATA_TRACK_ID = "EXTRA_DATA_TRACK_ID"
+        const val EXTRA_DATA_TRACK_VERSION = "EXTRA_DATA_TRACK_VERSION"
     }
 }
 

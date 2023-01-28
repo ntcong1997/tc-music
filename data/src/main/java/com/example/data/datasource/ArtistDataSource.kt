@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.data.datasource.paging.SearchArtistsPagingDataSource
+import com.example.data.mapper.toArtist
 import com.example.data.remote.apiservice.ShazamApiService
 import com.example.model.Artist
 import javax.inject.Inject
@@ -30,6 +31,6 @@ class ArtistDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getArtistDetail(artistId: String?): Artist? {
-        return shazamApiService.getArtistDetail(artistId)
+        return shazamApiService.getArtistDetail(artistId)?.toArtist()
     }
 }

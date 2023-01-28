@@ -37,6 +37,7 @@ import com.example.tcmusic.ui.components.TrackItem
 import com.example.tcmusic.ui.main.Screen
 import com.example.tcmusic.ui.theme.*
 import com.example.tcmusic.util.compact
+import com.example.test.data.Artist_1
 import java.util.*
 
 /**
@@ -69,7 +70,7 @@ fun ArtistDetailScreen(
         onClickPlay = viewModel::clickPlay,
         onClickTrack = viewModel::clickTrack,
         onClickPlayingMediaInfo = {
-            navController.navigate(Screen.TrackDetailScreen.route + "?trackId=$it")
+            navController.navigate(Screen.TrackDetailScreen.route + "?trackId=${it.id}&trackVersion=${it.version}")
         },
         onClickPlayingMediaInfoPlay = viewModel::clickPlayingMediaInfoPlay,
         onClickPlayingMediaInfoPause = viewModel::clickPlayingMediaInfoPause,
@@ -94,16 +95,18 @@ fun ArtistDetailScreen(
     onClickBack: () -> Unit,
     onClickPlay: () -> Unit,
     onClickTrack: (Track) -> Unit,
-    onClickPlayingMediaInfo: (String?) -> Unit,
+    onClickPlayingMediaInfo: (PlayingMediaInfo) -> Unit,
     onClickPlayingMediaInfoPlay: () -> Unit,
     onClickPlayingMediaInfoPause: () -> Unit,
     onClickPlayingMediaInfoSkipBackwards: () -> Unit,
     onClickPlayingMediaInfoSkipForward: () -> Unit,
     onDismissError: () -> Unit
 ) {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(White)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -119,8 +122,8 @@ fun ArtistDetailScreen(
                     .weight(1f)
             ) {
                 ArtistInfo(
-                    avatar = artist?.artistAvatar,
-                    name = artist?.artistName
+                    avatar = artist?.avatar,
+                    name = artist?.name
                 )
 
                 Row(
@@ -285,7 +288,7 @@ fun TopSongs(
         items(
             items = tracks,
             key = {
-                it.key ?: UUID.randomUUID().toString()
+                it.id ?: UUID.randomUUID().toString()
             }
         ) { itemTrack ->
             TrackItem(
@@ -302,7 +305,7 @@ fun TopSongs(
 fun BoxScope.PlayingMediaInfoBar(
     playingMediaInfo: PlayingMediaInfo,
     isPlaying: Boolean,
-    onClickPlayingMediaInfo: (String?) -> Unit,
+    onClickPlayingMediaInfo: (PlayingMediaInfo) -> Unit,
     onClickPlay: () -> Unit,
     onClickPause: () -> Unit,
     onClickSkipBackwards: () -> Unit,
@@ -315,7 +318,7 @@ fun BoxScope.PlayingMediaInfoBar(
             .align(Alignment.BottomCenter)
             .background(GraySilverChalice, RoundedCornerShape(10.dp))
             .clickable {
-                onClickPlayingMediaInfo(playingMediaInfo.id)
+                onClickPlayingMediaInfo(playingMediaInfo)
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -402,13 +405,7 @@ fun ArtistDetailScreenPreview() {
     ArtistDetailScreen(
         playingMediaInfo = null,
         isPlaying = true,
-        artist = Artist(
-            adamid = "1",
-            alias = null,
-            avatar = null,
-            data = null,
-            name = "Bruno Mars"
-        ),
+        artist = Artist_1,
         topSongs = listOf(),
         showLoading = false,
         showError = null,
@@ -417,7 +414,6 @@ fun ArtistDetailScreenPreview() {
         onClickTrack = { _ ->
         },
         onClickPlayingMediaInfo = { _ ->
-
         },
         onClickPlayingMediaInfoPlay = { },
         onClickPlayingMediaInfoPause = { },

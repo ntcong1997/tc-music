@@ -1,8 +1,16 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+}
+
+val shazamProperties = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "shazam.properties")))
 }
 
 android {
@@ -15,12 +23,12 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
+            buildConfigField("String", "X_RapidAPI_Key", shazamProperties.getProperty("spr.key") ?: System.getenv("SHAZAM_KEY"))
             buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
         }
 
         getByName("release") {
-            buildConfigField("String", "X_RapidAPI_Key", "\"cb0c3be532msh5393ffc0637e0ecp1c6024jsn0e148e1c8e2b\"")
+            buildConfigField("String", "X_RapidAPI_Key", shazamProperties.getProperty("spr.key") ?: System.getenv("SHAZAM_KEY"))
             buildConfigField("String", "X_RapidAPI_Host", "\"shazam-core.p.rapidapi.com\"")
 
             isMinifyEnabled = true

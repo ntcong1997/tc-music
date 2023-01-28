@@ -19,6 +19,6 @@ class FakeTrackRepository : TrackRepository {
     }
 
     override suspend fun getTrackDetail(trackId: String?): Track? {
-        return Tracks.find { it.key == trackId }
+        return Tracks.find { it.id == trackId }
     }
 }

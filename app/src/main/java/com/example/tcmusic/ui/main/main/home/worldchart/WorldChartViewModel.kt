@@ -38,7 +38,7 @@ class WorldChartViewModel @Inject constructor(
     fun clickTrack(track: Track, playlist: List<Track>) {
         viewModelScope.launch {
             val startPlayingId = try {
-                track.key?.toLong() ?: 0L
+                track.id?.toLong() ?: 0L
             } catch (e: Exception) {
                 e.printStackTrace()
                 0L

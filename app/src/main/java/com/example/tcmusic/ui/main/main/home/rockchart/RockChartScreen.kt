@@ -57,7 +57,7 @@ fun RockChartScreen(
             items(
                 items = tracks,
                 key = {
-                    it.key ?: UUID.randomUUID().toString()
+                    it.id ?: UUID.randomUUID().toString()
                 }
             ) { itemTrack ->
                 itemTrack?.let {

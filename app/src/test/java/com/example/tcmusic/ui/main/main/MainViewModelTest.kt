@@ -2,11 +2,7 @@ package com.example.tcmusic.ui.main.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.usecase.player.*
-import com.example.domain.usecase.track.GetTrackDetailUseCase
 import com.example.tcmusic.player.FakePlayer
-import com.example.tcmusic.repository.FakeTrackRepository
-import com.example.tcmusic.ui.main.artistdetail.ArtistDetailViewModel
-import com.example.tcmusic.ui.main.trackdetail.TrackDetailViewModel
 import com.example.test.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

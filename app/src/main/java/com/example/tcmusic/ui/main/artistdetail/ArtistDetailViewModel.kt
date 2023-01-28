@@ -7,12 +7,11 @@ import com.example.domain.usecase.artist.GetArtistDetailUseCase
 import com.example.domain.usecase.player.*
 import com.example.model.Artist
 import com.example.model.Track
-import com.example.model.mapper.toTrack
 import com.example.tcmusic.util.WhileViewSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -45,9 +44,7 @@ class ArtistDetailViewModel @Inject constructor(
     val artist = _artist.asStateFlow()
 
     val topSongs = _artist.map {
-        it?.topSongs?.map {
-            it.toTrack()
-        } ?: listOf()
+        it?.topSongs ?: listOf()
     }
 
     private val _showLoading = MutableStateFlow(false)
@@ -77,14 +74,14 @@ class ArtistDetailViewModel @Inject constructor(
 
     fun clickPlay() {
         viewModelScope.launch {
-            val tracks = _artist.value?.topSongs?.map { it.toTrack() } ?: listOf()
-            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(tracks, tracks.firstOrNull()?.key?.toLong() ?: 0L))
+            val tracks = _artist.value?.topSongs ?: listOf()
+            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(tracks, tracks.firstOrNull()?.id?.toLong() ?: 0L))
         }
     }
 
     fun clickTrack(track: Track) {
         viewModelScope.launch {
-            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.key?.toLong() ?: 0L))
+            setPlaylistAndPlayUseCase(SetPlaylistAndPlayParams(listOf(track), track.id?.toLong() ?: 0L))
         }
     }
 
