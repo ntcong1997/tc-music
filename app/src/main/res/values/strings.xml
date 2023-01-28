@@ -4,7 +4,6 @@
     <!-- Main Activity -->
     <string name="main_activity_text_home">Home</string>
     <string name="main_activity_text_search">Search</string>
-    <string name="main_activity_text_favorites">Favorites</string>
     <string name="main_activity_text_playlists">Playlists</string>
     <string name="main_activity_text_settings">Settings</string>
 

@@ -29,7 +29,6 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.model.PlayingMediaInfo
 import com.example.tcmusic.R
-import com.example.tcmusic.ui.main.main.favorites.FavoritesScreen
 import com.example.tcmusic.ui.main.main.home.HomeScreen
 import com.example.tcmusic.ui.main.main.playlists.PlaylistsScreen
 import com.example.tcmusic.ui.main.main.search.SearchScreen
@@ -86,9 +85,6 @@ fun MainScreen(
                         mainNavController = mainNavController
                     )
                 }
-                composable(route = Screen.Favorites.route) {
-                    Favorites()
-                }
                 composable(route = Screen.Playlists.route) {
                     Playlists()
                 }
@@ -128,11 +124,6 @@ fun Search(
     mainNavController: NavController
 ) {
     SearchScreen(mainNavController)
-}
-
-@Composable
-fun Favorites() {
-    FavoritesScreen()
 }
 
 @Composable
@@ -250,7 +241,6 @@ fun MainBottomNavigation(
     val items = listOf(
         Screen.Home,
         Screen.Search,
-        Screen.Favorites,
         Screen.Playlists,
         Screen.Settings
     )
