@@ -33,6 +33,7 @@ jobs:
       uses: timheuer/base64-to-file@v1
       with:
         fileName: "shazam.properties"
+        fileDir: "./"
         encodedString: ${{ secrets.SHAZAM_PROPERTIES_FILE }}
 
     - name: Build with Gradle
