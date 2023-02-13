@@ -20,6 +20,7 @@ androidx-navigation = "2.5.3"
 androidx-paging = "3.2.0-alpha03"
 androidx-paging-compose = "1.0.0-alpha17"
 androidx-room = "2.4.3"
+androidx-startup = "1.1.1"
 androidx-test-espresso = "3.5.1"
 androidx-test-junit = "1.1.5"
 app-cash-turbine = "0.12.1"
@@ -75,6 +76,7 @@ androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.
 androidx-room-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-room-room-paging = { module = "androidx.room:room-paging", version.ref = "androidx-room" }
 androidx-room-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-startup-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "androidx-startup" }
 androidx-test-espresso-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
 app-cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "app-cash-turbine" }
