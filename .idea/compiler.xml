@@ -2,10 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="build-logic.convention" target="11" />
+      <module name="build-logic.convention.main" target="11" />
+      <module name="build-logic.convention.test" target="11" />
       <module name="TC_Music.app" target="11" />
       <module name="TC_Music.buildSrc" target="11" />
       <module name="TC_Music.buildSrc.main" target="11" />
       <module name="TC_Music.buildSrc.test" target="11" />
+      <module name="TC_Music.core.network" target="11" />
       <module name="TC_Music.data" target="11" />
       <module name="TC_Music.domain" target="11" />
       <module name="TC_Music.player" target="11" />

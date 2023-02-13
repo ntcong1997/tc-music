@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
         google()
@@ -13,9 +14,10 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "TC Music"
-include ':app'
-include ':domain'
-include ':data'
-include ':player'
-include ':test-data'
-include ':model'
+include(":app")
+include(":domain")
+include(":data")
+include(":player")
+include(":test-data")
+include(":model")
+include(":core:network")
