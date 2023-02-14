@@ -9,19 +9,17 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.kotlin.gradle.plugin)
         classpath(libs.com.google.gms.google.services)
-        classpath(libs.com.google.dagger.hilt.android.gradle.plugin)
-        classpath(libs.androidx.navigation.navigation.safe.args.gradle.plugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.43.0"
-    id("nl.littlerobots.version-catalog-update") version "0.7.0"
-    id("org.jetbrains.kotlin.jvm") version "1.7.20" apply false
-    id("com.android.library") version "7.3.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.7.20" apply false
+    alias(libs.plugins.com.github.ben.manes.versions)
+    alias(libs.plugins.nl.littlerobots.version.catalog.update)
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
+    alias(libs.plugins.com.google.dagger.hilt.android) apply false
+    alias(libs.plugins.com.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
 }
 
 apply("${project.rootDir}/scripts/toml-updater-config.gradle")

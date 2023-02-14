@@ -1,4 +1,4 @@
-package com.example.tcmusic.network
+package com.example.tcmusic.core.network
 
 import org.junit.Test
 

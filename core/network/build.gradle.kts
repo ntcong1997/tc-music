@@ -1,6 +1,7 @@
 plugins {
     id("tcmusic.android.library")
     id("tcmusic.android.hilt")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -9,6 +10,10 @@ android {
     }
 
     namespace = "com.example.tcmusic.core.network"
+}
+
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
 }
 
 dependencies {
