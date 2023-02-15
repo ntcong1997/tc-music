@@ -11,6 +11,7 @@
       <module name="TC_Music.buildSrc.test" target="11" />
       <module name="TC_Music.core.common" target="11" />
       <module name="TC_Music.core.data" target="11" />
+      <module name="TC_Music.core.domain" target="11" />
       <module name="TC_Music.core.model" target="11" />
       <module name="TC_Music.core.model.main" target="11" />
       <module name="TC_Music.core.model.test" target="11" />
