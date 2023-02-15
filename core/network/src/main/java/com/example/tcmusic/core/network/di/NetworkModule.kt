@@ -81,8 +81,7 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideTrackDataSource(
-        retrofitShazamNetwork: RetrofitShazamNetwork,
-        gson: Gson
+        retrofitShazamNetwork: RetrofitShazamNetwork
     ): TrackDataSource = TrackDataSourceImpl(retrofitShazamNetwork)
 
     @Singleton
