@@ -11,12 +11,14 @@
       <module name="TC_Music.buildSrc.test" target="11" />
       <module name="TC_Music.core.common" target="11" />
       <module name="TC_Music.core.data" target="11" />
+      <module name="TC_Music.core.designsystem" target="11" />
       <module name="TC_Music.core.domain" target="11" />
       <module name="TC_Music.core.model" target="11" />
       <module name="TC_Music.core.model.main" target="11" />
       <module name="TC_Music.core.model.test" target="11" />
       <module name="TC_Music.core.network" target="11" />
       <module name="TC_Music.core.player" target="11" />
+      <module name="TC_Music.core.ui" target="11" />
       <module name="TC_Music.data" target="11" />
       <module name="TC_Music.domain" target="11" />
       <module name="TC_Music.player" target="11" />
