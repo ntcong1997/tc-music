@@ -18,7 +18,7 @@ secrets {
 
 dependencies {
     // Coroutines
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
     testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
 
     // Paging 3

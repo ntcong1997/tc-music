@@ -41,7 +41,7 @@ dependencies {
     implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Coroutines
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
 
     // Architecture Components
     // Add dependency to avoid error androidTest

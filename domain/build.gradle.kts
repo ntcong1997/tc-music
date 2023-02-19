@@ -40,7 +40,7 @@ dependencies {
     implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
 
     // Coroutines
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
 
     // Dagger Hilt
     implementation(libs.com.google.dagger.hilt.android)

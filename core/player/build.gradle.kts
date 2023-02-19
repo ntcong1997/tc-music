@@ -12,7 +12,7 @@ dependencies {
     implementation(project(":core:model"))
 
     // Coroutines
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android)
 
     // Media
     implementation(libs.androidx.media)

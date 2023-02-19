@@ -64,7 +64,6 @@ dependencies {
     // UI
     implementation(libs.androidx.activity.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.com.google.android.material)
     implementation(libs.com.google.accompanist.accompanist.pager)
     implementation(libs.com.google.accompanist.accompanist.pager.indicators)
 

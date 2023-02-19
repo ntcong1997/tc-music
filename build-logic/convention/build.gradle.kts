@@ -24,6 +24,10 @@ gradlePlugin {
             id = "tcmusic.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidFeature") {
+            id = "tcmusic.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
         register("androidLibraryCompose") {
             id = "tcmusic.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
