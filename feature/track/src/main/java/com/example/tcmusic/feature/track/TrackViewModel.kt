@@ -43,7 +43,7 @@ class TrackViewModel @Inject constructor(
 
     private val _getTrackDetailParams =
         MutableStateFlow<GetTrackDetailParams?>(GetTrackDetailParams(trackId, trackVersion))
-    val track = trackUiState()
+    val trackUiState = trackUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TrackUiState.Loading)
 
     val trackDuration = observeDurationUseCase(Unit).map {

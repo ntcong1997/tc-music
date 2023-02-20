@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -21,15 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.model.Track
-import com.example.tcmusic.R
-import com.example.tcmusic.ui.theme.*
-import com.example.tcmusic.util.compact
-import com.example.tcmusic.util.convertTimeInMillisToMinuteSecondFormat
-import com.example.test.data.Track_1
+import com.example.tcmusic.core.common.util.compactTo2Letters
+import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
+import com.example.tcmusic.core.designsystem.theme.*
+import com.example.tcmusic.core.ui.LoadingDialog
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Created by TC on 29/11/2022.
@@ -37,52 +34,46 @@ import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun TrackDetailScreen(
-    trackId: String?,
-    trackVersion: String?,
-    navController: NavController,
+fun TrackRoute(
+    onBackClick: () -> Unit,
     viewModel: TrackViewModel = hiltViewModel()
 ) {
-    val track = viewModel.track.collectAsState()
+    val trackUiState = viewModel.trackUiState.collectAsState()
     val trackDuration = viewModel.trackDuration.collectAsState()
     val trackProgress = viewModel.trackProgress.collectAsState()
     val trackIsPlaying = viewModel.trackIsPlaying.collectAsState()
 
-    TrackDetailScreen(
-        track = track.value,
+    TrackScreen(
+        trackUiState = trackUiState.value,
         trackDuration = trackDuration.value,
         trackProgress = trackProgress.value,
         trackIsPlaying = trackIsPlaying.value,
-        onClickBack = {
-            navController.navigateUp()
+        onBackClick = {
+            onBackClick()
         },
-        onClickMore = { },
+        onMoreClick = { },
         onProgressChange = viewModel::progressChange,
-        onClickPlay = viewModel::clickPlay,
-        onClickPause = viewModel::clickPause,
-        onClickSkipBackwards = viewModel::clickSkipBackwards,
-        onClickSkipForward = viewModel::clickSkipForward
+        onPlayClick = viewModel::clickPlay,
+        onPauseClick = viewModel::clickPause,
+        onSkipBackwardsClick = viewModel::clickSkipBackwards,
+        onSkipForwardClick = viewModel::clickSkipForward
     )
-
-    LaunchedEffect(key1 = trackId) {
-        viewModel.track(trackId, trackVersion)
-    }
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun TrackDetailScreen(
-    track: Track?,
+fun TrackScreen(
+    trackUiState: TrackUiState,
     trackDuration: Long,
     trackProgress: Long,
     trackIsPlaying: Boolean,
-    onClickBack: () -> Unit,
+    onBackClick: () -> Unit,
     onProgressChange: (Float) -> Unit,
-    onClickMore: () -> Unit,
-    onClickPlay: () -> Unit,
-    onClickPause: () -> Unit,
-    onClickSkipBackwards: () -> Unit,
-    onClickSkipForward: () -> Unit
+    onMoreClick: () -> Unit,
+    onPlayClick: () -> Unit,
+    onPauseClick: () -> Unit,
+    onSkipBackwardsClick: () -> Unit,
+    onSkipForwardClick: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -91,97 +82,109 @@ fun TrackDetailScreen(
     val modalBottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
+    val isTrackLoading = trackUiState is TrackUiState.Loading
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(White)
     ) {
         Header(
-            onClickBack = {
-                onClickBack()
+            onBackClick = {
+                onBackClick()
             },
-            onClickMore = {
-                onClickMore()
+            onMoreClick = {
+                onMoreClick()
             }
         )
 
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(scrollState)
-        ) {
-            TrackInfo(
-                image = track?.image,
-                title = track?.title,
-                subTitle = track?.subTitle
-            )
+        when (trackUiState) {
+            TrackUiState.Loading, TrackUiState.Error -> Unit
+            is TrackUiState.Success -> {
+                val track = trackUiState.track
 
-            Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
-
-            TrackPlayingBar(
-                duration = trackDuration,
-                progress = trackProgress,
-                onProgressChange = {
-                    onProgressChange(it)
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            TrackAction(
-                isPlaying = trackIsPlaying,
-                onClickPlay = {
-                    onClickPlay()
-                },
-                onClickPause = {
-                    onClickPause()
-                },
-                onClickSkipBackwards = {
-                    onClickSkipBackwards()
-                },
-                onClickSkipForward = {
-                    onClickSkipForward()
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .align(Alignment.CenterHorizontally),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(onClick = {
-                    coroutineScope.launch {
-                        modalBottomSheetState.show()
-                    }
-                }) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_up),
-                        contentDescription = null
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(scrollState)
+                ) {
+                    TrackInfo(
+                        image = track.image,
+                        title = track.title,
+                        subTitle = track.subTitle
                     )
+
+                    Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
+
+                    TrackPlayingBar(
+                        duration = trackDuration,
+                        progress = trackProgress,
+                        onProgressChange = {
+                            onProgressChange(it)
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    TrackAction(
+                        isPlaying = trackIsPlaying,
+                        onPlayClick = {
+                            onPlayClick()
+                        },
+                        onPauseClick = {
+                            onPauseClick()
+                        },
+                        onSkipBackwardsClick = {
+                            onSkipBackwardsClick()
+                        },
+                        onSkipForwardClick = {
+                            onSkipForwardClick()
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .align(Alignment.CenterHorizontally),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                modalBottomSheetState.show()
+                            }
+                        }) {
+                            Image(
+                                painter = painterResource(id = TcMusicIcons.Up),
+                                contentDescription = null
+                            )
+                        }
+
+                        Text(
+                            text = stringResource(id = R.string.text_lyrics),
+                            color = Black,
+                            fontSize = 14.sp
+                        )
+                    }
                 }
 
-                Text(
-                    text = stringResource(id = R.string.track_detail_screen_text_lyrics),
-                    color = Black,
-                    fontSize = 14.sp
+                TrackLyrics(
+                    modalBottomSheetState = modalBottomSheetState,
+                    lyrics = track.lyrics
                 )
             }
         }
     }
 
-    TrackLyrics(
-        modalBottomSheetState = modalBottomSheetState,
-        lyrics = track?.lyrics ?: listOf()
-    )
+    if (isTrackLoading) {
+        LoadingDialog()
+    }
 }
 
 @Composable
 fun Header(
-    onClickBack: () -> Unit,
-    onClickMore: () -> Unit
+    onBackClick: () -> Unit,
+    onMoreClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -190,23 +193,23 @@ fun Header(
     ) {
         IconButton(
             onClick = {
-                onClickBack()
+                onBackClick()
             },
             modifier = Modifier.align(Alignment.CenterStart)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_left_arrow),
+                painter = painterResource(id = TcMusicIcons.LeftArrow),
                 contentDescription = null
             )
         }
 
         IconButton(
             onClick = {
-                onClickMore()
+                onMoreClick()
             },
             modifier = Modifier.align(Alignment.CenterEnd)
         ) {
-            Image(painter = painterResource(id = R.drawable.ic_more), contentDescription = null)
+            Image(painter = painterResource(id = TcMusicIcons.More), contentDescription = null)
         }
     }
 }
@@ -223,49 +226,75 @@ fun TrackInfo(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (image.isNullOrBlank())
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .aspectRatio(1f)
-                    .background(BlueRibbon, RoundedCornerShape(10.dp))
-            ) {
-                Text(
-                    text = title.compact(),
-                    color = White,
-                    fontSize = 24.sp,
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-        else
-            AsyncImage(
-                model = image,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(10.dp))
-            )
+        if (image.isNullOrBlank()) TrackCompactTitle(title = title)
+        else com.example.tcmusic.core.ui.TrackImage(image = image)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = title ?: "",
-            color = Black,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
+        TrackTitle(title = title)
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        TrackSubTitle(subTitle = subTitle)
+    }
+}
+
+@Composable
+fun TrackCompactTitle(
+    title: String?
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(0.5f)
+            .aspectRatio(1f)
+            .background(BlueRibbon, RoundedCornerShape(10.dp))
+    ) {
         Text(
-            text = subTitle ?: "",
-            color = Black,
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center
+            text = title.compactTo2Letters(),
+            color = White,
+            fontSize = 24.sp,
+            modifier = Modifier.align(Alignment.Center)
         )
     }
+}
+
+@Composable
+fun TrackImage(
+    image: String?
+) {
+    AsyncImage(
+        model = image,
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxWidth(0.5f)
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(10.dp))
+    )
+}
+
+@Composable
+fun TrackTitle(
+    title: String?
+) {
+    Text(
+        text = title.orEmpty(),
+        color = Black,
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun TrackSubTitle(
+    subTitle: String?
+) {
+    Text(
+        text = subTitle.orEmpty(),
+        color = Black,
+        fontSize = 16.sp,
+        textAlign = TextAlign.Center
+    )
 }
 
 @Composable
@@ -278,14 +307,12 @@ fun TrackPlayingBar(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Slider(
-            value = progress / 1000f,
-            onValueChange = {
+        TrackSlider(
+            duration = duration,
+            progress = progress,
+            onProgressChange = {
                 onProgressChange(it)
-            },
-            valueRange = 0f..(duration / 1000f),
-            steps = 1,
-            modifier = Modifier.padding(horizontal = 10.dp)
+            }
         )
 
         Box(
@@ -293,30 +320,61 @@ fun TrackPlayingBar(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            Text(
-                text = convertTimeInMillisToMinuteSecondFormat(progress),
-                color = Black,
-                fontSize = 14.sp,
-                modifier = Modifier.align(Alignment.CenterStart)
-            )
+            TrackProgress(progress = progress)
 
-            Text(
-                text = convertTimeInMillisToMinuteSecondFormat(duration),
-                color = Black,
-                fontSize = 14.sp,
-                modifier = Modifier.align(Alignment.CenterEnd)
-            )
+            TrackDuration(duration = duration)
         }
     }
 }
 
 @Composable
+fun TrackSlider(
+    duration: Long,
+    progress: Long,
+    onProgressChange: (Float) -> Unit
+) {
+    Slider(
+        value = progress / 1000f,
+        onValueChange = {
+            onProgressChange(it)
+        },
+        valueRange = 0f..(duration / 1000f),
+        steps = 1,
+        modifier = Modifier.padding(horizontal = 10.dp)
+    )
+}
+
+@Composable
+fun BoxScope.TrackProgress(
+    progress: Long
+) {
+    Text(
+        text = convertTimeInMillisToMinuteSecondFormat(progress),
+        color = Black,
+        fontSize = 14.sp,
+        modifier = Modifier.align(Alignment.CenterStart)
+    )
+}
+
+@Composable
+fun BoxScope.TrackDuration(
+    duration: Long
+) {
+    Text(
+        text = convertTimeInMillisToMinuteSecondFormat(duration),
+        color = Black,
+        fontSize = 14.sp,
+        modifier = Modifier.align(Alignment.CenterEnd)
+    )
+}
+
+@Composable
 fun TrackAction(
     isPlaying: Boolean,
-    onClickPlay: () -> Unit,
-    onClickPause: () -> Unit,
-    onClickSkipBackwards: () -> Unit,
-    onClickSkipForward: () -> Unit
+    onPlayClick: () -> Unit,
+    onPauseClick: () -> Unit,
+    onSkipBackwardsClick: () -> Unit,
+    onSkipForwardClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -327,50 +385,50 @@ fun TrackAction(
     ) {
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_random),
+                painter = painterResource(id = TcMusicIcons.Random),
                 contentDescription = null
             )
         }
 
         IconButton(onClick = {
-            onClickSkipBackwards()
+            onSkipBackwardsClick()
         }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_previous),
+                painter = painterResource(id = TcMusicIcons.Previous),
                 contentDescription = null
             )
         }
 
         if (isPlaying) {
             Image(
-                painter = painterResource(id = R.drawable.ic_pause),
+                painter = painterResource(id = TcMusicIcons.Pause),
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    onClickPause()
+                    onPauseClick()
                 }
             )
         } else {
             Image(
-                painter = painterResource(id = R.drawable.ic_play),
+                painter = painterResource(id = TcMusicIcons.Play),
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    onClickPlay()
+                    onPlayClick()
                 }
             )
         }
 
         IconButton(onClick = {
-            onClickSkipForward()
+            onSkipForwardClick()
         }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_next),
+                painter = painterResource(id = TcMusicIcons.Next),
                 contentDescription = null
             )
         }
 
         IconButton(onClick = { }) {
             Image(
-                painter = painterResource(id = R.drawable.ic_repeat),
+                painter = painterResource(id = TcMusicIcons.Repeat),
                 contentDescription = null
             )
         }
@@ -386,7 +444,7 @@ fun TrackLyrics(
     ModalBottomSheetLayout(
         sheetContent = {
             Text(
-                text = stringResource(id = R.string.track_detail_screen_text_lyrics),
+                text = stringResource(id = R.string.text_lyrics),
                 color = White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
@@ -412,22 +470,29 @@ fun TrackLyrics(
     }
 }
 
+private fun convertTimeInMillisToMinuteSecondFormat(timeInMillis: Long): String {
+    val minutes = ((timeInMillis / 1000) / 60).toInt()
+    val seconds = ((timeInMillis / 1000) % 60).toInt()
+
+    return String.format(Locale.getDefault(), "%d:%02d", minutes, seconds)
+}
+
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun TrackDetailScreenPreview() {
-    TrackDetailScreen(
-        track = Track_1,
+fun TrackScreenPreview() {
+    TrackScreen(
+        trackUiState = TrackUiState.Loading,
         trackDuration = 60000L,
         trackProgress = 20000L,
         trackIsPlaying = true,
-        onClickBack = { },
+        onBackClick = { },
         onProgressChange = { _ ->
         },
-        onClickMore = { },
-        onClickPlay = { },
-        onClickPause = { },
-        onClickSkipBackwards = { },
-        onClickSkipForward = { }
+        onMoreClick = { },
+        onPlayClick = { },
+        onPauseClick = { },
+        onSkipBackwardsClick = { },
+        onSkipForwardClick = { }
     )
 }
