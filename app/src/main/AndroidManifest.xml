@@ -29,7 +29,7 @@
         </activity>
 
         <service
-            android:name="com.example.tcmusic.feature.player.service.MusicPlayerService"
+            android:name="com.example.tcmusic.core.player.service.MusicPlayerService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.tcmusic.feature.common.util.compactTo2Letters
-import com.example.tcmusic.feature.designsystem.icon.TcMusicIcons
-import com.example.tcmusic.feature.designsystem.theme.*
-import com.example.tcmusic.feature.ui.LoadingDialog
+import com.example.tcmusic.core.common.util.compactTo2Letters
+import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
+import com.example.tcmusic.core.designsystem.theme.*
+import com.example.tcmusic.core.ui.LoadingDialog
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -48,9 +48,7 @@ fun TrackRoute(
         trackDuration = trackDuration.value,
         trackProgress = trackProgress.value,
         trackIsPlaying = trackIsPlaying.value,
-        onBackClick = {
-            onBackClick()
-        },
+        onBackClick = onBackClick,
         onMoreClick = { },
         onProgressChange = viewModel::progressChange,
         onPlayClick = viewModel::clickPlay,
@@ -89,12 +87,8 @@ fun TrackScreen(
             .fillMaxSize()
     ) {
         Header(
-            onBackClick = {
-                onBackClick()
-            },
-            onMoreClick = {
-                onMoreClick()
-            }
+            onBackClick = onBackClick,
+            onMoreClick = onMoreClick
         )
 
         when (trackUiState) {
@@ -118,27 +112,17 @@ fun TrackScreen(
                     TrackPlayingBar(
                         duration = trackDuration,
                         progress = trackProgress,
-                        onProgressChange = {
-                            onProgressChange(it)
-                        }
+                        onProgressChange = onProgressChange
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
                     TrackAction(
                         isPlaying = trackIsPlaying,
-                        onPlayClick = {
-                            onPlayClick()
-                        },
-                        onPauseClick = {
-                            onPauseClick()
-                        },
-                        onSkipBackwardsClick = {
-                            onSkipBackwardsClick()
-                        },
-                        onSkipForwardClick = {
-                            onSkipForwardClick()
-                        }
+                        onPlayClick = onPlayClick,
+                        onPauseClick = onPauseClick,
+                        onSkipBackwardsClick = onSkipBackwardsClick,
+                        onSkipForwardClick = onSkipForwardClick
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -192,9 +176,7 @@ fun Header(
             .padding(16.dp)
     ) {
         IconButton(
-            onClick = {
-                onBackClick()
-            },
+            onClick = onBackClick,
             modifier = Modifier.align(Alignment.CenterStart)
         ) {
             Image(
@@ -204,9 +186,7 @@ fun Header(
         }
 
         IconButton(
-            onClick = {
-                onMoreClick()
-            },
+            onClick = onMoreClick,
             modifier = Modifier.align(Alignment.CenterEnd)
         ) {
             Image(painter = painterResource(id = TcMusicIcons.More), contentDescription = null)
@@ -227,7 +207,7 @@ fun TrackInfo(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (image.isNullOrBlank()) TrackCompactTitle(title = title)
-        else com.example.tcmusic.feature.ui.TrackImage(image = image)
+        else TrackImage(image = image)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -390,9 +370,7 @@ fun TrackAction(
             )
         }
 
-        IconButton(onClick = {
-            onSkipBackwardsClick()
-        }) {
+        IconButton(onClick = onSkipBackwardsClick) {
             Image(
                 painter = painterResource(id = TcMusicIcons.Previous),
                 contentDescription = null
@@ -417,9 +395,7 @@ fun TrackAction(
             )
         }
 
-        IconButton(onClick = {
-            onSkipForwardClick()
-        }) {
+        IconButton(onClick = onSkipForwardClick) {
             Image(
                 painter = painterResource(id = TcMusicIcons.Next),
                 contentDescription = null

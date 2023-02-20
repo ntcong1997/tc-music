@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.tcmusic.feature.artist.ArtistRoute
 
 /**
  * Created by TC on 20/02/2023.
@@ -19,7 +20,8 @@ fun NavController.navigateToArtist(artistId: String) {
 }
 
 fun NavGraphBuilder.artistScreen(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onPlayingMediaInfoClick: (String?, String?) -> Unit
 ) {
     composable(
         route = "$artistRoute/{$artistIdArg}",
@@ -29,6 +31,9 @@ fun NavGraphBuilder.artistScreen(
             }
         )
     ) {
-
+        ArtistRoute(
+            onBackClick = onBackClick,
+            onPlayingMediaInfoClick = onPlayingMediaInfoClick
+        )
     }
 }

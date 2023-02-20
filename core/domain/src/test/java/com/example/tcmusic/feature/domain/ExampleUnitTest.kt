@@ -1,4 +1,4 @@
-package com.example.tcmusic.feature.domain
+package com.example.tcmusic.core.domain
 
 import org.junit.Test
 

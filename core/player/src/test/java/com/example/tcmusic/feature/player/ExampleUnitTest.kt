@@ -1,4 +1,4 @@
-package com.example.tcmusic.feature.player
+package com.example.tcmusic.core.player
 
 import org.junit.Test
 

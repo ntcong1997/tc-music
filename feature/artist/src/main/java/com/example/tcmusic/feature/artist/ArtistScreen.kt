@@ -11,6 +11,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,15 +22,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.tcmusic.feature.common.util.compactTo2Letters
-import com.example.tcmusic.feature.designsystem.icon.TcMusicIcons
-import com.example.tcmusic.feature.designsystem.theme.*
-import com.example.tcmusic.feature.model.PlayingMediaInfo
-import com.example.tcmusic.feature.model.Track
-import com.example.tcmusic.feature.ui.LoadingDialog
-import com.example.tcmusic.feature.ui.PlayingMediaInfoFloatingBar
-import com.example.tcmusic.feature.ui.TrackCard
+import com.example.tcmusic.core.common.util.compactTo2Letters
+import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
+import com.example.tcmusic.core.designsystem.theme.*
+import com.example.tcmusic.core.model.PlayingMediaInfo
+import com.example.tcmusic.core.model.Track
+import com.example.tcmusic.core.ui.LoadingDialog
+import com.example.tcmusic.core.ui.PlayingMediaInfoFloatingBar
+import com.example.tcmusic.core.ui.TrackCard
 import java.util.*
 
 /**
@@ -38,19 +40,38 @@ import java.util.*
 
 @Composable
 fun ArtistRoute(
-    
+    onBackClick: () -> Unit,
+    onPlayingMediaInfoClick: (String?, String?) -> Unit,
+    viewModel: ArtistViewModel = hiltViewModel()
 ) {
+    val playingMediaInfo = viewModel.playingMediaInfo.collectAsState()
+    val isPlaying = viewModel.isPlaying.collectAsState()
+    val artistUiState = viewModel.artistUiState.collectAsState()
+
+    ArtistScreen(
+        playingMediaInfo = playingMediaInfo.value,
+        isPlaying = isPlaying.value,
+        artistUiState = artistUiState.value,
+        onBackClick = onBackClick,
+        onPlayClick = viewModel::clickPlay,
+        onTrackClick = viewModel::clickTrack,
+        onPlayingMediaInfoClick = onPlayingMediaInfoClick,
+        onPlayingMediaInfoPlayClick = viewModel::clickPlayingMediaInfoPlay,
+        onPlayingMediaInfoPauseClick = viewModel::clickPlayingMediaInfoPause,
+        onPlayingMediaInfoSkipBackwardsClick = viewModel::clickPlayingMediaInfoSkipBackwards,
+        onPlayingMediaInfoSkipForwardClick = viewModel::clickPlayingMediaInfoSkipForward
+    )
 }
 
 @Composable
-fun ArtistDetailScreen(
+fun ArtistScreen(
     playingMediaInfo: PlayingMediaInfo?,
     isPlaying: Boolean,
     artistUiState: ArtistUiState,
     onBackClick: () -> Unit,
     onPlayClick: (List<Track>) -> Unit,
     onTrackClick: (Track) -> Unit,
-    onPlayingMediaInfoClick: (PlayingMediaInfo) -> Unit,
+    onPlayingMediaInfoClick: (String?, String?) -> Unit,
     onPlayingMediaInfoPlayClick: () -> Unit,
     onPlayingMediaInfoPauseClick: () -> Unit,
     onPlayingMediaInfoSkipBackwardsClick: () -> Unit,
@@ -68,9 +89,7 @@ fun ArtistDetailScreen(
                 .fillMaxSize()
         ) {
             Header(
-                onBackClick = {
-                    onBackClick()
-                }
+                onBackClick = onBackClick
             )
 
             if (artistUiState is ArtistUiState.Success) {
@@ -117,9 +136,7 @@ fun ArtistDetailScreen(
 
                     TopSongs(
                         tracks = artist.topSongs,
-                        onTrackClick = {
-                            onTrackClick(it)
-                        }
+                        onTrackClick = onTrackClick
                     )
                 }
             }
@@ -130,20 +147,12 @@ fun ArtistDetailScreen(
                 playingMediaInfo = playingMediaInfo,
                 isPlaying = isPlaying,
                 onPlayingMediaInfoClick = {
-                    onPlayingMediaInfoClick(it)
+                    onPlayingMediaInfoClick(it.id, it.version)
                 },
-                onPlayClick = {
-                    onPlayingMediaInfoPlayClick()
-                },
-                onPauseClick = {
-                    onPlayingMediaInfoPauseClick()
-                },
-                onSkipBackwardsClick = {
-                    onPlayingMediaInfoSkipBackwardsClick()
-                },
-                onSkipForwardClick = {
-                    onPlayingMediaInfoSkipForwardClick()
-                }
+                onPlayClick = onPlayingMediaInfoPlayClick,
+                onPauseClick = onPlayingMediaInfoPauseClick,
+                onSkipBackwardsClick = onPlayingMediaInfoSkipBackwardsClick,
+                onSkipForwardClick = onPlayingMediaInfoSkipForwardClick
             )
         }
     }
@@ -276,8 +285,8 @@ fun TopSongs(
 
 @Preview
 @Composable
-fun ArtistDetailScreenPreview() {
-    ArtistDetailScreen(
+fun ArtistScreenPreview() {
+    ArtistScreen(
         playingMediaInfo = null,
         isPlaying = true,
         artistUiState = ArtistUiState.Loading,
@@ -285,7 +294,7 @@ fun ArtistDetailScreenPreview() {
         onPlayClick = { },
         onTrackClick = { _ ->
         },
-        onPlayingMediaInfoClick = { _ ->
+        onPlayingMediaInfoClick = { _, _ ->
         },
         onPlayingMediaInfoPlayClick = { },
         onPlayingMediaInfoPauseClick = { },

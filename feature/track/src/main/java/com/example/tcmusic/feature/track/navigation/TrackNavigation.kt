@@ -1,10 +1,12 @@
 package com.example.tcmusic.feature.track.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.tcmusic.feature.track.TrackRoute
 
 /**
  * Created by TC on 19/02/2023.
@@ -19,6 +21,7 @@ fun NavController.navigateToTrack(trackId: String, trackVersion: String) {
     this.navigate("$trackRoute/$trackId&$trackVersion")
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 fun NavGraphBuilder.trackScreen(
     onBackClick: () -> Unit
 ) {
@@ -33,6 +36,6 @@ fun NavGraphBuilder.trackScreen(
             }
         )
     ) {
-
+        TrackRoute(onBackClick = onBackClick)
     }
 }
