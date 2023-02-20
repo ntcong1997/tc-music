@@ -3,12 +3,12 @@ package com.example.tcmusic.feature.track
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tcmusic.core.common.result.Result
-import com.example.tcmusic.core.common.result.asResult
-import com.example.tcmusic.core.domain.usecase.player.*
-import com.example.tcmusic.core.domain.usecase.track.GetTrackDetailParams
-import com.example.tcmusic.core.domain.usecase.track.GetTrackDetailUseCase
-import com.example.tcmusic.core.model.Track
+import com.example.tcmusic.feature.common.result.Result
+import com.example.tcmusic.feature.common.result.asResult
+import com.example.tcmusic.feature.domain.usecase.player.*
+import com.example.tcmusic.feature.domain.usecase.track.GetTrackDetailParams
+import com.example.tcmusic.feature.domain.usecase.track.GetTrackDetailUseCase
+import com.example.tcmusic.feature.model.Track
 import com.example.tcmusic.feature.track.navigation.trackIdArg
 import com.example.tcmusic.feature.track.navigation.trackVersionArg
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +42,7 @@ class TrackViewModel @Inject constructor(
     private val trackVersion = checkNotNull(savedStateHandle[trackVersionArg]) as String
 
     private val _getTrackDetailParams =
-        MutableStateFlow<GetTrackDetailParams?>(GetTrackDetailParams(trackId, trackVersion))
+        MutableStateFlow(GetTrackDetailParams(trackId, trackVersion))
     val trackUiState = trackUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TrackUiState.Loading)
 
@@ -64,21 +64,23 @@ class TrackViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             observePlayingMediaInfoUseCase(Unit).collect {
-                _getTrackDetailParams.value = if (it is Result.Success) GetTrackDetailParams(
-                    it.data?.id,
-                    it.data?.version
-                ) else null
+                if (it is Result.Success) {
+                    _getTrackDetailParams.value = GetTrackDetailParams(
+                        it.data?.id,
+                        it.data?.version
+                    )
+                }
             }
         }
     }
 
     private fun trackUiState(): Flow<TrackUiState> {
         return _getTrackDetailParams.map {
-            if (it != null) {
-                val resultGetTrackDetail = getTrackDetailUseCase(it)
-                if (resultGetTrackDetail is Result.Success) resultGetTrackDetail.data
-                else null
-            } else null
+            when (val resultGetTrackDetail = getTrackDetailUseCase(it)) {
+                is Result.Success -> resultGetTrackDetail.data
+                is Result.Error -> throw resultGetTrackDetail.exception ?: Exception("Error Unknown")
+                else -> null
+            }
         }
             .asResult()
             .map {
@@ -86,7 +88,7 @@ class TrackViewModel @Inject constructor(
                     is Result.Success -> {
                         val track = it.data
                         if (track != null) TrackUiState.Success(track)
-                        else TrackUiState.Error
+                        else TrackUiState.Loading
                     }
                     is Result.Loading -> TrackUiState.Loading
                     is Result.Error -> TrackUiState.Error

@@ -22,6 +22,7 @@
       <module name="TC_Music.core.ui" target="11" />
       <module name="TC_Music.data" target="11" />
       <module name="TC_Music.domain" target="11" />
+      <module name="TC_Music.feature.artist" target="11" />
       <module name="TC_Music.feature.track" target="11" />
       <module name="TC_Music.player" target="11" />
     </bytecodeTargetLevel>

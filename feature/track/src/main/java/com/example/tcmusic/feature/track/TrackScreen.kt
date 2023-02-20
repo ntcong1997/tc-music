@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.tcmusic.core.common.util.compactTo2Letters
-import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
-import com.example.tcmusic.core.designsystem.theme.*
-import com.example.tcmusic.core.ui.LoadingDialog
+import com.example.tcmusic.feature.common.util.compactTo2Letters
+import com.example.tcmusic.feature.designsystem.icon.TcMusicIcons
+import com.example.tcmusic.feature.designsystem.theme.*
+import com.example.tcmusic.feature.ui.LoadingDialog
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -227,7 +227,7 @@ fun TrackInfo(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (image.isNullOrBlank()) TrackCompactTitle(title = title)
-        else com.example.tcmusic.core.ui.TrackImage(image = image)
+        else com.example.tcmusic.feature.ui.TrackImage(image = image)
 
         Spacer(modifier = Modifier.height(16.dp))
 

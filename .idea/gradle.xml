@@ -40,6 +40,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/artist" />
             <option value="$PROJECT_DIR$/feature/track" />
             <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/player" />

@@ -6,8 +6,3 @@ plugins {
 android {
     namespace = "com.example.tcmusic.feature.track"
 }
-
-dependencies {
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.ui.ui.tooling.preview)
-}
