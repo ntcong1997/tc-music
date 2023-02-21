@@ -1,7 +1,6 @@
 package com.example.tcmusic.di
 
-import com.example.player.service.MediaNotificationConfig
-import com.example.tcmusic.R
+import com.example.tcmusic.core.player.service.MediaNotificationConfig
 import com.example.tcmusic.ui.main.MainActivity
 import dagger.Module
 import dagger.Provides
@@ -21,12 +20,6 @@ class MediaNotificationModule {
     @Singleton
     @Provides
     fun provideMediaNotificationConfig() = MediaNotificationConfig(
-        R.drawable.ic_play_2,
-        R.drawable.ic_pause_2,
-        R.drawable.ic_previous_2,
-        R.drawable.ic_next_2,
-        R.drawable.ic_app,
-        R.color.black,
         MainActivity::class.java
     )
 }

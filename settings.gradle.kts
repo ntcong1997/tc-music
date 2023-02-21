@@ -15,11 +15,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "TC Music"
 include(":app")
-include(":domain")
-include(":data")
-include(":player")
-include(":test-data")
-include(":model")
 include(":core:model")
 include(":core:network")
 include(":core:data")
@@ -33,3 +28,5 @@ include(":feature:track")
 include(":feature:artist")
 include(":feature:home")
 include(":feature:search")
+include(":feature:playlists")
+include(":feature:settings")

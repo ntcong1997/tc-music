@@ -3,6 +3,7 @@ package com.example.tcmusic.ui.main.main
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.domain.usecase.player.*
 import com.example.tcmusic.player.FakePlayer
+import com.example.tcmusic.ui.main.host.HostViewModel
 import com.example.test.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -28,13 +29,13 @@ class MainViewModelTest {
 
     private lateinit var fakePlayer: FakePlayer
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: HostViewModel
 
     @Before
     fun setup() {
         fakePlayer = FakePlayer()
 
-        viewModel = MainViewModel(
+        viewModel = HostViewModel(
             observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(
                 fakePlayer,
                 coroutineRule.testDispatcher

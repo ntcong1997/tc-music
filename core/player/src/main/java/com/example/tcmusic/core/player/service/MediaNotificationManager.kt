@@ -15,6 +15,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import androidx.media.session.MediaButtonReceiver
+import com.example.tcmusic.core.designsystem.color.TcMusicColors
+import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -32,7 +34,7 @@ class MediaNotificationManager @Inject constructor(
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private val playAction = NotificationCompat.Action(
-        mediaNotificationConfig.playDrawable,
+        TcMusicIcons.Play2,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -41,7 +43,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val pauseAction = NotificationCompat.Action(
-        mediaNotificationConfig.pauseDrawable,
+        TcMusicIcons.Pause2,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -50,7 +52,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val previousAction = NotificationCompat.Action(
-        mediaNotificationConfig.previousDrawable,
+        TcMusicIcons.Previous2,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -59,7 +61,7 @@ class MediaNotificationManager @Inject constructor(
     )
 
     private val nextAction = NotificationCompat.Action(
-        mediaNotificationConfig.nextDrawable,
+        TcMusicIcons.Next2,
         null,
         MediaButtonReceiver.buildMediaButtonPendingIntent(
             context,
@@ -103,8 +105,8 @@ class MediaNotificationManager @Inject constructor(
                     )
                 )
         )
-            .setColor(ContextCompat.getColor(context, mediaNotificationConfig.colorResource))
-            .setSmallIcon(mediaNotificationConfig.smallIconDrawable)
+            .setColor(ContextCompat.getColor(context, TcMusicColors.Black))
+            .setSmallIcon(TcMusicIcons.App)
             .setContentIntent(pendingIntent)
             .setContentTitle(description.title)
             .setContentText(description.subtitle)
@@ -165,11 +167,5 @@ class MediaNotificationManager @Inject constructor(
 }
 
 data class MediaNotificationConfig(
-    val playDrawable: Int,
-    val pauseDrawable: Int,
-    val previousDrawable: Int,
-    val nextDrawable: Int,
-    val smallIconDrawable: Int,
-    val colorResource: Int,
     val activityToOpenOnClick: Class<*>
 )

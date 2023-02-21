@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.player.service.MediaNotificationManager
 import com.example.tcmusic.ui.main.artistdetail.ArtistDetailScreen
-import com.example.tcmusic.ui.main.main.MainScreen
+import com.example.tcmusic.ui.main.host.MainScreen
 import com.example.tcmusic.ui.main.trackdetail.TrackDetailScreen
 import com.example.tcmusic.ui.theme.TCMusicTheme
 import com.google.accompanist.pager.ExperimentalPagerApi

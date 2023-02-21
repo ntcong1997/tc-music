@@ -35,16 +35,12 @@ import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.ui.ArtistCard
 import com.example.tcmusic.core.ui.TrackCard
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flowOf
 
 /**
  * Created by TC on 22/11/2022.
  */
 
-@ExperimentalCoroutinesApi
-@FlowPreview
 @Composable
 fun SearchRoute(
     onArtistClick: (String?) -> Unit,
