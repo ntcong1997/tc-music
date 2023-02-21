@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TC Music</string>
+    <string name="text_home">Home</string>
     <string name="text_world_chart">World chart</string>
     <string name="text_pop_chart">Pop chart</string>
     <string name="text_hip_hop_rap_chart">Hip hop/Rap chart</string>

@@ -15,7 +15,7 @@ const val artistRoute = "artist_route"
 
 internal const val artistIdArg = "artistId"
 
-fun NavController.navigateToArtist(artistId: String) {
+fun NavController.navigateToArtist(artistId: String?) {
     this.navigate("$artistRoute/$artistId")
 }
 

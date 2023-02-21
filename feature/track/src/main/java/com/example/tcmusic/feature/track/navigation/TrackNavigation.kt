@@ -17,7 +17,7 @@ const val trackRoute = "track_route"
 internal const val trackIdArg = "trackId"
 internal const val trackVersionArg = "trackVersion"
 
-fun NavController.navigateToTrack(trackId: String, trackVersion: String) {
+fun NavController.navigateToTrack(trackId: String?, trackVersion: String?) {
     this.navigate("$trackRoute/$trackId&$trackVersion")
 }
 

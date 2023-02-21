@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -29,6 +30,8 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.model.PlayingMediaInfo
 import com.example.tcmusic.R
+import com.example.tcmusic.core.designsystem.theme.BlueRibbon
+import com.example.tcmusic.core.designsystem.theme.GraySilverChalice
 import com.example.tcmusic.ui.main.main.home.HomeScreen
 import com.example.tcmusic.ui.main.main.playlists.PlaylistsScreen
 import com.example.tcmusic.ui.main.main.search.SearchScreen
@@ -44,13 +47,8 @@ import kotlinx.coroutines.FlowPreview
  * Created by TC on 02/12/2022.
  */
 
-@FlowPreview
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialApi
-@ExperimentalPagerApi
 @Composable
-fun MainScreen(
-    mainNavController: NavController,
+fun HostRoute(
     viewModel: HostViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
@@ -110,132 +108,8 @@ fun MainScreen(
     }
 }
 
-@ExperimentalMaterialApi
-@ExperimentalPagerApi
 @Composable
-fun Home() {
-    HomeScreen()
-}
-
-@FlowPreview
-@ExperimentalCoroutinesApi
-@Composable
-fun Search(
-    mainNavController: NavController
-) {
-    SearchScreen(mainNavController)
-}
-
-@Composable
-fun Playlists() {
-    PlaylistsScreen()
-}
-
-@Composable
-fun Settings() {
-    SettingsScreen()
-}
-
-@Composable
-fun BoxScope.PlayingMediaInfoBar(
-    playingMediaInfo: PlayingMediaInfo,
-    isPlaying: Boolean,
-    onClickPlayingMediaInfo: (PlayingMediaInfo) -> Unit,
-    onClickPlay: () -> Unit,
-    onClickPause: () -> Unit,
-    onClickSkipBackwards: () -> Unit,
-    onClickSkipForward: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .align(Alignment.BottomCenter)
-            .background(GraySilverChalice, RoundedCornerShape(10.dp))
-            .clickable {
-                onClickPlayingMediaInfo(playingMediaInfo)
-            },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        AsyncImage(
-            model = playingMediaInfo.coverArt,
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .padding(16.dp, 16.dp, 0.dp, 16.dp)
-                .size(48.dp)
-                .clip(RoundedCornerShape(10.dp))
-        )
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(16.dp)
-        ) {
-            Text(
-                text = playingMediaInfo.title ?: "",
-                color = White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = playingMediaInfo.artist ?: "",
-                color = White,
-                fontSize = 12.sp
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(0.dp, 16.dp, 16.dp, 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_previous_2),
-                contentDescription = null,
-                modifier = Modifier.clickable {
-                    onClickSkipBackwards()
-                }
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            if (isPlaying) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_pause_2),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        onClickPause()
-                    }
-                )
-            } else {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_play_2),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        onClickPlay()
-                    }
-                )
-            }
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_next_2),
-                contentDescription = null,
-                modifier = Modifier.clickable {
-                    onClickSkipForward()
-                }
-            )
-        }
-    }
-}
-
-@Composable
-fun MainBottomNavigation(
+fun HostBottomBar(
     navController: NavController
 ) {
     val items = listOf(
@@ -284,3 +158,8 @@ fun MainBottomNavigation(
         }
     }
 }
+
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) =
+    this?.hierarchy?.any {
+        it.route?.contains(destination.name, true) ?: false
+    } ?: false

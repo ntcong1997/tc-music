@@ -24,11 +24,6 @@ android {
         }
     }
 
-    packagingOptions {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -63,9 +58,18 @@ dependencies {
     implementation(project(":core:player"))
     implementation(project(":core:model"))
 
+    // Dagger Hilt
+    implementation(libs.androidx.hilt.hilt.navigation.compose)
+
     // Lifecycle
     implementation(libs.androidx.lifecycle.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.lifecycle.viewmodel.compose)
+
+    // Navigation
+    implementation(libs.androidx.navigation.navigation.compose)
+
+    // Splash screen
+    implementation(libs.androidx.core.core.splashscreen)
 
     // Utils
     implementation(libs.com.jakewharton.timber)
