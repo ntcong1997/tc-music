@@ -1,7 +1,7 @@
 package com.example.tcmusic.di
 
 import com.example.tcmusic.core.player.service.MediaNotificationConfig
-import com.example.tcmusic.ui.main.MainActivity
+import com.example.tcmusic.ui.MainActivity
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

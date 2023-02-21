@@ -2,6 +2,7 @@ package com.example.tcmusic.feature.settings.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.tcmusic.feature.settings.SettingsRoute
 
@@ -11,8 +12,8 @@ import com.example.tcmusic.feature.settings.SettingsRoute
 
 const val settingsRoute = "settings_route"
 
-fun NavController.navigateToSettings() {
-    this.navigate(settingsRoute)
+fun NavController.navigateToSettings(navOptions: NavOptions? = null) {
+    this.navigate(settingsRoute, navOptions)
 }
 
 fun NavGraphBuilder.settingsScreen(

@@ -23,18 +23,18 @@ import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
 import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.GraySilverChalice
 import com.example.tcmusic.core.designsystem.theme.White
-import com.example.tcmusic.core.model.PlayingMediaInfo
-import com.example.tcmusic.core.testing.data.playingMediaInfoTestData1
+import com.example.tcmusic.core.model.PlayingMedia
+import com.example.tcmusic.core.testing.data.playingMediaTestData1
 
 /**
  * Created by TC on 19/02/2023.
  */
 
 @Composable
-fun BoxScope.PlayingMediaInfoFloatingBar(
-    playingMediaInfo: PlayingMediaInfo,
+fun BoxScope.PlayingMediaFloatingBar(
+    playingMedia: PlayingMedia,
     isPlaying: Boolean,
-    onPlayingMediaInfoClick: (PlayingMediaInfo) -> Unit,
+    onPlayingMediaClick: (PlayingMedia) -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     onSkipBackwardsClick: () -> Unit,
@@ -47,23 +47,23 @@ fun BoxScope.PlayingMediaInfoFloatingBar(
             .align(Alignment.BottomCenter)
             .background(GraySilverChalice, RoundedCornerShape(10.dp))
             .clickable {
-                onPlayingMediaInfoClick(playingMediaInfo)
+                onPlayingMediaClick(playingMedia)
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (playingMediaInfo.image.isNullOrBlank()) PlayingMediaInfoImage(image = playingMediaInfo.image)
-        else PlayingMediaInfoCompactTitle(title = playingMediaInfo.title)
+        if (playingMedia.image.isNullOrBlank()) PlayingMediaImage(image = playingMedia.image)
+        else PlayingMediaCompactTitle(title = playingMedia.title)
 
         Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(16.dp)
         ) {
-            PlayingMediaInfoTitle(title = playingMediaInfo.title)
+            PlayingMediaTitle(title = playingMedia.title)
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            PlayingMediaInfoArtist(artist = playingMediaInfo.artist)
+            PlayingMediaArtist(artist = playingMedia.artist)
         }
 
         Row(
@@ -113,7 +113,7 @@ fun BoxScope.PlayingMediaInfoFloatingBar(
 }
 
 @Composable
-fun PlayingMediaInfoImage(
+fun PlayingMediaImage(
     image: String?
 ) {
     AsyncImage(
@@ -128,7 +128,7 @@ fun PlayingMediaInfoImage(
 }
 
 @Composable
-fun PlayingMediaInfoCompactTitle(
+fun PlayingMediaCompactTitle(
     title: String?
 ) {
     Box(
@@ -146,7 +146,7 @@ fun PlayingMediaInfoCompactTitle(
 }
 
 @Composable
-fun PlayingMediaInfoTitle(
+fun PlayingMediaTitle(
     title: String?
 ) {
     Text(
@@ -158,7 +158,7 @@ fun PlayingMediaInfoTitle(
 }
 
 @Composable
-fun PlayingMediaInfoArtist(
+fun PlayingMediaArtist(
     artist: String?
 ) {
     Text(
@@ -170,11 +170,11 @@ fun PlayingMediaInfoArtist(
 
 @Preview
 @Composable
-fun BoxScope.PlayingMediaInfoFloatingBarPreview() {
-    PlayingMediaInfoFloatingBar(
-        playingMediaInfo = playingMediaInfoTestData1,
+fun BoxScope.PlayingMediaFloatingBarPreview() {
+    PlayingMediaFloatingBar(
+        playingMedia = playingMediaTestData1,
         isPlaying = false,
-        onPlayingMediaInfoClick = { _ ->
+        onPlayingMediaClick = { _ ->
 
         },
         onPlayClick = { },

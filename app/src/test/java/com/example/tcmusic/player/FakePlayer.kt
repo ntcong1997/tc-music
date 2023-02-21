@@ -1,7 +1,7 @@
 package com.example.tcmusic.player
 
 import com.example.domain.player.Player
-import com.example.model.PlayingMediaInfo
+import com.example.model.PlayingMedia
 import com.example.model.Track
 import com.example.test.data.PlayingMediasInfo
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,15 +13,15 @@ import kotlinx.coroutines.flow.asSharedFlow
  */
 
 class FakePlayer : Player {
-    private val _playingMediaInfo = MutableSharedFlow<PlayingMediaInfo?>(replay = 1)
+    private val _playingMedia = MutableSharedFlow<PlayingMedia?>(replay = 1)
     private val _isPlaying = MutableSharedFlow<Boolean>(replay = 1)
     private val _duration = MutableSharedFlow<Long>(replay = 1)
     private val _progress = MutableSharedFlow<Long>(replay = 1)
 
     override fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long) {
         val playingTrack = playlist.first { it.id?.toLong() == startPlayingId }
-        val playingMediaInfo = PlayingMediasInfo.find { it.id == playingTrack.id }
-        _playingMediaInfo.tryEmit(playingMediaInfo)
+        val playingMedia = PlayingMediasInfo.find { it.id == playingTrack.id }
+        _playingMedia.tryEmit(playingMedia)
     }
 
     override fun play() {
@@ -41,8 +41,8 @@ class FakePlayer : Player {
     override fun seekTo(position: Long) {
     }
 
-    override val playingMediaInfo: SharedFlow<PlayingMediaInfo?>
-        get() = _playingMediaInfo.asSharedFlow()
+    override val playingMedia: SharedFlow<PlayingMedia?>
+        get() = _playingMedia.asSharedFlow()
 
     override val isPlaying: SharedFlow<Boolean>
         get() = _isPlaying.asSharedFlow()

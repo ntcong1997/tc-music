@@ -73,4 +73,5 @@ dependencies {
 
     // Utils
     implementation(libs.com.jakewharton.timber)
+    implementation(libs.androidx.tracing.tracing.ktx)
 }

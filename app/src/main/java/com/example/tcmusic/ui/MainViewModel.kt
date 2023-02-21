@@ -1,30 +1,36 @@
-package com.example.tcmusic.ui.main.host
+package com.example.tcmusic.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tcmusic.core.common.result.Result
 import com.example.tcmusic.core.domain.usecase.player.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
- * Created by TC on 14/12/2022.
+ * Created by TC on 09/10/2022.
  */
 
 @HiltViewModel
-class HostViewModel @Inject constructor(
-    observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
+class MainViewModel @Inject constructor(
+    observePlayingMediaUseCase: ObservePlayingMediaUseCase,
     observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val playUseCase: PlayUseCase,
     private val pauseUseCase: PauseUseCase,
     private val skipBackwardsUseCase: SkipBackwardsUseCase,
     private val skipForwardUseCase: SkipForwardUseCase
 ) : ViewModel() {
-    val playingMediaInfo = observePlayingMediaInfoUseCase(Unit).map {
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
+
+    private val _navigateToTrackDetail = Channel<DataTrackDetail>(Channel.CONFLATED)
+    val navigateToTrackDetail = _navigateToTrackDetail.receiveAsFlow()
+
+    val playingMediaInfo = observePlayingMediaUseCase(Unit).map {
         if (it is Result.Success) it.data
         else null
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -33,6 +39,13 @@ class HostViewModel @Inject constructor(
         if (it is Result.Success) it.data
         else true
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
+
+    init {
+        viewModelScope.launch {
+            delay(2000L)
+            _isLoading.value = false
+        }
+    }
 
     fun clickPlay() {
         viewModelScope.launch {
@@ -57,4 +70,13 @@ class HostViewModel @Inject constructor(
             skipForwardUseCase()
         }
     }
+
+    fun openTrackDetail(trackId: String?, version: String?) {
+        _navigateToTrackDetail.trySend(DataTrackDetail(trackId, version))
+    }
 }
+
+data class DataTrackDetail(
+    val trackId: String?,
+    val trackVersion: String?
+)

@@ -1,10 +1,7 @@
 package com.example.tcmusic.feature.artist.navigation
 
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.tcmusic.feature.artist.ArtistRoute
 
 /**
@@ -15,13 +12,13 @@ const val artistRoute = "artist_route"
 
 internal const val artistIdArg = "artistId"
 
-fun NavController.navigateToArtist(artistId: String?) {
-    this.navigate("$artistRoute/$artistId")
+fun NavController.navigateToArtist(artistId: String?, navOptions: NavOptions? = null) {
+    this.navigate("$artistRoute/$artistId", navOptions)
 }
 
 fun NavGraphBuilder.artistScreen(
     onBackClick: () -> Unit,
-    onPlayingMediaInfoClick: (String?, String?) -> Unit
+    onPlayingMediaClick: (String?, String?) -> Unit
 ) {
     composable(
         route = "$artistRoute/{$artistIdArg}",
@@ -33,7 +30,7 @@ fun NavGraphBuilder.artistScreen(
     ) {
         ArtistRoute(
             onBackClick = onBackClick,
-            onPlayingMediaInfoClick = onPlayingMediaInfoClick
+            onPlayingMediaClick = onPlayingMediaClick
         )
     }
 }

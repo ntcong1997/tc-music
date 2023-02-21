@@ -1,12 +1,12 @@
 package com.example.tcmusic.core.testing.data
 
-import com.example.tcmusic.core.model.PlayingMediaInfo
+import com.example.tcmusic.core.model.PlayingMedia
 
 /**
  * Created by TC on 29/12/2022.
  */
 
-val playingMediaInfoTestData1 = PlayingMediaInfo(
+val playingMediaTestData1 = PlayingMedia(
     id = "1",
     artist = null,
     coverArt = null,
@@ -14,7 +14,7 @@ val playingMediaInfoTestData1 = PlayingMediaInfo(
     version = null
 )
 
-val playingMediaInfoTestData2 = PlayingMediaInfo(
+val playingMediaTestData2 = PlayingMedia(
     id = "2",
     artist = null,
     coverArt = null,
@@ -22,7 +22,7 @@ val playingMediaInfoTestData2 = PlayingMediaInfo(
     version = null
 )
 
-val playingMediaInfoTestData3 = PlayingMediaInfo(
+val playingMediaTestData3 = PlayingMedia(
     id = "3",
     artist = null,
     coverArt = null,
@@ -31,7 +31,7 @@ val playingMediaInfoTestData3 = PlayingMediaInfo(
 )
 
 val playingMediasInfoTestData = listOf(
-    playingMediaInfoTestData1,
-    playingMediaInfoTestData2,
-    playingMediaInfoTestData3
+    playingMediaTestData1,
+    playingMediaTestData2,
+    playingMediaTestData3
 )

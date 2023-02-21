@@ -40,7 +40,7 @@ class ArtistDetailViewModelTest {
         val fakeArtistRepository = FakeArtistRepository()
 
         viewModel = ArtistDetailViewModel(
-            observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(
+            observePlayingMediaUseCase = ObservePlayingMediaUseCase(
                 fakePlayer,
                 coroutineRule.testDispatcher
             ),
@@ -73,14 +73,14 @@ class ArtistDetailViewModelTest {
 
     @Test
     fun `play media`() = runTest {
-        viewModel.clickPlayingMediaInfoPlay()
+        viewModel.clickPlayingMediaPlay()
         val isPlaying = viewModel.isPlaying.first()
         assertEquals(true, isPlaying)
     }
 
     @Test
     fun `pause media`() = runTest {
-        viewModel.clickPlayingMediaInfoPause()
+        viewModel.clickPlayingMediaPause()
         val isPlaying = viewModel.isPlaying.first()
         assertEquals(false, isPlaying)
     }

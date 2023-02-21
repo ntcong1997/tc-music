@@ -42,7 +42,7 @@ class TrackDetailViewModelTest {
         val fakeTrackRepository = FakeTrackRepository()
 
         viewModel = TrackDetailViewModel(
-            observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(
+            observePlayingMediaUseCase = ObservePlayingMediaUseCase(
                 fakePlayer,
                 coroutineRule.testDispatcher
             ),

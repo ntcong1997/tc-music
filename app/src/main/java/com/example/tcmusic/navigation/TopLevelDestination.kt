@@ -17,28 +17,28 @@ import com.example.tcmusic.feature.settings.R as settingsR
  * next within a single destination will be handled directly in composables.
  */
 
-sealed class TopLevelDestination {
+sealed class TopLevelDestination(val name: String) {
     class Home(
         val icon: Icon = Icon.DrawableResourceIcon(TcMusicIcons.Home),
         val iconTextId: Int = homeR.string.text_home
-    ) : TopLevelDestination()
+    ) : TopLevelDestination("Home")
 
     class Search(
         val icon: Icon = Icon.DrawableResourceIcon(TcMusicIcons.Search),
         val iconTextId: Int = searchR.string.text_search
-    ) : TopLevelDestination()
+    ) : TopLevelDestination("Search")
 
     class Playlists(
         val icon: Icon = Icon.DrawableResourceIcon(TcMusicIcons.Playlists),
         val iconTextId: Int = playlistsR.string.text_playlists
-    ) : TopLevelDestination()
+    ) : TopLevelDestination("Playlists")
 
     class Settings(
         val icon: Icon = Icon.DrawableResourceIcon(TcMusicIcons.Settings),
         val iconTextId: Int = settingsR.string.text_settings
-    ) : TopLevelDestination()
+    ) : TopLevelDestination("Settings")
 
-    object Artist : TopLevelDestination()
+    object Artist : TopLevelDestination("Artist")
 
-    object Track : TopLevelDestination()
+    object Track : TopLevelDestination("Artist")
 }

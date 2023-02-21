@@ -21,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
+    observePlayingMediaUseCase: ObservePlayingMediaUseCase,
     observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val getArtistDetailUseCase: GetArtistDetailUseCase,
     private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase,
@@ -30,7 +30,7 @@ class ArtistViewModel @Inject constructor(
     private val skipBackwardsUseCase: SkipBackwardsUseCase,
     private val skipForwardUseCase: SkipForwardUseCase
 ) : ViewModel() {
-    val playingMediaInfo = observePlayingMediaInfoUseCase(Unit).map {
+    val playingMedia = observePlayingMediaUseCase(Unit).map {
         if (it is Result.Success) it.data
         else null
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -79,25 +79,25 @@ class ArtistViewModel @Inject constructor(
         }
     }
 
-    fun clickPlayingMediaInfoPlay() {
+    fun clickPlayingMediaPlay() {
         viewModelScope.launch {
             playUseCase()
         }
     }
 
-    fun clickPlayingMediaInfoPause() {
+    fun clickPlayingMediaPause() {
         viewModelScope.launch {
             pauseUseCase()
         }
     }
 
-    fun clickPlayingMediaInfoSkipBackwards() {
+    fun clickPlayingMediaSkipBackwards() {
         viewModelScope.launch {
             skipBackwardsUseCase()
         }
     }
 
-    fun clickPlayingMediaInfoSkipForward() {
+    fun clickPlayingMediaSkipForward() {
         viewModelScope.launch {
             skipForwardUseCase()
         }

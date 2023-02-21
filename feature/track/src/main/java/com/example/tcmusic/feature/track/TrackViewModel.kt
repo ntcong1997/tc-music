@@ -24,7 +24,7 @@ import kotlin.math.roundToLong
 @HiltViewModel
 class TrackViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    observePlayingMediaInfoUseCase: ObservePlayingMediaInfoUseCase,
+    observePlayingMediaUseCase: ObservePlayingMediaUseCase,
     private val getTrackDetailUseCase: GetTrackDetailUseCase,
     observeDurationUseCase: ObserveDurationUseCase,
     observeProgressUseCase: ObserveProgressUseCase,
@@ -35,9 +35,9 @@ class TrackViewModel @Inject constructor(
     private val skipForwardUseCase: SkipForwardUseCase,
     private val seekToUseCase: SeekToUseCase
 ) : ViewModel() {
-    // Why we need to pass this two arguments while we can get those through ObservePlayingMediaInfoUseCase?
+    // Why we need to pass this two arguments while we can get those through ObservePlayingMediaUseCase?
     // Because when we close app media notification maybe still appear so when we click notification
-    // those arguments still not init in ObservePlayingMediaInfoUseCase so we must pass those arguments to get track detail
+    // those arguments still not init in ObservePlayingMediaUseCase so we must pass those arguments to get track detail
     private val trackId = checkNotNull(savedStateHandle[trackIdArg]) as String
     private val trackVersion = checkNotNull(savedStateHandle[trackVersionArg]) as String
 
@@ -63,7 +63,7 @@ class TrackViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            observePlayingMediaInfoUseCase(Unit).collect {
+            observePlayingMediaUseCase(Unit).collect {
                 if (it is Result.Success) {
                     _getTrackDetailParams.value = GetTrackDetailParams(
                         it.data?.id,

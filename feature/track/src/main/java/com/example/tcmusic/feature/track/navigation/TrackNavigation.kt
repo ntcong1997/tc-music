@@ -1,11 +1,8 @@
 package com.example.tcmusic.feature.track.navigation
 
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.tcmusic.feature.track.TrackRoute
 
 /**
@@ -17,8 +14,8 @@ const val trackRoute = "track_route"
 internal const val trackIdArg = "trackId"
 internal const val trackVersionArg = "trackVersion"
 
-fun NavController.navigateToTrack(trackId: String?, trackVersion: String?) {
-    this.navigate("$trackRoute/$trackId&$trackVersion")
+fun NavController.navigateToTrack(trackId: String?, trackVersion: String?, navOptions: NavOptions? = null) {
+    this.navigate("$trackRoute/$trackId&$trackVersion", navOptions)
 }
 
 @OptIn(ExperimentalMaterialApi::class)

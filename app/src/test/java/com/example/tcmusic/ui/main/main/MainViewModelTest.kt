@@ -36,7 +36,7 @@ class MainViewModelTest {
         fakePlayer = FakePlayer()
 
         viewModel = HostViewModel(
-            observePlayingMediaInfoUseCase = ObservePlayingMediaInfoUseCase(
+            observePlayingMediaUseCase = ObservePlayingMediaUseCase(
                 fakePlayer,
                 coroutineRule.testDispatcher
             ),
