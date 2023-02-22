@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
  * Created by TC on 26/01/2023.
  */
 
-data class NetworkTrack(
+data class NetworkTrackV1(
     @SerializedName("alias")
     val alias: String?,
     @SerializedName("artists")
@@ -16,7 +16,7 @@ data class NetworkTrack(
     @SerializedName("hub")
     val hub: Hub?,
     @SerializedName("images")
-    val images: TrackImages?,
+    val images: NetworkTrackV1Images?,
     @SerializedName("key")
     val key: String?,
     @SerializedName("layout")
@@ -26,7 +26,7 @@ data class NetworkTrack(
     @SerializedName("sections")
     val sections: List<Section>?,
     @SerializedName("share")
-    val share: TrackShare?,
+    val share: NetworkTrackV1Share?,
     @SerializedName("subtitle")
     val subtitle: String?,
     @SerializedName("title")
@@ -38,11 +38,11 @@ data class NetworkTrack(
     @SerializedName("urlparams")
     val urlparams: Urlparams?
 ) {
-    val mediaUri: String
+    val mediaUri: String?
         get() = if (hub?.actions?.find { it.type == "uri" } != null) {
             val mediaAction = hub.actions.find { it.type == "uri" }
-            mediaAction?.uri ?: ""
-        } else ""
+            mediaAction?.uri
+        } else null
 
     val lyrics: List<String>
         get() = if (sections?.find { it.type == "LYRICS" } != null) {
@@ -68,7 +68,7 @@ data class Hub(
     val type: String?
 )
 
-data class TrackImages(
+data class NetworkTrackV1Images(
     @SerializedName("background")
     val background: String?,
     @SerializedName("coverart")
@@ -94,7 +94,7 @@ data class Section(
     val type: String?
 )
 
-data class TrackShare(
+data class NetworkTrackV1Share(
     @SerializedName("avatar")
     val avatar: String?,
     @SerializedName("href")

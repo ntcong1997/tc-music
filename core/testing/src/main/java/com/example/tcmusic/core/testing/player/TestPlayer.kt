@@ -1,9 +1,9 @@
-package com.example.tcmusic.player
+package com.example.tcmusic.core.testing.player
 
-import com.example.domain.player.Player
-import com.example.model.PlayingMedia
-import com.example.model.Track
-import com.example.test.data.PlayingMediasInfo
+import com.example.tcmusic.core.model.PlayingMedia
+import com.example.tcmusic.core.model.Track
+import com.example.tcmusic.core.player.Player
+import com.example.tcmusic.core.testing.data.playingMediasTestData
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asSharedFlow
  * Created by TC on 29/12/2022.
  */
 
-class FakePlayer : Player {
+class TestPlayer : Player {
     private val _playingMedia = MutableSharedFlow<PlayingMedia?>(replay = 1)
     private val _isPlaying = MutableSharedFlow<Boolean>(replay = 1)
     private val _duration = MutableSharedFlow<Long>(replay = 1)
@@ -20,7 +20,7 @@ class FakePlayer : Player {
 
     override fun setPlaylistAndPlay(playlist: List<Track>, startPlayingId: Long) {
         val playingTrack = playlist.first { it.id?.toLong() == startPlayingId }
-        val playingMedia = PlayingMediasInfo.find { it.id == playingTrack.id }
+        val playingMedia = playingMediasTestData.find { it.id == playingTrack.id }
         _playingMedia.tryEmit(playingMedia)
     }
 

@@ -2,7 +2,7 @@ package com.example.tcmusic.core.network.datasource.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.tcmusic.core.network.model.NetworkTrack
+import com.example.tcmusic.core.network.model.NetworkTrackV1
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,18 +13,18 @@ import java.io.IOException
 class SearchTracksPagingDataSource(
     private val retrofitShazamNetwork: RetrofitShazamNetwork,
     private val query: String?
-) : PagingSource<Int, NetworkTrack>() {
-    override fun getRefreshKey(state: PagingState<Int, NetworkTrack>): Int? {
+) : PagingSource<Int, NetworkTrackV1>() {
+    override fun getRefreshKey(state: PagingState<Int, NetworkTrackV1>): Int? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NetworkTrack> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NetworkTrackV1> {
         val offset = params.key ?: 0
         return try {
             val response = retrofitShazamNetwork.searchTracks(
                 query = query,
                 offset = offset
-            ).tracks?.hits?.mapNotNull { it.track } ?: listOf()
+            ).tracks?.hits?.mapNotNull { it.track } ?: listOf<NetworkTrackV1>()
             LoadResult.Page(
                 data = response,
                 prevKey = null, // Only paging forward.

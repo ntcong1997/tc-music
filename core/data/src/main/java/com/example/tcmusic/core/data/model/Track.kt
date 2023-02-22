@@ -2,7 +2,6 @@ package com.example.tcmusic.core.data.model
 
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.network.model.*
-import com.example.tcmusic.core.network.model.*
 import com.google.gson.Gson
 
 /**
@@ -22,7 +21,7 @@ fun TopSongsData.toTrack(): Track {
     )
 }
 
-fun NetworkTrack.toTrack(): Track {
+fun NetworkTrackV1.toTrack(): Track {
     return Track(
         id = key,
         image = images?.coverart,

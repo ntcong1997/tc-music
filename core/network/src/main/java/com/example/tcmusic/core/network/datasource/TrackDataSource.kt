@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.tcmusic.core.network.datasource.paging.SearchTracksPagingDataSource
-import com.example.tcmusic.core.network.model.NetworkTrack
+import com.example.tcmusic.core.network.model.NetworkTrackV1
 import com.example.tcmusic.core.network.model.NetworkTrackV2
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +15,9 @@ import javax.inject.Inject
  */
 
 interface TrackDataSource {
-    fun searchTracks(query: String?): Flow<PagingData<NetworkTrack>>
+    fun searchTracks(query: String?): Flow<PagingData<NetworkTrackV1>>
 
-    suspend fun getTrackDetailV1(trackId: String?): NetworkTrack?
+    suspend fun getTrackDetailV1(trackId: String?): NetworkTrackV1?
 
     suspend fun getTrackDetailV2(trackId: String?): NetworkTrackV2?
 }
@@ -25,14 +25,14 @@ interface TrackDataSource {
 class TrackDataSourceImpl @Inject constructor(
     private val retrofitShazamNetwork: RetrofitShazamNetwork
 ) : TrackDataSource {
-    override fun searchTracks(query: String?): Flow<PagingData<NetworkTrack>> {
+    override fun searchTracks(query: String?): Flow<PagingData<NetworkTrackV1>> {
         val searchTracksPagingDataSource = SearchTracksPagingDataSource(retrofitShazamNetwork, query)
         return Pager(PagingConfig(pageSize = 20)) {
             searchTracksPagingDataSource
         }.flow
     }
 
-    override suspend fun getTrackDetailV1(trackId: String?): NetworkTrack? {
+    override suspend fun getTrackDetailV1(trackId: String?): NetworkTrackV1? {
         return retrofitShazamNetwork.getTrackDetailV1(trackId)
     }
 

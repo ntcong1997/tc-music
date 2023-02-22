@@ -10,13 +10,13 @@ import retrofit2.http.Query
  */
 interface RetrofitShazamNetwork {
     @GET(value = "v1/charts/world")
-    suspend fun getWorldChart(@Query("offset") offset: Int): List<NetworkTrack>
+    suspend fun getWorldChart(@Query("offset") offset: Int): List<NetworkTrackV1>
 
     @GET(value = "v1/charts/genre-world")
     suspend fun getWorldChartByGenre(
         @Query("genre_code") genreCode: String?,
         @Query("offset") offset: Int
-    ): List<NetworkTrack>
+    ): List<NetworkTrackV1>
 
     @GET(value = "v1/search/multi")
     suspend fun searchTracks(
@@ -33,7 +33,7 @@ interface RetrofitShazamNetwork {
     ): NetworkSearchArtists
 
     @GET(value = "v1/tracks/details")
-    suspend fun getTrackDetailV1(@Query("track_id") trackId: String?): NetworkTrack?
+    suspend fun getTrackDetailV1(@Query("track_id") trackId: String?): NetworkTrackV1?
 
     @GET(value = "v2/tracks/details")
     suspend fun getTrackDetailV2(@Query("track_id") trackId: String?): NetworkTrackV2?

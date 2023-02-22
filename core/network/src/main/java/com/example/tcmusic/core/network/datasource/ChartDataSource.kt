@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.tcmusic.core.network.datasource.paging.WorldChartByGenrePagingDataSource
 import com.example.tcmusic.core.network.datasource.paging.WorldChartPagingDataSource
-import com.example.tcmusic.core.network.model.NetworkTrack
+import com.example.tcmusic.core.network.model.NetworkTrackV1
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -15,11 +15,11 @@ import javax.inject.Inject
  */
 
 interface ChartDataSource {
-    fun loadWorldChart(): Flow<PagingData<NetworkTrack>>
+    fun loadWorldChart(): Flow<PagingData<NetworkTrackV1>>
 
     fun refreshWorldChart()
 
-    fun loadWorldChartByGenre(genreCode: String?): Flow<PagingData<NetworkTrack>>
+    fun loadWorldChartByGenre(genreCode: String?): Flow<PagingData<NetworkTrackV1>>
 
     fun refreshWorldChartByGenre(genreCode: String?)
 }
@@ -30,7 +30,7 @@ class ChartDataSourceImpl @Inject constructor(
     private var worldChartPagingDataSource: WorldChartPagingDataSource? = null
     private var worldChartByGenrePagingDataSource: WorldChartByGenrePagingDataSource? = null
 
-    override fun loadWorldChart(): Flow<PagingData<NetworkTrack>> {
+    override fun loadWorldChart(): Flow<PagingData<NetworkTrackV1>> {
         worldChartPagingDataSource = WorldChartPagingDataSource(retrofitShazamNetwork)
         return Pager(PagingConfig(pageSize = 20)) {
             worldChartPagingDataSource!!
@@ -42,7 +42,7 @@ class ChartDataSourceImpl @Inject constructor(
         worldChartPagingDataSource = WorldChartPagingDataSource(retrofitShazamNetwork)
     }
 
-    override fun loadWorldChartByGenre(genreCode: String?): Flow<PagingData<NetworkTrack>> {
+    override fun loadWorldChartByGenre(genreCode: String?): Flow<PagingData<NetworkTrackV1>> {
         worldChartByGenrePagingDataSource = WorldChartByGenrePagingDataSource(genreCode, retrofitShazamNetwork)
         return Pager(PagingConfig(pageSize = 20)) {
             worldChartByGenrePagingDataSource!!

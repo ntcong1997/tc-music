@@ -18,5 +18,5 @@ data class Tracks(
 
 data class TracksHit(
     @SerializedName("track")
-    val track: NetworkTrack?
+    val track: NetworkTrackV1?
 )

@@ -8,7 +8,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:common"))
     implementation(project(":core:model"))
+    implementation(project(":core:player"))
+    implementation(project(":core:data"))
 
     // Coroutines
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
@@ -18,6 +21,9 @@ dependencies {
 
     // Hilt test
     implementation(libs.com.google.dagger.hilt.android.testing)
+
+    // Paging 3
+    implementation(libs.androidx.paging.paging.runtime)
 
     // Local unit tests
     implementation(libs.junit)

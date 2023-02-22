@@ -9,7 +9,7 @@ import com.example.tcmusic.core.model.PlayingMedia
 val playingMediaTestData1 = PlayingMedia(
     id = "1",
     artist = null,
-    coverArt = null,
+    image = null,
     title = "Story of my life",
     version = null
 )
@@ -17,7 +17,7 @@ val playingMediaTestData1 = PlayingMedia(
 val playingMediaTestData2 = PlayingMedia(
     id = "2",
     artist = null,
-    coverArt = null,
+    image = null,
     title = "Lost stars",
     version = null
 )
@@ -25,12 +25,12 @@ val playingMediaTestData2 = PlayingMedia(
 val playingMediaTestData3 = PlayingMedia(
     id = "3",
     artist = null,
-    coverArt = null,
+    image = null,
     title = "It will rain",
     version = null
 )
 
-val playingMediasInfoTestData = listOf(
+val playingMediasTestData = listOf(
     playingMediaTestData1,
     playingMediaTestData2,
     playingMediaTestData3
