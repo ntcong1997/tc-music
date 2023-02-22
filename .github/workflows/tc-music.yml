@@ -29,12 +29,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Decode Shazam Properties File
+    - name: Decode Secrets Default Properties File
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: "shazam.properties"
+        fileName: "secrets.default.properties"
         fileDir: "./"
-        encodedString: ${{ secrets.SHAZAM_PROPERTIES_FILE }}
+        encodedString: ${{ secrets.SECRETS_DEFAULT_PROPERTIES_FILE }}
 
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1

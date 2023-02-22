@@ -14,10 +14,12 @@ data class NetworkArtist(
     val avatar: String?,
     @SerializedName("data")
     val data: List<Data>?,
+    @SerializedName("id")
+    val id: String?,
     @SerializedName("name")
-    val name: String?,
+    val name: String?
 ) {
-    val id: String?
+    val artistId: String?
         get() = adamid ?: data?.firstOrNull()?.id
 
     // Api get artist detail not return name and avatar in this layer

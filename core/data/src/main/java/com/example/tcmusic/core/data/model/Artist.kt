@@ -10,7 +10,7 @@ import com.example.tcmusic.core.network.model.NetworkArtist
 fun NetworkArtist.toArtist(): Artist {
     return Artist(
         avatar = artistAvatar,
-        id = id,
+        id = artistId,
         name = artistName,
         topSongs = topSongs.map { it.toTrack() }
     )

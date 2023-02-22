@@ -1,9 +1,6 @@
 package com.example.tcmusic.feature.network.model
 
-import com.example.tcmusic.core.network.model.Artwork
-import com.example.tcmusic.core.network.model.Attributes
-import com.example.tcmusic.core.network.model.Data
-import com.example.tcmusic.core.network.model.NetworkArtist
+import com.example.tcmusic.core.network.model.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -18,10 +15,11 @@ class NetworkArtistTest {
             alias = null,
             avatar = "avatar",
             data = null,
+            id = null,
             name = "name"
         )
 
-        assertEquals("1", networkArtist.id)
+        assertEquals("1", networkArtist.artistId)
         assertEquals("avatar", networkArtist.artistAvatar)
         assertEquals("name", networkArtist.artistName)
     }
@@ -48,14 +46,91 @@ class NetworkArtistTest {
                     id = "1",
                     relationships = null,
                     type = null,
-                    views = null
+                    views = Views(
+                        topSongs = TopSongs(
+                            attributes = null,
+                            data = listOf(
+                                TopSongsData(
+                                    attributes = TopSongsDataAttributes(
+                                        albumName = null,
+                                        artistName = "trackSubTitle",
+                                        artwork = Artwork(
+                                            url = "trackImage"
+                                        ),
+                                        audioLocale = null,
+                                        audioTraits = null,
+                                        composerName = null,
+                                        discNumber = null,
+                                        durationInMillis = null,
+                                        genreNames = listOf("trackGenre"),
+                                        hasLyrics = null,
+                                        hasTimeSyncedLyrics = null,
+                                        isAppleDigitalMaster = null,
+                                        isMasteredForItunes = null,
+                                        isVocalAttenuationAllowed = null,
+                                        isrc = null,
+                                        name = "trackTitle",
+                                        previews = listOf(
+                                            Preview(
+                                                url = "trackUri"
+                                            )
+                                        ),
+                                        releaseDate = null,
+                                        trackNumber = null,
+                                        url = null
+                                    ),
+                                    href = null,
+                                    id = "1",
+                                    type = null
+                                )
+                            ),
+                            href = null,
+                            next = null
+                        )
+                    )
                 )
             ),
+            id = null,
             name = null
         )
 
-        assertEquals("1", networkArtist.id)
+        assertEquals("1", networkArtist.artistId)
         assertEquals("avatar", networkArtist.artistAvatar)
         assertEquals("name", networkArtist.artistName)
+        assertEquals(listOf(
+            TopSongsData(
+                attributes = TopSongsDataAttributes(
+                    albumName = null,
+                    artistName = "trackSubTitle",
+                    artwork = Artwork(
+                        url = "trackImage"
+                    ),
+                    audioLocale = null,
+                    audioTraits = null,
+                    composerName = null,
+                    discNumber = null,
+                    durationInMillis = null,
+                    genreNames = listOf("trackGenre"),
+                    hasLyrics = null,
+                    hasTimeSyncedLyrics = null,
+                    isAppleDigitalMaster = null,
+                    isMasteredForItunes = null,
+                    isVocalAttenuationAllowed = null,
+                    isrc = null,
+                    name = "trackTitle",
+                    previews = listOf(
+                        Preview(
+                            url = "trackUri"
+                        )
+                    ),
+                    releaseDate = null,
+                    trackNumber = null,
+                    url = null
+                ),
+                href = null,
+                id = "1",
+                type = null
+            )
+        ), networkArtist.topSongs)
     }
 }

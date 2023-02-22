@@ -34,7 +34,8 @@ class TrackTest {
             images = NetworkTrackV1Images(
                 background = null,
                 coverart = "image",
-                coverarthq = null
+                coverarthq = null,
+                joecolor = null
             ),
             key = "1",
             layout = null,

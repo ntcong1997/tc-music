@@ -1,11 +1,13 @@
 package com.example.tcmusic.core.network.model
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
 /**
  * Created by TC on 26/01/2023.
  */
 
+@Serializable
 data class NetworkTrackV1(
     @SerializedName("alias")
     val alias: String?,
@@ -75,6 +77,8 @@ data class NetworkTrackV1Images(
     val coverart: String?,
     @SerializedName("coverarthq")
     val coverarthq: String?,
+    @SerializedName("joecolor")
+    val joecolor: String?
 )
 
 data class Section(
