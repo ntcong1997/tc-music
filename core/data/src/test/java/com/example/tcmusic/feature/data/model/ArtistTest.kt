@@ -18,6 +18,7 @@ class ArtistTest {
             alias = null,
             avatar = "avatar",
             data = null,
+            id = null,
             name = "name"
         )
         val artist = networkArtist.toArtist()
@@ -94,6 +95,7 @@ class ArtistTest {
                     )
                 )
             ),
+            id = null,
             name = null
         )
         val artist = networkArtist.toArtist()

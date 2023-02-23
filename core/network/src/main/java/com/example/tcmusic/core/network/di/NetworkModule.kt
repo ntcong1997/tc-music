@@ -3,20 +3,20 @@ package com.example.tcmusic.core.network.di
 import android.content.Context
 import com.example.tcmusic.core.network.BuildConfig
 import com.example.tcmusic.core.network.datasource.*
-import com.example.tcmusic.core.network.datasource.*
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
 import okhttp3.Cache
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -30,9 +30,13 @@ class NetworkModule {
     @Provides
     fun provideOkHttpCache(@ApplicationContext context: Context): Cache = Cache(context.cacheDir, 10 * 1024 * 1024) // cache size = 10MB
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Singleton
     @Provides
-    fun provideGson(): Gson = GsonBuilder().create()
+    fun providesNetworkJson(): Json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
 
     @Singleton
     @Provides
@@ -65,10 +69,13 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitShazamNetwork(gson: Gson, okHttpClient: OkHttpClient): RetrofitShazamNetwork =
+    fun provideRetrofitShazamNetwork(networkJson: Json, okHttpClient: OkHttpClient): RetrofitShazamNetwork =
         Retrofit.Builder()
             .baseUrl("https//${BuildConfig.SHAZAM_DOMAIN}")
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(
+                @OptIn(ExperimentalSerializationApi::class)
+                networkJson.asConverterFactory("application/json".toMediaType())
+            )
             .client(okHttpClient)
             .build()
             .create(RetrofitShazamNetwork::class.java)

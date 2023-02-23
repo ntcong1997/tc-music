@@ -1,6 +1,6 @@
 package com.example.tcmusic.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -9,35 +9,35 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NetworkTrackV1(
-    @SerializedName("alias")
+    @SerialName("alias")
     val alias: String?,
-    @SerializedName("artists")
+    @SerialName("artists")
     val artists: List<NetworkArtist>?,
-    @SerializedName("genres")
+    @SerialName("genres")
     val genres: Genres?,
-    @SerializedName("hub")
+    @SerialName("hub")
     val hub: Hub?,
-    @SerializedName("images")
+    @SerialName("images")
     val images: NetworkTrackV1Images?,
-    @SerializedName("key")
+    @SerialName("key")
     val key: String?,
-    @SerializedName("layout")
+    @SerialName("layout")
     val layout: String?,
-    @SerializedName("releasedate")
+    @SerialName("releasedate")
     val releasedate: String?,
-    @SerializedName("sections")
+    @SerialName("sections")
     val sections: List<Section>?,
-    @SerializedName("share")
+    @SerialName("share")
     val share: NetworkTrackV1Share?,
-    @SerializedName("subtitle")
+    @SerialName("subtitle")
     val subtitle: String?,
-    @SerializedName("title")
+    @SerialName("title")
     val title: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?,
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?,
-    @SerializedName("urlparams")
+    @SerialName("urlparams")
     val urlparams: Urlparams?
 ) {
     val mediaUri: String?
@@ -55,142 +55,144 @@ data class NetworkTrackV1(
         } else listOf()
 }
 
+@Serializable
 data class Hub(
-    @SerializedName("actions")
+    @SerialName("actions")
     val actions: List<Action>?,
-    @SerializedName("displayname")
+    @SerialName("displayname")
     val displayname: String?,
-    @SerializedName("explicit")
+    @SerialName("explicit")
     val explicit: Boolean?,
-    @SerializedName("image")
+    @SerialName("image")
     val image: String?,
-    @SerializedName("options")
+    @SerialName("options")
     val options: List<Option>?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class NetworkTrackV1Images(
-    @SerializedName("background")
+    @SerialName("background")
     val background: String?,
-    @SerializedName("coverart")
+    @SerialName("coverart")
     val coverart: String?,
-    @SerializedName("coverarthq")
+    @SerialName("coverarthq")
     val coverarthq: String?,
-    @SerializedName("joecolor")
+    @SerialName("joecolor")
     val joecolor: String?
 )
 
+@Serializable
 data class Section(
-    @SerializedName("beacondata")
+    @SerialName("beacondata")
     val beacondata: BeacondataX?,
-    @SerializedName("footer")
+    @SerialName("footer")
     val footer: String?,
-    @SerializedName("metadata")
+    @SerialName("metadata")
     val metadata: List<Metadata>?,
-    @SerializedName("metapages")
+    @SerialName("metapages")
     val metapages: List<Metapage>?,
-    @SerializedName("tabname")
+    @SerialName("tabname")
     val tabname: String?,
-    @SerializedName("text")
+    @SerialName("text")
     val text: List<String>?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class NetworkTrackV1Share(
-    @SerializedName("avatar")
+    @SerialName("avatar")
     val avatar: String?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("html")
+    @SerialName("html")
     val html: String?,
-    @SerializedName("image")
+    @SerialName("image")
     val image: String?,
-    @SerializedName("snapchat")
+    @SerialName("snapchat")
     val snapchat: String?,
-    @SerializedName("subject")
+    @SerialName("subject")
     val subject: String?,
-    @SerializedName("text")
+    @SerialName("text")
     val text: String?,
-    @SerializedName("twitter")
+    @SerialName("twitter")
     val twitter: String?
 )
 
+@Serializable
 data class Urlparams(
-    @SerializedName("{trackartist}")
+    @SerialName("{trackartist}")
     val trackartist: String?,
-    @SerializedName("{tracktitle}")
+    @SerialName("{tracktitle}")
     val tracktitle: String?
 )
 
+@Serializable
 data class Action(
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?,
-    @SerializedName("uri")
+    @SerialName("uri")
     val uri: String?
 )
 
+@Serializable
 data class Option(
-    @SerializedName("actions")
-    val actions: List<ActionX>?,
-    @SerializedName("beacondata")
+    @SerialName("actions")
+    val actions: List<Action>?,
+    @SerialName("beacondata")
     val beacondata: Beacondata?,
-    @SerializedName("caption")
+    @SerialName("caption")
     val caption: String?,
-    @SerializedName("colouroverflowimage")
+    @SerialName("colouroverflowimage")
     val colouroverflowimage: Boolean?,
-    @SerializedName("image")
+    @SerialName("image")
     val image: String?,
-    @SerializedName("listcaption")
+    @SerialName("listcaption")
     val listcaption: String?,
-    @SerializedName("overflowimage")
+    @SerialName("overflowimage")
     val overflowimage: String?,
-    @SerializedName("providername")
+    @SerialName("providername")
     val providername: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
-data class ActionX(
-    @SerializedName("name")
-    val name: String?,
-    @SerializedName("type")
-    val type: String?,
-    @SerializedName("uri")
-    val uri: String?
-)
-
+@Serializable
 data class Beacondata(
-    @SerializedName("providername")
+    @SerialName("providername")
     val providername: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class BeacondataX(
-    @SerializedName("commontrackid")
+    @SerialName("commontrackid")
     val commontrackid: String?,
-    @SerializedName("lyricsid")
+    @SerialName("lyricsid")
     val lyricsid: String?,
-    @SerializedName("providername")
+    @SerialName("providername")
     val providername: String?
 )
 
+@Serializable
 data class Metadata(
-    @SerializedName("text")
+    @SerialName("text")
     val text: String?,
-    @SerializedName("title")
+    @SerialName("title")
     val title: String?
 )
 
+@Serializable
 data class Metapage(
-    @SerializedName("caption")
+    @SerialName("caption")
     val caption: String?,
-    @SerializedName("image")
+    @SerialName("image")
     val image: String?
 )

@@ -1,5 +1,5 @@
 import androidx.annotation.VisibleForTesting
-import com.example.tcmusic.core.network.datasource.fake.FakeAssetManager
+import com.example.tcmusic.core.network.retrofit.fake.FakeAssetManager
 import java.io.File
 import java.io.InputStream
 import java.util.*

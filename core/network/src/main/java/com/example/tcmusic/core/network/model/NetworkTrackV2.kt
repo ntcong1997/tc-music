@@ -1,137 +1,157 @@
 package com.example.tcmusic.core.network.model
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Created by TC on 26/01/2023.
  */
 
+@Serializable
 data class NetworkTrackV2(
-    @SerializedName("resources")
+    @SerialName("resources")
     val resources: Resources?
 )
 
+@Serializable
 data class Resources(
-    @SerializedName("albums")
-    val albums: Map<String, Any?>?,
-    @SerializedName("artists")
-    val artists: Map<String, Any?>?,
-    @SerializedName("lyrics")
-    val lyrics: Map<String, Any?>?,
-    @SerializedName("related-tracks")
-    val relatedTracks: Map<String, Any?>?,
-    @SerializedName("shazam-songs")
-    val shazamSongs: Map<String, Any?>?,
+    @SerialName("albums")
+    val albums: Map<String, Album?>?,
+    @SerialName("artists")
+    val artists: Map<String, NetworkArtist?>?,
+    @SerialName("lyrics")
+    val lyrics: Map<String, Lyric?>?,
+    @SerialName("related-tracks")
+    val relatedTracks: Map<String, RelatedTrack?>?,
+    @SerialName("shazam-songs")
+    val shazamSongs: Map<String, ShazamSong?>?,
 )
 
+@Serializable
 data class Album(
-    @SerializedName("attributes")
+    @SerialName("attributes")
     val attributes: AlbumAttributes?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class AlbumAttributes(
-    @SerializedName("artistName")
+    @SerialName("artistName")
     val artistName: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("releaseDate")
+    @SerialName("releaseDate")
     val releaseDate: String?
 )
 
+@Serializable
 data class Lyric(
-    @SerializedName("attributes")
+    @SerialName("attributes")
     val attributes: LyricAttributes?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class LyricAttributes(
-    @SerializedName("footer")
+    @SerialName("footer")
     val footer: String?,
-    @SerializedName("musixmatchLyricsId")
+    @SerialName("musixmatchLyricsId")
     val musixmatchLyricsId: String?,
-    @SerializedName("providerName")
+    @SerialName("providerName")
     val providerName: String?,
-    @SerializedName("syncAvailable")
+    @SerialName("syncAvailable")
     val syncAvailable: Boolean?,
-    @SerializedName("text")
+    @SerialName("text")
     val text: List<String?>?
 )
 
-data class ShazamSong(
-    @SerializedName("attributes")
-    val attributes: ShazamSongAttributes?,
-    @SerializedName("id")
+@Serializable
+data class RelatedTrack(
+    @SerialName("id")
     val id: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
+data class ShazamSong(
+    @SerialName("attributes")
+    val attributes: ShazamSongAttributes?,
+    @SerialName("id")
+    val id: String?,
+    @SerialName("type")
+    val type: String?
+)
+
+@Serializable
 data class ShazamSongAttributes(
-    @SerializedName("artist")
+    @SerialName("artist")
     val artist: String?,
-    @SerializedName("explicit")
+    @SerialName("explicit")
     val explicit: Boolean?,
-    @SerializedName("genres")
+    @SerialName("genres")
     val genres: Genres?,
-    @SerializedName("images")
+    @SerialName("images")
     val images: ShazamSongAttributesImages?,
-    @SerializedName("isrc")
+    @SerialName("isrc")
     val isrc: String?,
-    @SerializedName("label")
+    @SerialName("label")
     val label: String?,
-    @SerializedName("primaryArtist")
+    @SerialName("primaryArtist")
     val primaryArtist: String?,
-    @SerializedName("share")
+    @SerialName("share")
     val share: ShazamSongAttributesShare?,
-    @SerializedName("streaming")
+    @SerialName("streaming")
     val streaming: Streaming?,
-    @SerializedName("title")
+    @SerialName("title")
     val title: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?,
-    @SerializedName("webUrl")
+    @SerialName("webUrl")
     val webUrl: String?
 )
 
+@Serializable
 data class ShazamSongAttributesImages(
-    @SerializedName("artistAvatar")
+    @SerialName("artistAvatar")
     val artistAvatar: String?,
-    @SerializedName("coverArt")
+    @SerialName("coverArt")
     val coverArt: String?,
-    @SerializedName("coverArtHq")
+    @SerialName("coverArtHq")
     val coverArtHq: String?
 )
 
+@Serializable
 data class ShazamSongAttributesShare(
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("html")
+    @SerialName("html")
     val html: String?,
-    @SerializedName("image")
+    @SerialName("image")
     val image: String?,
-    @SerializedName("snapchat")
+    @SerialName("snapchat")
     val snapchat: String?,
-    @SerializedName("subject")
+    @SerialName("subject")
     val subject: String?,
-    @SerializedName("text")
+    @SerialName("text")
     val text: String?,
-    @SerializedName("twitter")
+    @SerialName("twitter")
     val twitter: String?
 )
 
+@Serializable
 data class Streaming(
-    @SerializedName("deeplink")
+    @SerialName("deeplink")
     val deeplink: String?,
-    @SerializedName("preview")
+    @SerialName("preview")
     val preview: String?,
-    @SerializedName("store")
+    @SerialName("store")
     val store: String?
 )

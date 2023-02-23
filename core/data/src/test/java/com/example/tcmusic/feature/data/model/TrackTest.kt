@@ -2,7 +2,6 @@ package com.example.tcmusic.feature.data.model
 
 import com.example.tcmusic.core.data.model.toTrack
 import com.example.tcmusic.core.network.model.*
-import com.google.gson.Gson
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -123,7 +122,7 @@ class TrackTest {
             )
         )
 
-        val track = networkTrackV2.toTrack(Gson())
+        val track = networkTrackV2.toTrack()
 
         assertEquals("1", track.id)
         assertEquals("image", track.image)

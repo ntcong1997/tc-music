@@ -1,4 +1,4 @@
-package com.example.tcmusic.repository
+package com.example.tcmusic.core.testing.repository
 
 import androidx.paging.PagingData
 import com.example.tcmusic.core.data.repository.ArtistRepository

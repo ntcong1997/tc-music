@@ -1,22 +1,25 @@
 package com.example.tcmusic.core.network.model
-import com.google.gson.annotations.SerializedName
+
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Created by TC on 06/01/2023.
  */
 
+@Serializable
 data class NetworkArtist(
-    @SerializedName("adamid")
+    @SerialName("adamid")
     val adamid: String?,
-    @SerializedName("alias")
+    @SerialName("alias")
     val alias: String?,
-    @SerializedName("avatar")
+    @SerialName("avatar")
     val avatar: String?,
-    @SerializedName("data")
+    @SerialName("data")
     val data: List<Data>?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?
 ) {
     val artistId: String?
@@ -35,140 +38,152 @@ data class NetworkArtist(
         }
 }
 
+@Serializable
 data class Data(
-    @SerializedName("attributes")
+    @SerialName("attributes")
     val attributes: Attributes?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("relationships")
+    @SerialName("relationships")
     val relationships: Relationships?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?,
-    @SerializedName("views")
+    @SerialName("views")
     val views: Views?
 )
 
+@Serializable
 data class Attributes(
-    @SerializedName("artistBio")
+    @SerialName("artistBio")
     val artistBio: String?,
-    @SerializedName("artwork")
+    @SerialName("artwork")
     val artwork: Artwork?,
-    @SerializedName("genreNames")
+    @SerialName("genreNames")
     val genreNames: List<String?>?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("origin")
+    @SerialName("origin")
     val origin: String?,
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?
 )
 
+@Serializable
 data class Relationships(
-    @SerializedName("albums")
+    @SerialName("albums")
     val albums: Albums?
 )
 
+@Serializable
 data class Artwork(
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?,
 )
 
+@Serializable
 data class Albums(
-    @SerializedName("data")
+    @SerialName("data")
     val data: List<AlbumsData>?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("next")
+    @SerialName("next")
     val next: String?
 )
 
+@Serializable
 data class AlbumsData(
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class Views(
-    @SerializedName("top-songs")
+    @SerialName("top-songs")
     val topSongs: TopSongs?
 )
 
+@Serializable
 data class TopSongs(
-    @SerializedName("attributes")
+    @SerialName("attributes")
     val attributes: TopSongsAttributes?,
-    @SerializedName("data")
+    @SerialName("data")
     val data: List<TopSongsData>?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("next")
+    @SerialName("next")
     val next: String?
 )
 
+@Serializable
 data class TopSongsAttributes(
-    @SerializedName("title")
+    @SerialName("title")
     val title: String?
 )
 
+@Serializable
 data class TopSongsData(
-    @SerializedName("attributes")
+    @SerialName("attributes")
     val attributes: TopSongsDataAttributes?,
-    @SerializedName("href")
+    @SerialName("href")
     val href: String?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("type")
+    @SerialName("type")
     val type: String?
 )
 
+@Serializable
 data class TopSongsDataAttributes(
-    @SerializedName("albumName")
+    @SerialName("albumName")
     val albumName: String?,
-    @SerializedName("artistName")
+    @SerialName("artistName")
     val artistName: String?,
-    @SerializedName("artwork")
+    @SerialName("artwork")
     val artwork: Artwork?,
-    @SerializedName("audioLocale")
+    @SerialName("audioLocale")
     val audioLocale: String?,
-    @SerializedName("audioTraits")
+    @SerialName("audioTraits")
     val audioTraits: List<String>?,
-    @SerializedName("composerName")
+    @SerialName("composerName")
     val composerName: String?,
-    @SerializedName("discNumber")
+    @SerialName("discNumber")
     val discNumber: Int?,
-    @SerializedName("durationInMillis")
+    @SerialName("durationInMillis")
     val durationInMillis: Int?,
-    @SerializedName("genreNames")
+    @SerialName("genreNames")
     val genreNames: List<String>?,
-    @SerializedName("hasLyrics")
+    @SerialName("hasLyrics")
     val hasLyrics: Boolean?,
-    @SerializedName("hasTimeSyncedLyrics")
+    @SerialName("hasTimeSyncedLyrics")
     val hasTimeSyncedLyrics: Boolean?,
-    @SerializedName("isAppleDigitalMaster")
+    @SerialName("isAppleDigitalMaster")
     val isAppleDigitalMaster: Boolean?,
-    @SerializedName("isMasteredForItunes")
+    @SerialName("isMasteredForItunes")
     val isMasteredForItunes: Boolean?,
-    @SerializedName("isVocalAttenuationAllowed")
+    @SerialName("isVocalAttenuationAllowed")
     val isVocalAttenuationAllowed: Boolean?,
-    @SerializedName("isrc")
+    @SerialName("isrc")
     val isrc: String?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("previews")
+    @SerialName("previews")
     val previews: List<Preview>?,
-    @SerializedName("releaseDate")
+    @SerialName("releaseDate")
     val releaseDate: String?,
-    @SerializedName("trackNumber")
+    @SerialName("trackNumber")
     val trackNumber: Int?,
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?
 )
 
+@Serializable
 data class Preview(
-    @SerializedName("url")
+    @SerialName("url")
     val url: String?
 )

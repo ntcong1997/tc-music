@@ -15,15 +15,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-    @Singleton
     @Binds
     abstract fun bindChartRepository(chartRepositoryImpl: ChartRepositoryImpl): ChartRepository
 
-    @Singleton
     @Binds
     abstract fun bindTrackRepository(trackRepositoryImpl: TrackRepositoryImpl): TrackRepository
 
-    @Singleton
     @Binds
     abstract fun bindArtistRepository(artistRepositoryImpl: ArtistRepositoryImpl): ArtistRepository
 }

@@ -1,8 +1,9 @@
 package com.example.tcmusic.core.data.model
 
 import com.example.tcmusic.core.model.Track
-import com.example.tcmusic.core.network.model.*
-import com.google.gson.Gson
+import com.example.tcmusic.core.network.model.NetworkTrackV1
+import com.example.tcmusic.core.network.model.NetworkTrackV2
+import com.example.tcmusic.core.network.model.TopSongsData
 
 /**
  * Created by TC on 15/02/2023.
@@ -34,9 +35,9 @@ fun NetworkTrackV1.toTrack(): Track {
     )
 }
 
-fun NetworkTrackV2.toTrack(gson: Gson): Track {
-    val shazamSong = gson.fromJson(gson.toJson(resources?.shazamSongs?.entries?.firstOrNull()?.value), ShazamSong::class.java)
-    val lyric = gson.fromJson(gson.toJson(resources?.lyrics?.entries?.firstOrNull()?.value), Lyric::class.java)
+fun NetworkTrackV2.toTrack(): Track {
+    val shazamSong = resources?.shazamSongs?.entries?.firstOrNull()?.value
+    val lyric = resources?.lyrics?.entries?.firstOrNull()?.value
 
     return Track(
         id = shazamSong?.id,

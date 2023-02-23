@@ -5,7 +5,6 @@ import androidx.paging.map
 import com.example.tcmusic.core.data.model.toTrack
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.network.datasource.TrackDataSource
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -20,8 +19,7 @@ interface TrackRepository {
 }
 
 class TrackRepositoryImpl @Inject constructor(
-    private val trackDataSource: TrackDataSource,
-    private val gson: Gson
+    private val trackDataSource: TrackDataSource
 ) : TrackRepository {
     override fun searchTracks(query: String?): Flow<PagingData<Track>> {
         return trackDataSource.searchTracks(query).map {
@@ -34,7 +32,7 @@ class TrackRepositoryImpl @Inject constructor(
     override suspend fun getTrackDetail(trackId: String?, trackVersion: String?): Track? {
         return when(trackVersion) {
             "1" -> trackDataSource.getTrackDetailV1(trackId)?.toTrack()
-            "2" -> trackDataSource.getTrackDetailV2(trackId)?.toTrack(gson)
+            "2" -> trackDataSource.getTrackDetailV2(trackId)?.toTrack()
             else -> null
         }
     }

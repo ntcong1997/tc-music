@@ -1,22 +1,26 @@
 package com.example.tcmusic.core.network.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Created by TC on 06/01/2023.
  */
 
+@Serializable
 data class NetworkSearchArtists(
-    @SerializedName("artists")
+    @SerialName("artists")
     val artists: Artists?
 )
 
+@Serializable
 data class Artists(
-    @SerializedName("hits")
+    @SerialName("hits")
     val hits: List<ArtistsHit>?
 )
 
+@Serializable
 data class ArtistsHit(
-    @SerializedName("artist")
+    @SerialName("artist")
     val artist: NetworkArtist?
 )

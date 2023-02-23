@@ -3,12 +3,12 @@ package com.example.tcmusic.feature.artist
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tcmusic.feature.artist.navigation.artistIdArg
 import com.example.tcmusic.core.common.result.Result
 import com.example.tcmusic.core.domain.usecase.artist.GetArtistDetailUseCase
 import com.example.tcmusic.core.domain.usecase.player.*
 import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.model.Track
+import com.example.tcmusic.feature.artist.navigation.artistIdArg
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
