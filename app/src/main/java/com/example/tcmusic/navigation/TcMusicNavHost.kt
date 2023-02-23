@@ -37,9 +37,6 @@ fun TcMusicNavHost(
         artistScreen(
             onBackClick = {
                 navController.navigateUp()
-            },
-            onPlayingMediaClick = { trackId, trackVersion ->
-                navController.navigateToTrack(trackId, trackVersion)
             }
         )
         trackScreen(

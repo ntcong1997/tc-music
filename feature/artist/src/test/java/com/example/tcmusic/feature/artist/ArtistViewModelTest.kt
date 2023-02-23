@@ -1,15 +1,16 @@
 package com.example.tcmusic.feature.artist
 
 import androidx.lifecycle.SavedStateHandle
-import app.cash.turbine.test
 import com.example.tcmusic.core.domain.usecase.artist.GetArtistDetailUseCase
-import com.example.tcmusic.core.domain.usecase.player.*
+import com.example.tcmusic.core.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.tcmusic.core.testing.data.artistTestData1
-import com.example.tcmusic.core.testing.data.artistsTestData
 import com.example.tcmusic.core.testing.player.TestPlayer
+import com.example.tcmusic.core.testing.repository.TestArtistRepository
 import com.example.tcmusic.core.testing.util.MainDispatcherRule
 import com.example.tcmusic.feature.artist.navigation.artistIdArg
-import com.example.tcmusic.core.testing.repository.TestArtistRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -34,47 +35,27 @@ class ArtistViewModelTest {
     fun setup() {
         viewModel = ArtistViewModel(
             savedStateHandle = SavedStateHandle(mapOf(artistIdArg to "1")),
-            observePlayingMediaUseCase = ObservePlayingMediaUseCase(
-                testPlayer,
-                mainDispatcherRule.testDispatcher
-            ),
-            observeIsPlayingUseCase = ObserveIsPlayingUseCase(
-                testPlayer,
-                mainDispatcherRule.testDispatcher
-            ),
             getArtistDetailUseCase = GetArtistDetailUseCase(
                 testArtistRepository,
                 mainDispatcherRule.testDispatcher
             ),
             setPlaylistAndPlayUseCase = SetPlaylistAndPlayUseCase(
                 testPlayer
-            ),
-            playUseCase = PlayUseCase(testPlayer),
-            pauseUseCase = PauseUseCase(testPlayer),
-            skipBackwardsUseCase = SkipBackwardsUseCase(testPlayer),
-            skipForwardUseCase = SkipForwardUseCase(testPlayer)
+            )
         )
     }
 
     @Test
-    fun `get artist success`() = runTest {
-        viewModel.artistUiState.test {
-            assertEquals(ArtistUiState.Loading, awaitItem())
-            assertEquals(ArtistUiState.Success(artistTestData1), awaitItem())
-        }
+    fun `artistId matches artistId from SavedStateHandle`() {
+        assertEquals("1", viewModel.artistId)
     }
 
-//    @Test
-//    fun `play media`() = runTest {
-//        viewModel.clickPlayingMediaPlay()
-//        val isPlaying = viewModel.isPlaying.first()
-//        assertEquals(true, isPlaying)
-//    }
-//
-//    @Test
-//    fun `pause media`() = runTest {
-//        viewModel.clickPlayingMediaPause()
-//        val isPlaying = viewModel.isPlaying.first()
-//        assertEquals(false, isPlaying)
-//    }
+    @Test
+    fun `artistUiState success`() = runTest {
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.artistUiState.collect() }
+
+        assertEquals(ArtistUiState.Success(artistTestData1), viewModel.artistUiState.value)
+
+        collectJob.cancel()
+    }
 }

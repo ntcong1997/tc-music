@@ -17,8 +17,7 @@ fun NavController.navigateToArtist(artistId: String?, navOptions: NavOptions? = 
 }
 
 fun NavGraphBuilder.artistScreen(
-    onBackClick: () -> Unit,
-    onPlayingMediaClick: (String?, String?) -> Unit
+    onBackClick: () -> Unit
 ) {
     composable(
         route = "$artistRoute/{$artistIdArg}",
@@ -29,8 +28,7 @@ fun NavGraphBuilder.artistScreen(
         )
     ) {
         ArtistRoute(
-            onBackClick = onBackClick,
-            onPlayingMediaClick = onPlayingMediaClick
+            onBackClick = onBackClick
         )
     }
 }

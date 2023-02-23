@@ -21,26 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtistViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    observePlayingMediaUseCase: ObservePlayingMediaUseCase,
-    observeIsPlayingUseCase: ObserveIsPlayingUseCase,
     private val getArtistDetailUseCase: GetArtistDetailUseCase,
-    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase,
-    private val playUseCase: PlayUseCase,
-    private val pauseUseCase: PauseUseCase,
-    private val skipBackwardsUseCase: SkipBackwardsUseCase,
-    private val skipForwardUseCase: SkipForwardUseCase
+    private val setPlaylistAndPlayUseCase: SetPlaylistAndPlayUseCase
 ) : ViewModel() {
-    val playingMedia = observePlayingMediaUseCase(Unit).map {
-        if (it is Result.Success) it.data
-        else null
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
-
-    val isPlaying = observeIsPlayingUseCase(Unit).map {
-        if (it is Result.Success) it.data
-        else true
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
-
-    private val artistId = checkNotNull(savedStateHandle[artistIdArg]) as String
+    val artistId = checkNotNull(savedStateHandle[artistIdArg]) as String
 
     val artistUiState = artistUiState()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ArtistUiState.Loading)
@@ -76,30 +60,6 @@ class ArtistViewModel @Inject constructor(
                     track.id?.toLong() ?: 0L
                 )
             )
-        }
-    }
-
-    fun clickPlayingMediaPlay() {
-        viewModelScope.launch {
-            playUseCase()
-        }
-    }
-
-    fun clickPlayingMediaPause() {
-        viewModelScope.launch {
-            pauseUseCase()
-        }
-    }
-
-    fun clickPlayingMediaSkipBackwards() {
-        viewModelScope.launch {
-            skipBackwardsUseCase()
-        }
-    }
-
-    fun clickPlayingMediaSkipForward() {
-        viewModelScope.launch {
-            skipForwardUseCase()
         }
     }
 }

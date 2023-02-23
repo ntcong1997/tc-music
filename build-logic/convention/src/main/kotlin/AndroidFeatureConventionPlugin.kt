@@ -50,6 +50,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", project(":core:testing"))
+                add("testImplementation", project(":core:data"))
+                add("testImplementation", project(":core:player"))
                 add("androidTestImplementation", kotlin("test"))
                 add("androidTestImplementation", project(":core:testing"))
 
@@ -61,6 +63,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx.lifecycle.lifecycle.viewmodel.compose").get())
 
                 add("implementation", libs.findLibrary("org.jetbrains.kotlinx.kotlinx.coroutines.android").get())
+
+                add("testImplementation", libs.findLibrary("org.jetbrains.kotlinx.kotlinx.coroutines.test").get())
             }
         }
     }

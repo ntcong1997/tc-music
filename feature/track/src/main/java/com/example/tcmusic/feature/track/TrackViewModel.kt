@@ -38,8 +38,8 @@ class TrackViewModel @Inject constructor(
     // Why we need to pass this two arguments while we can get those through ObservePlayingMediaUseCase?
     // Because when we close app media notification maybe still appear so when we click notification
     // those arguments still not init in ObservePlayingMediaUseCase so we must pass those arguments to get track detail
-    private val trackId = checkNotNull(savedStateHandle[trackIdArg]) as String
-    private val trackVersion = checkNotNull(savedStateHandle[trackVersionArg]) as String
+    val trackId = checkNotNull(savedStateHandle[trackIdArg]) as String
+    val trackVersion = checkNotNull(savedStateHandle[trackVersionArg]) as String
 
     private val _getTrackDetailParams =
         MutableStateFlow(GetTrackDetailParams(trackId, trackVersion))
