@@ -10,6 +10,7 @@ import com.example.tcmusic.core.testing.repository.TestTrackRepository
 import com.example.tcmusic.core.testing.util.MainDispatcherRule
 import com.example.tcmusic.feature.track.navigation.trackIdArg
 import com.example.tcmusic.feature.track.navigation.trackVersionArg
+import kotlin.test.assertEquals
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -17,7 +18,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import kotlin.test.assertEquals
 
 /**
  * Created by TC on 23/02/2023.
@@ -72,7 +72,7 @@ class TrackViewModelTest {
 
     @Test
     fun `trackUiState success of trackId from SavedStateHandle`() = runTest {
-        val collectJob = launch (UnconfinedTestDispatcher()) { viewModel.trackUiState.collect() }
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.trackUiState.collect() }
 
         assertEquals(TrackUiState.Success(trackTestData1), viewModel.trackUiState.value)
 
@@ -81,10 +81,41 @@ class TrackViewModelTest {
 
     @Test
     fun `trackUiState success of trackId from TestPlayer`() = runTest {
-        val collectJob = launch (UnconfinedTestDispatcher()) { viewModel.trackUiState.collect() }
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.trackUiState.collect() }
 
         testPlayer.setPlaylistAndPlay(listOf(trackTestData2), trackTestData2.id?.toLong() ?: 0L)
         assertEquals(TrackUiState.Success(trackTestData2), viewModel.trackUiState.value)
+
+        collectJob.cancel()
+    }
+
+    @Test
+    fun trackDuration() = runTest {
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.trackDuration.collect() }
+
+        assertEquals(0L, viewModel.trackDuration.value)
+
+        collectJob.cancel()
+    }
+
+    @Test
+    fun `trackProgress seekTo`() = runTest {
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.trackProgress.collect() }
+
+        assertEquals(0L, viewModel.trackProgress.value)
+        testPlayer.seekTo(1L)
+        assertEquals(1L, viewModel.trackProgress.value)
+
+        collectJob.cancel()
+    }
+
+    @Test
+    fun `trackIsPlaying play and pause`() = runTest {
+        val collectJob = launch(UnconfinedTestDispatcher()) { viewModel.trackIsPlaying.collect() }
+
+        assertEquals(true, viewModel.trackIsPlaying.value)
+        testPlayer.pause()
+        assertEquals(false, viewModel.trackIsPlaying.value)
 
         collectJob.cancel()
     }

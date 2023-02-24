@@ -13,11 +13,11 @@ import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.player.data.PlayerData
 import com.example.tcmusic.core.player.service.MusicPlayerService
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Created by TC on 13/12/2022.

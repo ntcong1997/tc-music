@@ -5,12 +5,12 @@ import com.example.tcmusic.core.common.network.Dispatcher
 import com.example.tcmusic.core.common.network.TcMusicDispatchers
 import com.example.tcmusic.core.network.model.*
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import javax.inject.Inject
 
 /**
  * Created by TC on 22/02/2023.

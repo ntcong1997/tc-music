@@ -33,4 +33,3 @@ suspend fun <T : Any> PagingData<T>.collectData(dispatcher: CoroutineDispatcher)
     dif.collectFrom(this)
     return items
 }
-

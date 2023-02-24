@@ -25,8 +25,8 @@ import com.example.tcmusic.core.common.util.compactTo2Letters
 import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
 import com.example.tcmusic.core.designsystem.theme.*
 import com.example.tcmusic.core.ui.LoadingDialog
-import kotlinx.coroutines.launch
 import java.util.*
+import kotlinx.coroutines.launch
 
 /**
  * Created by TC on 29/11/2022.
@@ -75,8 +75,6 @@ fun TrackScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    val scrollState = rememberScrollState()
-
     val modalBottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
@@ -91,73 +89,72 @@ fun TrackScreen(
             onMoreClick = onMoreClick
         )
 
-        when (trackUiState) {
-            TrackUiState.Loading, TrackUiState.Error -> Unit
-            is TrackUiState.Success -> {
-                val track = trackUiState.track
+        if (trackUiState is TrackUiState.Success) {
+            val track = trackUiState.track
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                TrackInfo(
+                    image = track.image,
+                    title = track.title,
+                    subTitle = track.subTitle
+                )
+
+                Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
+
+                TrackPlayingBar(
+                    duration = trackDuration,
+                    progress = trackProgress,
+                    onProgressChange = onProgressChange
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                TrackAction(
+                    isPlaying = trackIsPlaying,
+                    onPlayClick = onPlayClick,
+                    onPauseClick = onPauseClick,
+                    onSkipBackwardsClick = onSkipBackwardsClick,
+                    onSkipForwardClick = onSkipForwardClick
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Column(
                     modifier = Modifier
-                        .weight(1f)
-                        .verticalScroll(scrollState)
+                        .padding(horizontal = 16.dp)
+                        .align(Alignment.CenterHorizontally),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    TrackInfo(
-                        image = track.image,
-                        title = track.title,
-                        subTitle = track.subTitle
-                    )
-
-                    Divider(color = GrayMercury, thickness = 1.dp, modifier = Modifier.padding(16.dp))
-
-                    TrackPlayingBar(
-                        duration = trackDuration,
-                        progress = trackProgress,
-                        onProgressChange = onProgressChange
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    TrackAction(
-                        isPlaying = trackIsPlaying,
-                        onPlayClick = onPlayClick,
-                        onPauseClick = onPauseClick,
-                        onSkipBackwardsClick = onSkipBackwardsClick,
-                        onSkipForwardClick = onSkipForwardClick
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .align(Alignment.CenterHorizontally),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        IconButton(onClick = {
-                            coroutineScope.launch {
-                                modalBottomSheetState.show()
-                            }
-                        }) {
-                            Image(
-                                painter = painterResource(id = TcMusicIcons.Up),
-                                contentDescription = null
-                            )
+                    IconButton(onClick = {
+                        coroutineScope.launch {
+                            modalBottomSheetState.show()
                         }
-
-                        Text(
-                            text = stringResource(id = R.string.text_lyrics),
-                            color = Black,
-                            fontSize = 14.sp
+                    }) {
+                        Image(
+                            painter = painterResource(id = TcMusicIcons.Up),
+                            contentDescription = null
                         )
                     }
-                }
 
-                TrackLyrics(
-                    modalBottomSheetState = modalBottomSheetState,
-                    lyrics = track.lyrics
-                )
+                    Text(
+                        text = stringResource(id = R.string.text_lyrics),
+                        color = Black,
+                        fontSize = 14.sp
+                    )
+                }
             }
         }
+    }
+
+    if (trackUiState is TrackUiState.Success) {
+        TrackLyrics(
+            modalBottomSheetState = modalBottomSheetState,
+            lyrics = trackUiState.track.lyrics
+        )
     }
 
     if (isTrackLoading) {

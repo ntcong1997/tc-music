@@ -16,9 +16,7 @@ fun NavController.navigateToPlaylists(navOptions: NavOptions? = null) {
     this.navigate(playlistsRoute, navOptions)
 }
 
-fun NavGraphBuilder.playlistsScreen(
-
-) {
+fun NavGraphBuilder.playlistsScreen() {
     composable(route = playlistsRoute) {
         PlaylistsRoute()
     }

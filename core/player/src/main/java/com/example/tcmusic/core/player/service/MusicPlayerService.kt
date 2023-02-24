@@ -24,10 +24,10 @@ import com.example.tcmusic.core.player.util.loadImageAsync
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Created by TC on 13/12/2022.

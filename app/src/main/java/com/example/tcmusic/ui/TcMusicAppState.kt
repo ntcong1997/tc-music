@@ -5,10 +5,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import androidx.tracing.trace
 import com.example.tcmusic.feature.artist.navigation.artistRoute
-import com.example.tcmusic.feature.artist.navigation.navigateToArtist
 import com.example.tcmusic.feature.home.navigation.homeRoute
 import com.example.tcmusic.feature.home.navigation.navigateToHome
 import com.example.tcmusic.feature.playlists.navigation.navigateToPlaylists
@@ -17,11 +16,9 @@ import com.example.tcmusic.feature.search.navigation.navigateToSearch
 import com.example.tcmusic.feature.search.navigation.searchRoute
 import com.example.tcmusic.feature.settings.navigation.navigateToSettings
 import com.example.tcmusic.feature.settings.navigation.settingsRoute
-import com.example.tcmusic.feature.track.navigation.navigateToTrack
 import com.example.tcmusic.feature.track.navigation.trackRoute
 import com.example.tcmusic.navigation.TopLevelDestination
 import kotlinx.coroutines.CoroutineScope
-import androidx.tracing.trace
 
 /**
  * Created by TC on 21/02/2023.
@@ -46,8 +43,10 @@ class TcMusicAppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
+    // Determine current top level destination
+    // Route must be split / because artistRoute and trackRoute
     val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = when (currentDestination?.route) {
+        @Composable get() = when (currentDestination?.route?.split("/")?.firstOrNull()) {
             homeRoute -> TopLevelDestination.Home()
             searchRoute -> TopLevelDestination.Search()
             playlistsRoute -> TopLevelDestination.Playlists()
@@ -58,8 +57,8 @@ class TcMusicAppState(
         }
 
     val shouldShowBottomBar: Boolean
-        @Composable get() = currentTopLevelDestination != TopLevelDestination.Artist
-                && currentTopLevelDestination != TopLevelDestination.Track
+        @Composable get() = currentTopLevelDestination != TopLevelDestination.Artist &&
+            currentTopLevelDestination != TopLevelDestination.Track
 
     /**
      * Map of top level destinations to be used in the BottomBar. The key is the route

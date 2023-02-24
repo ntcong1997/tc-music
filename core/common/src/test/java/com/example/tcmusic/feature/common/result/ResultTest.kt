@@ -1,12 +1,12 @@
 package com.example.tcmusic.feature.common.result
 
 import app.cash.turbine.test
+import com.example.tcmusic.core.common.result.Result
 import com.example.tcmusic.core.common.result.asResult
+import kotlin.test.assertEquals
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import kotlin.test.assertEquals
-import com.example.tcmusic.core.common.result.Result
 
 /**
  * Created by TC on 23/02/2023.

@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
-import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.ui.TrackCard
 import java.util.*

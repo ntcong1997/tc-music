@@ -52,18 +52,20 @@ fun TcMusicApp(
             }
         ) {
             Box(
-                modifier = Modifier.padding(
-                    PaddingValues(
-                        0.dp,
-                        0.dp,
-                        0.dp,
-                        it.calculateBottomPadding()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        PaddingValues(
+                            0.dp,
+                            0.dp,
+                            0.dp,
+                            it.calculateBottomPadding()
+                        )
                     )
-                )
             ) {
                 TcMusicNavHost(navController = appState.navController)
 
-                if (playingMedia != null) {
+                if (appState.currentTopLevelDestination != TopLevelDestination.Track && playingMedia != null) {
                     PlayingMediaFloatingBar(
                         playingMedia = playingMedia,
                         isPlaying = isPlaying,

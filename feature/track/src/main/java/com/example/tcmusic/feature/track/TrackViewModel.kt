@@ -12,10 +12,10 @@ import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.feature.track.navigation.trackIdArg
 import com.example.tcmusic.feature.track.navigation.trackVersionArg
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.roundToLong
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * Created by TC on 01/12/2022.

@@ -1,14 +1,14 @@
 package com.example.tcmusic.feature.network.retrofit.fake
 
-import com.example.tcmusic.core.network.retrofit.fake.FakeRetrofitShazamNetwork
 import com.example.tcmusic.core.network.model.*
+import com.example.tcmusic.core.network.retrofit.fake.FakeRetrofitShazamNetwork
+import kotlin.test.assertEquals
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import org.junit.Before
 import org.junit.Test
-import kotlin.test.assertEquals
 
 /**
  * Created by TC on 22/02/2023.

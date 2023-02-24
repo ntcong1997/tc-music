@@ -7,8 +7,8 @@ import com.example.tcmusic.core.network.datasource.paging.SearchTracksPagingData
 import com.example.tcmusic.core.network.model.NetworkTrackV1
 import com.example.tcmusic.core.network.model.NetworkTrackV2
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 01/12/2022.

@@ -2,8 +2,8 @@ package com.example.tcmusic.feature.data.model
 
 import com.example.tcmusic.core.data.model.toTrack
 import com.example.tcmusic.core.network.model.*
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 /**
  * Created by TC on 22/02/2023.

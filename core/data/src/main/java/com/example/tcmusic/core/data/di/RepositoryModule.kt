@@ -1,12 +1,10 @@
 package com.example.tcmusic.core.data.di
 
 import com.example.tcmusic.core.data.repository.*
-import com.example.tcmusic.core.data.repository.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 /**
  * Created by TC on 17/11/2022.

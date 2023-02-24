@@ -10,8 +10,8 @@ import com.example.tcmusic.core.network.retrofit.fake.FakeRetrofitShazamNetwork
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
 
 /**
  * Created by TC on 23/02/2023.

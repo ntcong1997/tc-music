@@ -8,5 +8,8 @@ android {
 }
 
 dependencies {
+    testImplementation(project(":core:common"))
+
+    // Paging 3
     implementation(libs.androidx.paging.paging.compose)
 }

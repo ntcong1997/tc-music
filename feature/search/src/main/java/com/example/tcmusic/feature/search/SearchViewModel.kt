@@ -11,11 +11,11 @@ import com.example.tcmusic.core.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.tcmusic.core.domain.usecase.track.SearchTracksUseCase
 import com.example.tcmusic.core.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by TC on 05/01/2023.
@@ -47,6 +47,7 @@ class SearchViewModel @Inject constructor(
             else PagingData.empty()
         }
         .cachedIn(viewModelScope)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PagingData.empty())
 
     val artists = _textSearch
         .debounce {
@@ -63,6 +64,7 @@ class SearchViewModel @Inject constructor(
             else PagingData.empty()
         }
         .cachedIn(viewModelScope)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), PagingData.empty())
 
     fun search(text: String) {
         _textSearch.value = text

@@ -23,5 +23,5 @@ class PlayerModule {
     fun providePlayer(
         playerData: PlayerData,
         @ApplicationContext context: Context
-    ) : Player = PlayerManager(playerData, context)
+    ): Player = PlayerManager(playerData, context)
 }

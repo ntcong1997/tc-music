@@ -6,9 +6,9 @@ import com.example.tcmusic.core.common.network.TcMusicDispatchers
 import com.example.tcmusic.core.data.repository.ChartRepository
 import com.example.tcmusic.core.domain.usecase.FlowUseCase
 import com.example.tcmusic.core.model.Track
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
 /**
  * Created by TC on 17/11/2022.

@@ -8,6 +8,7 @@ import com.example.tcmusic.core.testing.player.TestPlayer
 import com.example.tcmusic.core.testing.repository.TestArtistRepository
 import com.example.tcmusic.core.testing.util.MainDispatcherRule
 import com.example.tcmusic.feature.artist.navigation.artistIdArg
+import kotlin.test.assertEquals
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -15,7 +16,6 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import kotlin.test.assertEquals
 
 /**
  * Created by TC on 23/02/2023.

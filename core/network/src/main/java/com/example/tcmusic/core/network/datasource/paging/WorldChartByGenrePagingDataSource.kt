@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.tcmusic.core.network.model.NetworkTrackV1
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
-import retrofit2.HttpException
 import java.io.IOException
+import retrofit2.HttpException
 
 /**
  * Created by TC on 19/10/2022.

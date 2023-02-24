@@ -10,9 +10,9 @@ import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.feature.artist.navigation.artistIdArg
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by TC on 09/01/2023.

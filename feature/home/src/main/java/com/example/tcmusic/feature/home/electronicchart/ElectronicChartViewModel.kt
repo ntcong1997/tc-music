@@ -13,11 +13,11 @@ import com.example.tcmusic.core.domain.usecase.player.SetPlaylistAndPlayParams
 import com.example.tcmusic.core.domain.usecase.player.SetPlaylistAndPlayUseCase
 import com.example.tcmusic.core.model.Track
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by TC on 25/11/2022.

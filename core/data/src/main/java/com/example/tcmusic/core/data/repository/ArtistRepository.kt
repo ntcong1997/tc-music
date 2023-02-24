@@ -5,9 +5,9 @@ import androidx.paging.map
 import com.example.tcmusic.core.data.model.toArtist
 import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.network.datasource.ArtistDataSource
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 /**
  * Created by TC on 06/01/2023.

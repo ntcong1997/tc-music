@@ -3,8 +3,8 @@ package com.example.tcmusic.navigation
 import com.example.tcmusic.core.designsystem.icon.Icon
 import com.example.tcmusic.core.designsystem.icon.TcMusicIcons
 import com.example.tcmusic.feature.home.R as homeR
-import com.example.tcmusic.feature.search.R as searchR
 import com.example.tcmusic.feature.playlists.R as playlistsR
+import com.example.tcmusic.feature.search.R as searchR
 import com.example.tcmusic.feature.settings.R as settingsR
 
 /**

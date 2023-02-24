@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.example.tcmusic.core.network.datasource.paging.SearchArtistsPagingDataSource
 import com.example.tcmusic.core.network.model.NetworkArtist
 import com.example.tcmusic.core.network.retrofit.RetrofitShazamNetwork
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by TC on 06/01/2023.

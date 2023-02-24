@@ -31,9 +31,7 @@ import kotlinx.coroutines.launch
  */
 
 @Composable
-fun HomeRoute(
-    
-) {
+fun HomeRoute() {
     HomeScreen()
 }
 

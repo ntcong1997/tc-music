@@ -1,11 +1,10 @@
 package com.example.tcmusic.feature.data.model
 
 import com.example.tcmusic.core.data.model.toArtist
-import com.example.tcmusic.core.data.model.toTrack
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.network.model.*
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 /**
  * Created by TC on 22/02/2023.
@@ -103,15 +102,20 @@ class ArtistTest {
         assertEquals("1", artist.id)
         assertEquals("name", artist.name)
         assertEquals("avatar", artist.avatar)
-        assertEquals(listOf(Track(
-            id = "1",
-            image = "trackImage",
-            genre = "trackGenre",
-            lyrics = listOf(),
-            title = "trackTitle",
-            subTitle = "trackSubTitle",
-            uri = "trackUri",
-            version = "2"
-        )), artist.topSongs)
+        assertEquals(
+            listOf(
+                Track(
+                    id = "1",
+                    image = "trackImage",
+                    genre = "trackGenre",
+                    lyrics = listOf(),
+                    title = "trackTitle",
+                    subTitle = "trackSubTitle",
+                    uri = "trackUri",
+                    version = "2"
+                )
+            ),
+            artist.topSongs
+        )
     }
 }

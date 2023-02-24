@@ -6,8 +6,8 @@
 
 package com.example.tcmusic.core.domain.usecase
 
-import kotlinx.coroutines.CoroutineDispatcher
 import com.example.tcmusic.core.common.result.Result
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 
 /**

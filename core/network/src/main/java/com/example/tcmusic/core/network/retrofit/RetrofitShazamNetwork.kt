@@ -1,7 +1,6 @@
 package com.example.tcmusic.core.network.retrofit
 
 import com.example.tcmusic.core.network.model.*
-import com.example.tcmusic.core.network.model.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 

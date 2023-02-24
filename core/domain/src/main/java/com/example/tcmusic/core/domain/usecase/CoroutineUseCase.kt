@@ -1,8 +1,8 @@
 package com.example.tcmusic.core.domain.usecase
 
+import com.example.tcmusic.core.common.result.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import com.example.tcmusic.core.common.result.Result
 /**
  * Executes business logic synchronously or asynchronously using Coroutines.
  */

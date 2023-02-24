@@ -39,6 +39,7 @@ class TestPlayer : Player {
     }
 
     override fun seekTo(position: Long) {
+        _progress.tryEmit(position)
     }
 
     override val playingMedia: SharedFlow<PlayingMedia?>
