@@ -1,129 +1,77 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
+    id("tcmusic.android.application")
+    id("tcmusic.android.application.compose")
+    id("tcmusic.android.hilt")
 }
 
 android {
-    compileSdk = Versions.COMPILE_SDK
     defaultConfig {
         applicationId = "com.example.tcmusic"
-        minSdk = Versions.MIN_SDK
-        targetSdk = Versions.TARGET_SDK
-        versionCode = Versions.versionCode
-        versionName = Versions.versionName
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 1
+        versionName = "0.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
-        vectorDrawables.useSupportLibrary = true
+        // Custom test runner to set up Hilt dependency graph
+        testInstrumentationRunner = "com.example.tcmusic.core.testing.TcMusicTestRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
-        getByName("release") {
-            isDebuggable = false
-
+        val release by getting {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+        // TODO: Convert it as a convention plugin once Flamingo goes out (https://github.com/android/tcmusic/issues/523)
+        managedDevices {
+            devices {
+                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("pixel4api30").apply {
+                    device = "Pixel 4"
+                    apiLevel = 30
+                    // ATDs currently support only API level 30.
+                    systemImageSource = "aosp-atd"
+                }
+            }
+        }
     }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
-    buildFeatures {
-        dataBinding = true
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-    }
+    namespace = "com.example.tcmusic"
 }
 
 dependencies {
-    implementation(project(":data"))
-    implementation(project(":domain"))
-    implementation(project(":model"))
-    implementation(project(":player"))
-    implementation(project(":test-data"))
-    testImplementation(project(":test-data"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:playlists"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:artist"))
+    implementation(project(":feature:track"))
 
-    // Core
-    implementation(libs.androidx.core.core.ktx)
-    implementation(libs.androidx.core.core.splashscreen)
-    testImplementation(libs.androidx.arch.core.core.testing)
+    implementation(project(":core:common"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:player"))
+    implementation(project(":core:model"))
 
-    // UI
-    implementation(libs.androidx.activity.activity.compose)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.com.google.android.material)
-    implementation(libs.com.google.accompanist.accompanist.pager)
-    implementation(libs.com.google.accompanist.accompanist.pager.indicators)
+    // Dagger Hilt
+    implementation(libs.androidx.hilt.hilt.navigation.compose)
 
-    // Kotlin
-    implementation(libs.org.jetbrains.kotlin.kotlin.stdlib.jdk7)
-
-    // Architecture Components
-    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.lifecycle.runtime.ktx)
-    kapt(libs.androidx.lifecycle.lifecycle.compiler)
-
-    // Compose
-    implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material.material.icons.extended)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.ui.tooling)
-    implementation(libs.androidx.compose.ui.ui.tooling.preview)
-    androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.ui.tooling)
+    // Lifecycle
+    implementation(libs.androidx.lifecycle.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.lifecycle.viewmodel.compose)
 
     // Navigation
     implementation(libs.androidx.navigation.navigation.compose)
 
-    // Media
-    implementation(libs.androidx.media)
-
-    // Dagger Hilt
-    implementation(libs.com.google.dagger.hilt.android)
-    implementation(libs.androidx.hilt.hilt.navigation.compose)
-    androidTestImplementation(libs.com.google.dagger.hilt.android.testing)
-    kapt(libs.com.google.dagger.hilt.android.compiler)
-    kaptAndroidTest(libs.com.google.dagger.hilt.android.compiler)
-
-    // Coroutines
-    testImplementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.test)
-
-    // Coil
-    implementation(libs.io.coil.kt.coil.base)
-    implementation(libs.io.coil.kt.coil.compose)
-
-    // Paging 3
-    implementation(libs.androidx.paging.paging.runtime)
-    implementation(libs.androidx.paging.paging.compose)
-
-    // Retrofit & Okhttp
-    implementation(libs.com.squareup.retrofit2.retrofit)
-    implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    // Splash screen
+    implementation(libs.androidx.core.core.splashscreen)
 
     // Utils
-    implementation(libs.id.zelory.compressor)
     implementation(libs.com.jakewharton.timber)
-    implementation(libs.com.google.code.gson)
-
-    // Instrumentation tests
-    androidTestImplementation(libs.androidx.test.espresso.espresso.core)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-
-    // Local unit tests
-    testImplementation(libs.junit)
-    testImplementation(libs.org.mockito.kotlin)
-    testImplementation(libs.app.cash.turbine)
+    implementation(libs.androidx.tracing.tracing.ktx)
 }

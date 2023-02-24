@@ -1,0 +1,235 @@
+{
+  "data": [
+    {
+      "id": "648859694",
+      "type": "shazam-songs"
+    }
+  ],
+  "resources": {
+    "artist-highlights": {
+      "137057909": {
+        "id": "137057909",
+        "type": "artist-highlights"
+      }
+    },
+    "track-highlights": {
+      "1663984595": {
+        "id": "1663984595",
+        "type": "track-highlights"
+      }
+    },
+    "related-tracks": {
+      "track-similarities-id-648859694": {
+        "id": "track-similarities-id-648859694",
+        "type": "related-tracks"
+      }
+    },
+    "songs": {
+      "1663973562": {
+        "id": "1663973562",
+        "type": "songs"
+      }
+    },
+    "albums": {
+      "1663973555": {
+        "id": "1663973555",
+        "type": "albums",
+        "attributes": {
+          "artistName": "Miley Cyrus",
+          "name": "Endless Summer Vacation",
+          "releaseDate": "2023"
+        }
+      }
+    },
+    "shazam-artists": {
+      "42": {
+        "id": "42",
+        "type": "shazam-artists"
+      }
+    },
+    "artists": {
+      "137057909": {
+        "id": "137057909",
+        "type": "artists"
+      }
+    },
+    "lyrics": {
+      "31002943": {
+        "id": "31002943",
+        "href": "https://unsupported.shazam.com",
+        "type": "lyrics",
+        "attributes": {
+          "text": [
+            "We were good, we were gold",
+            "Kind of dream that can't be sold",
+            "We were right 'til we weren't",
+            "Built a home and watched it burn",
+            "",
+            "Mm, I didn't wanna leave you",
+            "I didn't wanna lie",
+            "Started to cry, but then remembered I",
+            "",
+            "I can buy myself flowers",
+            "Write my name in the sand",
+            "Talk to myself for hours",
+            "Say things you don't understand",
+            "I can take myself dancing",
+            "And I can hold my own hand",
+            "Yeah, I can love me better than you can",
+            "",
+            "Can love me better, I can love me better, baby",
+            "Can love me better, I can love me better, baby",
+            "",
+            "Paint my nails, cherry red",
+            "Match the roses that you left",
+            "No remorse, no regret",
+            "I forgive every word you said",
+            "",
+            "Ooh, I didn't wanna leave you, baby",
+            "I didn't wanna fight",
+            "Started to cry, but then remembered I",
+            "",
+            "I can buy myself flowers",
+            "Write my name in the sand",
+            "Talk to myself for hours, yeah",
+            "Say things you don't understand",
+            "I can take myself dancing, yeah",
+            "I can hold my own hand",
+            "Yeah, I can love me better than you can",
+            "",
+            "Can love me better, I can love me better, baby",
+            "Can love me better, I can love me better, baby",
+            "Can love me better, I can love me better, baby",
+            "Can love me better, I (ooh, I)",
+            "",
+            "I didn't wanna leave you, I didn't wanna fight",
+            "Started to cry, but then remembered I",
+            "",
+            "I can buy myself flowers, uh-huh",
+            "Write my name in the sand",
+            "Talk to myself for hours, yeah",
+            "Say things you don't understand (better than you)",
+            "I can take myself dancing, yeah",
+            "I can hold my own hand",
+            "Yeah, I can love me better than",
+            "Yeah, I can love me better than you can",
+            "",
+            "Can love me better, I can love me better, baby (huh-uh)",
+            "Can love me better, I can love me better, baby (than you can)",
+            "Can love me better, I can love me better, baby",
+            "Can love me better, I"
+          ],
+          "footer": "Writer(s): Miley Cyrus, Gregory Aldae Hein, Michael Pollack\nLyrics powered by www.musixmatch.com",
+          "musixmatchLyricsId": "157191703",
+          "providerName": "musixmatch",
+          "syncAvailable": false
+        }
+      }
+    },
+    "shazam-songs": {
+      "648859694": {
+        "id": "648859694",
+        "type": "shazam-songs",
+        "attributes": {
+          "type": "MUSIC",
+          "title": "Flowers",
+          "artist": "Miley Cyrus",
+          "primaryArtist": "Miley Cyrus",
+          "label": "Columbia",
+          "explicit": false,
+          "isrc": "USSM12209777",
+          "webUrl": "https://www.shazam.com/track/648859694/flowers?co=US&offsetInMilliseconds=&timeSkew=&trackLength=",
+          "images": {
+            "artistAvatar": "https://is4-ssl.mzstatic.com/image/thumb/AMCArtistImages123/v4/b0/37/e1/b037e1f1-cf37-419e-66b2-2ecda585be40/c0ef2b77-e0ce-4518-b1a3-60596c96c801_ami-identity-b057dd0940cbcd4300602f5bf8130c3d-2023-01-05T15-01-46.780Z_cropped.png/800x800cc.jpg",
+            "coverArt": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/9e/80/c7/9e80c757-6994-4338-9e79-b92d5f75f788/196589561725.jpg/400x400cc.jpg",
+            "coverArtHq": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/9e/80/c7/9e80c757-6994-4338-9e79-b92d5f75f788/196589561725.jpg/800x800cc.jpg"
+          },
+          "share": {
+            "subject": "Flowers - Miley Cyrus",
+            "text": "I used Shazam to discover Flowers by Miley Cyrus.",
+            "href": "https://www.shazam.com/track/648859694/flowers",
+            "image": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/9e/80/c7/9e80c757-6994-4338-9e79-b92d5f75f788/196589561725.jpg/400x400cc.jpg",
+            "twitter": "I used @Shazam to discover Flowers by Miley Cyrus.",
+            "html": "https://www.shazam.com/snippets/email-share/648859694?lang=en-US&country=US",
+            "snapchat": "https://www.shazam.com/partner/sc/track/648859694"
+          },
+          "genres": {
+            "primary": "Pop"
+          },
+          "streaming": {
+            "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview123/v4/73/65/47/7365473d-bf59-4ef4-308a-961055913fed/mzaf_7366703492386476934.plus.aac.ep.m4a",
+            "deeplink": "intent://music.apple.com/us/album/flowers/1663973555?i=1663973562&mttnagencyid=s2n&mttnsiteid=125115&mttn3pid=Apple-Shazam&mttnsub1=Shazam_android_am&mttnsub2=5348615A-616D-3235-3830-44754D6D5973&itscg=30201&app=music&itsct=Shazam_android_am#Intent;scheme=http;package=com.apple.android.music;action=android.intent.action.VIEW;end",
+            "store": "https://play.google.com/store/apps/details?id=com.apple.android.music&referrer=utm_source=https%3A%2F%2Fmusic.apple.com%2Fsubscribe%3Fmttnagencyid%3Ds2n%26mttnsiteid%3D125115%26mttn3pid%3DApple-Shazam%26mttnsub1%3DShazam_android_am%26mttnsub2%3D5348615A-616D-3235-3830-44754D6D5973%26itscg%3D30201%26app%3Dmusic%26itsct%3DShazam_android_am"
+          }
+        },
+        "relationships": {
+          "artist-highlights": {
+            "data": [
+              {
+                "id": "137057909",
+                "type": "artist-highlights"
+              }
+            ]
+          },
+          "track-highlights": {
+            "data": [
+              {
+                "id": "1663984595",
+                "type": "track-highlights"
+              }
+            ]
+          },
+          "related-tracks": {
+            "data": [
+              {
+                "id": "track-similarities-id-648859694",
+                "type": "related-tracks"
+              }
+            ]
+          },
+          "songs": {
+            "data": [
+              {
+                "id": "1663973562",
+                "type": "songs"
+              }
+            ]
+          },
+          "albums": {
+            "data": [
+              {
+                "id": "1663973555",
+                "type": "albums"
+              }
+            ]
+          },
+          "shazam-artists": {
+            "data": [
+              {
+                "id": "42",
+                "type": "shazam-artists"
+              }
+            ]
+          },
+          "artists": {
+            "data": [
+              {
+                "id": "137057909",
+                "type": "artists"
+              }
+            ]
+          },
+          "lyrics": {
+            "data": [
+              {
+                "id": "31002943",
+                "href": "https://unsupported.shazam.com",
+                "type": "lyrics"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

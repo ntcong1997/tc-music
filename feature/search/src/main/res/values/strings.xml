@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TC Music</string>
+    <string name="text_search">Search</string>
+    <string name="hint_search">What do you want to listen to? (must be more than 2 characters)</string>
+    <string name="text_songs">Songs</string>
+    <string name="text_artists">Artists</string>
+</resources>
