@@ -32,7 +32,7 @@ jobs:
     - name: Decode Secrets Default Properties File
       uses: timheuer/base64-to-file@v1
       with:
-        fileName: "secrets.default.properties"
+        fileName: "secrets.defaults.properties"
         fileDir: "./"
         encodedString: ${{ secrets.SECRETS_DEFAULT_PROPERTIES_FILE }}
 
