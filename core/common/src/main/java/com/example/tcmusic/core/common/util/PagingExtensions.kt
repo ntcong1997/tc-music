@@ -1,5 +1,6 @@
 package com.example.tcmusic.core.common.util
 
+import android.annotation.SuppressLint
 import androidx.paging.DifferCallback
 import androidx.paging.NullPaddedList
 import androidx.paging.PagingData
@@ -10,6 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
  * Created by TC on 23/02/2023.
  */
 
+@SuppressLint("RestrictedApi")
 suspend fun <T : Any> PagingData<T>.collectData(dispatcher: CoroutineDispatcher): List<T> {
     val dcb = object : DifferCallback {
         override fun onChanged(position: Int, count: Int) {}
