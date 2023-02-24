@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +28,8 @@ import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.testing.data.artistTestData1
+import com.example.tcmusic.core.ui.util.ArtistAvatarCompactNameContentDescription
+import com.example.tcmusic.core.ui.util.ArtistAvatarContentDescription
 
 /**
  * Created by TC on 21/11/2022.
@@ -47,7 +51,7 @@ fun ArtistCard(
                 .padding(16.dp, 16.dp, 0.dp, 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!artist.avatar.isNullOrBlank()) ArtistAvatarImage(avatar = artist.avatar)
+            if (!artist.avatar.isNullOrBlank()) ArtistAvatar(avatar = artist.avatar)
             else ArtistAvatarCompactName(name = artist.name)
 
             ArtistName(name = artist.name)
@@ -63,12 +67,12 @@ fun ArtistCard(
 }
 
 @Composable
-fun ArtistAvatarImage(
+fun ArtistAvatar(
     avatar: String?
 ) {
     AsyncImage(
         model = avatar,
-        contentDescription = null,
+        contentDescription = ArtistAvatarContentDescription,
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(60.dp)
@@ -84,6 +88,9 @@ fun ArtistAvatarCompactName(
         modifier = Modifier
             .size(60.dp)
             .background(BlueRibbon, CircleShape)
+            .semantics {
+                this.contentDescription = ArtistAvatarCompactNameContentDescription
+            }
     ) {
         Text(
             text = name.compactTo2Letters(),

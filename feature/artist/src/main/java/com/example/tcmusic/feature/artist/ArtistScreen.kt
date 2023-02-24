@@ -164,7 +164,7 @@ fun ArtistInfo(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (avatar.isNullOrBlank()) ArtistAvatarCompactName(name = name)
-        else ArtistAvatarImage(avatar = avatar)
+        else ArtistAvatar(avatar = avatar)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -173,7 +173,7 @@ fun ArtistInfo(
 }
 
 @Composable
-fun ArtistAvatarImage(
+fun ArtistAvatar(
     avatar: String?
 ) {
     AsyncImage(

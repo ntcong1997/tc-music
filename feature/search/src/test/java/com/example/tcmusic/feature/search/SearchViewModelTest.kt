@@ -93,7 +93,7 @@ class SearchViewModelTest {
         assertEquals(
             listOf(
                 Artist(
-                    avatar = null,
+                    avatar = "https://cdn.britannica.com/30/164030-050-255C7C8E/One-Direction-Niall-Horan-Zayn-Malik-Liam-2011.jpg",
                     id = "2",
                     name = "One Direction",
                     topSongs = listOf()

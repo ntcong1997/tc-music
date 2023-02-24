@@ -1,12 +1,13 @@
 package com.example.tcmusic.feature.ui
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
-import com.example.tcmusic.core.testing.data.trackTestData1
-import com.example.tcmusic.core.testing.data.trackTestData2
+import androidx.compose.ui.test.onNodeWithText
+import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.ui.TrackCard
-import com.example.tcmusic.core.ui.util.TrackCompactTitleContentDescription
+import com.example.tcmusic.core.ui.util.TrackImageCompactTitleContentDescription
 import com.example.tcmusic.core.ui.util.TrackImageContentDescription
 import org.junit.Rule
 import org.junit.Test
@@ -20,7 +21,16 @@ class TrackCardTest {
 
     @Test
     fun testTrackImage_withImageNotNull() {
-        val track = trackTestData1
+        val track = Track(
+            id = "1",
+            image = "https://upload.wikimedia.org/wikipedia/en/7/7d/One_Direction_-_Story_of_My_Life_%28Official_Single_Cover%29.png",
+            genre = "Pop",
+            lyrics = listOf(),
+            title = "Story of my life",
+            subTitle = "One Direction",
+            uri = "https://...",
+            version = null
+        )
 
         composeTestRule.setContent {
             TrackCard(
@@ -34,13 +44,22 @@ class TrackCardTest {
             .assertExists()
 
         composeTestRule
-            .onNodeWithContentDescription(TrackCompactTitleContentDescription)
+            .onNodeWithContentDescription(TrackImageCompactTitleContentDescription)
             .assertDoesNotExist()
     }
 
     @Test
     fun testTrackImage_withImageNull() {
-        val track = trackTestData2
+        val track = Track(
+            id = "1",
+            image = null,
+            genre = "Pop",
+            lyrics = listOf(),
+            title = "Story of my life",
+            subTitle = "One Direction",
+            uri = "https://...",
+            version = null
+        )
 
         composeTestRule.setContent {
             TrackCard(
@@ -54,7 +73,11 @@ class TrackCardTest {
             .assertDoesNotExist()
 
         composeTestRule
-            .onNodeWithContentDescription(TrackCompactTitleContentDescription)
+            .onNodeWithContentDescription(TrackImageCompactTitleContentDescription)
             .assertExists()
+
+        composeTestRule
+            .onNodeWithText("SL")
+            .assertIsDisplayed()
     }
 }

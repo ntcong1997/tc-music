@@ -5,4 +5,7 @@ package com.example.tcmusic.core.ui.util
  */
 
 const val TrackImageContentDescription = "TrackImage"
-const val TrackCompactTitleContentDescription = "TrackCompactTitle"
+const val TrackImageCompactTitleContentDescription = "TrackImageCompactTitle"
+
+const val ArtistAvatarContentDescription = "ArtistAvatar"
+const val ArtistAvatarCompactNameContentDescription = "ArtistAvatarCompactName"

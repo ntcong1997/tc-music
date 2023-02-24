@@ -203,7 +203,7 @@ fun TrackInfo(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (image.isNullOrBlank()) TrackCompactTitle(title = title)
+        if (image.isNullOrBlank()) TrackImageCompactTitle(title = title)
         else TrackImage(image = image)
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -217,7 +217,7 @@ fun TrackInfo(
 }
 
 @Composable
-fun TrackCompactTitle(
+fun TrackImageCompactTitle(
     title: String?
 ) {
     Box(

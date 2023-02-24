@@ -8,7 +8,7 @@ import com.example.tcmusic.core.model.Track
 
 val trackTestData1 = Track(
     id = "1",
-    image = "https://cdn.britannica.com/30/164030-050-255C7C8E/One-Direction-Niall-Horan-Zayn-Malik-Liam-2011.jpg",
+    image = "https://upload.wikimedia.org/wikipedia/en/7/7d/One_Direction_-_Story_of_My_Life_%28Official_Single_Cover%29.png",
     genre = "Pop",
     lyrics = listOf(),
     title = "Story of my life",

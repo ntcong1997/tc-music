@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +28,7 @@ import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.testing.data.trackTestData1
-import com.example.tcmusic.core.ui.util.TrackCompactTitleContentDescription
+import com.example.tcmusic.core.ui.util.TrackImageCompactTitleContentDescription
 import com.example.tcmusic.core.ui.util.TrackImageContentDescription
 
 /**
@@ -53,7 +52,7 @@ fun TrackCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (!track.image.isNullOrBlank()) TrackImage(image = track.image)
-            else TrackCompactTitle(title = track.title)
+            else TrackImageCompactTitle(title = track.title)
 
             Column(
                 modifier = Modifier
@@ -92,7 +91,7 @@ fun TrackImage(
 }
 
 @Composable
-fun TrackCompactTitle(
+fun TrackImageCompactTitle(
     title: String?
 ) {
     Box(
@@ -100,7 +99,7 @@ fun TrackCompactTitle(
             .size(60.dp)
             .background(BlueRibbon, CircleShape)
             .semantics {
-                this.contentDescription = TrackCompactTitleContentDescription
+                this.contentDescription = TrackImageCompactTitleContentDescription
             }
     ) {
         Text(
