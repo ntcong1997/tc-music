@@ -4,6 +4,10 @@ plugins {
 }
 
 android {
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     namespace = "com.example.tcmusic.core.ui"
 }
 
@@ -27,4 +31,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.ui.tooling.preview)
     androidTestImplementation(libs.androidx.compose.ui.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.ui.tooling)
+    
+    debugImplementation(libs.androidx.compose.ui.ui.test.manifest)
 }
