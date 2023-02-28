@@ -28,14 +28,14 @@ import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.testing.data.artistTestData1
-import com.example.tcmusic.core.ui.util.ArtistAvatarCompactNameContentDescription
-import com.example.tcmusic.core.ui.util.ArtistAvatarContentDescription
-import com.example.tcmusic.core.ui.util.ArtistCardContentDescription
-import com.example.tcmusic.core.ui.util.ArtistMoreIconContentDescription
 
 /**
  * Created by TC on 21/11/2022.
  */
+
+const val ArtistCardContentDescriptionPrefix = "ArtistCard"
+const val ArtistAvatarContentDescriptionPrefix = "ArtistAvatar"
+const val ArtistMoreIconContentDescriptionPrefix = "ArtistMoreIcon"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -49,7 +49,7 @@ fun ArtistCard(
         modifier = Modifier
             .fillMaxWidth()
             .semantics {
-                this.contentDescription = ArtistCardContentDescription
+                this.contentDescription = "$ArtistCardContentDescriptionPrefix-${artist.id}"
             }
     ) {
         Row(
@@ -57,15 +57,15 @@ fun ArtistCard(
                 .padding(16.dp, 16.dp, 0.dp, 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!artist.avatar.isNullOrBlank()) ArtistAvatar(avatar = artist.avatar)
-            else ArtistAvatarCompactName(name = artist.name)
+            if (!artist.avatar.isNullOrBlank()) ArtistAvatar(id = artist.id, avatar = artist.avatar)
+            else ArtistCompactNameAvatar(name = artist.name)
 
             ArtistName(name = artist.name)
 
             IconButton(
                 onClick = onMoreClick,
                 modifier = Modifier.semantics {
-                    this.contentDescription = ArtistMoreIconContentDescription
+                    this.contentDescription = "$ArtistMoreIconContentDescriptionPrefix-${artist.id}"
                 }
             ) {
                 Image(
@@ -79,11 +79,12 @@ fun ArtistCard(
 
 @Composable
 fun ArtistAvatar(
+    id: String?,
     avatar: String?
 ) {
     AsyncImage(
         model = avatar,
-        contentDescription = ArtistAvatarContentDescription,
+        contentDescription = "$ArtistAvatarContentDescriptionPrefix-$id",
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(60.dp)
@@ -92,16 +93,13 @@ fun ArtistAvatar(
 }
 
 @Composable
-fun ArtistAvatarCompactName(
+fun ArtistCompactNameAvatar(
     name: String?
 ) {
     Box(
         modifier = Modifier
             .size(60.dp)
             .background(BlueRibbon, CircleShape)
-            .semantics {
-                this.contentDescription = ArtistAvatarCompactNameContentDescription
-            }
     ) {
         Text(
             text = name.compactTo2Letters(),

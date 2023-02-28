@@ -34,7 +34,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 defaultConfig {
                     testInstrumentationRunner =
-                        "com.google.samples.apps.tcmusic.core.testing.TcMusicTestRunner"
+                        "com.example.tcmusic.core.testing.TcMusicTestRunner"
                 }
                 configureGradleManagedDevices(this)
             }
@@ -65,6 +65,9 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("org.jetbrains.kotlinx.kotlinx.coroutines.android").get())
 
                 add("testImplementation", libs.findLibrary("org.jetbrains.kotlinx.kotlinx.coroutines.test").get())
+
+                add("androidTestImplementation", libs.findLibrary("androidx.compose.ui.ui.test.junit4").get())
+                add("debugImplementation", libs.findLibrary("androidx.compose.ui.ui.test.manifest").get())
             }
         }
     }

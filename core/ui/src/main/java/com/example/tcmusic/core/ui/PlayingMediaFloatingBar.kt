@@ -26,20 +26,23 @@ import com.example.tcmusic.core.designsystem.theme.GraySilverChalice
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.PlayingMedia
 import com.example.tcmusic.core.testing.data.playingMediaTestData1
-import com.example.tcmusic.core.ui.util.PlayingMediaCompactTitleImageContentDescription
-import com.example.tcmusic.core.ui.util.PlayingMediaImageContentDescription
-import com.example.tcmusic.core.ui.util.PlayingMediaPauseContentDescription
-import com.example.tcmusic.core.ui.util.PlayingMediaPlayContentDescription
 
 /**
  * Created by TC on 19/02/2023.
  */
 
+const val PlayingMediaBarContentDescription = "PlayingMediaBar"
+const val PlayingMediaImageContentDescription = "PlayingMediaImage"
+const val PlayingMediaPlayIconContentDescription = "PlayingMediaPlayIcon"
+const val PlayingMediaPauseIconContentDescription = "PlayingMediaPauseIcon"
+const val PlayingMediaSkipBackwardsIconContentDescription = "PlayingMediaSkipBackwardsIcon"
+const val PlayingMediaSkipForwardIconContentDescription = "PlayingMediaSkipForwardIcon"
+
 @Composable
 fun BoxScope.PlayingMediaFloatingBar(
     playingMedia: PlayingMedia,
     isPlaying: Boolean,
-    onPlayingMediaClick: (PlayingMedia) -> Unit,
+    onClick: (PlayingMedia) -> Unit,
     onPlayClick: () -> Unit,
     onPauseClick: () -> Unit,
     onSkipBackwardsClick: () -> Unit,
@@ -52,7 +55,10 @@ fun BoxScope.PlayingMediaFloatingBar(
             .align(Alignment.BottomCenter)
             .background(GraySilverChalice, RoundedCornerShape(10.dp))
             .clickable {
-                onPlayingMediaClick(playingMedia)
+                onClick(playingMedia)
+            }
+            .semantics {
+                this.contentDescription = PlayingMediaBarContentDescription
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -78,7 +84,7 @@ fun BoxScope.PlayingMediaFloatingBar(
         ) {
             Image(
                 painter = painterResource(id = TcMusicIcons.Previous2),
-                contentDescription = null,
+                contentDescription = PlayingMediaSkipBackwardsIconContentDescription,
                 modifier = Modifier.clickable {
                     onSkipBackwardsClick()
                 }
@@ -96,7 +102,7 @@ fun BoxScope.PlayingMediaFloatingBar(
 
             Image(
                 painter = painterResource(id = TcMusicIcons.Next2),
-                contentDescription = null,
+                contentDescription = PlayingMediaSkipForwardIconContentDescription,
                 modifier = Modifier.clickable {
                     onSkipForwardClick()
                 }
@@ -129,9 +135,6 @@ fun PlayingMediaCompactTitleImage(
             .size(48.dp)
             .padding(16.dp, 16.dp, 0.dp, 16.dp)
             .background(BlueRibbon, RoundedCornerShape(10.dp))
-            .semantics {
-                this.contentDescription = PlayingMediaCompactTitleImageContentDescription
-            }
     ) {
         Text(
             text = title.compactTo2Letters(),
@@ -174,7 +177,7 @@ fun PlayingMediaPlayPause(
     if (isPlaying) {
         Image(
             painter = painterResource(id = TcMusicIcons.Pause2),
-            contentDescription = PlayingMediaPauseContentDescription,
+            contentDescription = PlayingMediaPauseIconContentDescription,
             modifier = Modifier.clickable {
                 onPauseClick()
             }
@@ -182,7 +185,7 @@ fun PlayingMediaPlayPause(
     } else {
         Image(
             painter = painterResource(id = TcMusicIcons.Play2),
-            contentDescription = PlayingMediaPlayContentDescription,
+            contentDescription = PlayingMediaPlayIconContentDescription,
             modifier = Modifier.clickable {
                 onPlayClick()
             }
@@ -196,7 +199,7 @@ fun BoxScope.PlayingMediaFloatingBarPreview() {
     PlayingMediaFloatingBar(
         playingMedia = playingMediaTestData1,
         isPlaying = false,
-        onPlayingMediaClick = { _ ->
+        onClick = { _ ->
         },
         onPlayClick = { },
         onPauseClick = { },

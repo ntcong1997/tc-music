@@ -45,7 +45,8 @@ fun Chart(
                         track = it,
                         onClick = {
                             onTrackClick(it)
-                        }
+                        },
+                        onMoreClick = {}
                     )
                 }
             }

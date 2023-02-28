@@ -28,30 +28,36 @@ import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.testing.data.trackTestData1
-import com.example.tcmusic.core.ui.util.TrackCompactTitleImageContentDescription
-import com.example.tcmusic.core.ui.util.TrackImageContentDescription
 
 /**
  * Created by TC on 21/11/2022.
  */
 
+const val TrackCardContentDescriptionPrefix = "TrackCard"
+const val TrackImageContentDescriptionPrefix = "TrackImage"
+const val TrackMoreIconContentDescriptionPrefix = "TrackMoreIcon"
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TrackCard(
     track: Track,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onMoreClick: () -> Unit
 ) {
     Card(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
+            .semantics {
+                this.contentDescription = "$TrackCardContentDescriptionPrefix-${track.id}"
+            }
     ) {
         Row(
             modifier = Modifier
                 .padding(16.dp, 16.dp, 0.dp, 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (!track.image.isNullOrBlank()) TrackImage(image = track.image)
+            if (!track.image.isNullOrBlank()) TrackImage(id = track.id, image = track.image)
             else TrackCompactTitleImage(title = track.title)
 
             Column(
@@ -66,7 +72,12 @@ fun TrackCard(
                 TrackSubTitle(subTitle = track.subTitle)
             }
 
-            IconButton(onClick = { }) {
+            IconButton(
+                onClick = onMoreClick,
+                modifier = Modifier.semantics {
+                   this.contentDescription = "$TrackMoreIconContentDescriptionPrefix-${track.id}"
+                }
+            ) {
                 Image(
                     painter = painterResource(id = TcMusicIcons.More),
                     contentDescription = null
@@ -78,11 +89,12 @@ fun TrackCard(
 
 @Composable
 fun TrackImage(
+    id: String?,
     image: String?
 ) {
     AsyncImage(
         model = image,
-        contentDescription = TrackImageContentDescription,
+        contentDescription = "$TrackImageContentDescriptionPrefix-$id",
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .size(60.dp)
@@ -98,9 +110,6 @@ fun TrackCompactTitleImage(
         modifier = Modifier
             .size(60.dp)
             .background(BlueRibbon, CircleShape)
-            .semantics {
-                this.contentDescription = TrackCompactTitleImageContentDescription
-            }
     ) {
         Text(
             text = title.compactTo2Letters(),
@@ -139,6 +148,7 @@ fun TrackSubTitle(
 fun TrackCardPreview() {
     TrackCard(
         track = trackTestData1,
-        onClick = { }
+        onClick = { },
+        onMoreClick = { }
     )
 }

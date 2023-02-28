@@ -69,7 +69,7 @@ fun TcMusicApp(
                     PlayingMediaFloatingBar(
                         playingMedia = playingMedia,
                         isPlaying = isPlaying,
-                        onPlayingMediaClick = {
+                        onClick = {
                             onPlayingMediaClick(it.id, it.version)
                         },
                         onPlayClick = onPlayingMediaPlayClick,

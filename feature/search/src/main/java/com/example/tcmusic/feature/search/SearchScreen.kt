@@ -241,7 +241,8 @@ fun Tracks(
                     track = it,
                     onClick = {
                         onTrackClick(it)
-                    }
+                    },
+                    onMoreClick = {}
                 )
             }
         }

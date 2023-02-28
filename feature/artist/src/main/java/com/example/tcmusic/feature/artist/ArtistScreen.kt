@@ -36,6 +36,8 @@ import java.util.*
  * Created by TC on 20/02/2023.
  */
 
+const val ArtistAvatarContentDescription = "ArtistAvatar"
+
 @Composable
 fun ArtistRoute(
     onBackClick: () -> Unit,
@@ -163,7 +165,7 @@ fun ArtistInfo(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (avatar.isNullOrBlank()) ArtistAvatarCompactName(name = name)
+        if (avatar.isNullOrBlank()) ArtistCompactNameAvatar(name = name)
         else ArtistAvatar(avatar = avatar)
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -178,7 +180,7 @@ fun ArtistAvatar(
 ) {
     AsyncImage(
         model = avatar,
-        contentDescription = null,
+        contentDescription = ArtistAvatarContentDescription,
         modifier = Modifier
             .fillMaxWidth(0.5f)
             .aspectRatio(1f)
@@ -187,7 +189,7 @@ fun ArtistAvatar(
 }
 
 @Composable
-fun ArtistAvatarCompactName(
+fun ArtistCompactNameAvatar(
     name: String?
 ) {
     Box(
@@ -244,7 +246,8 @@ fun TopSongs(
                 track = itemTrack,
                 onClick = {
                     onTrackClick(itemTrack)
-                }
+                },
+                onMoreClick = {}
             )
         }
     }

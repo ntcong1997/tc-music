@@ -19,7 +19,7 @@ val trackTestData1 = Track(
 
 val trackTestData2 = Track(
     id = "2",
-    image = null,
+    image = "https://i1.sndcdn.com/artworks-000103863726-md3853-t500x500.jpg",
     genre = "Pop",
     lyrics = listOf(),
     title = "Lost stars",
@@ -30,7 +30,7 @@ val trackTestData2 = Track(
 
 val trackTestData3 = Track(
     id = "3",
-    image = null,
+    image = "https://i1.sndcdn.com/artworks-000021049185-pv430v-t500x500.jpg",
     genre = "Pop",
     lyrics = listOf(),
     title = "It will rain",
@@ -41,7 +41,7 @@ val trackTestData3 = Track(
 
 val trackTestData4 = Track(
     id = "4",
-    image = null,
+    image = "https://pics.filmaffinity.com/guns_n_roses_november_rain-534554095-large.jpg",
     genre = "Rock",
     lyrics = listOf(),
     title = "November rain",
@@ -52,7 +52,7 @@ val trackTestData4 = Track(
 
 val trackTestData5 = Track(
     id = "5",
-    image = null,
+    image = "https://i1.sndcdn.com/artworks-000119698375-exe7ta-t500x500.jpg",
     genre = "Ballad",
     lyrics = listOf(),
     title = "All of me",
@@ -63,7 +63,7 @@ val trackTestData5 = Track(
 
 val trackTestData6 = Track(
     id = "6",
-    image = null,
+    image = "https://upload.wikimedia.org/wikipedia/en/1/1a/Take-a-chance-on-me-by-jls.jpg",
     genre = "Pop",
     lyrics = listOf(),
     title = "Take a chance on me",
@@ -116,6 +116,28 @@ val trackTestData10 = Track(
     version = null
 )
 
+val trackTestData11 = Track(
+    id = "11",
+    image = null,
+    genre = "Pop",
+    lyrics = listOf(),
+    title = "One thing",
+    subTitle = "One Direction",
+    uri = "https://...",
+    version = null
+)
+
+val trackTestData12 = Track(
+    id = "12",
+    image = "https://upload.wikimedia.org/wikipedia/en/d/d1/One_Direction_-_Night_Changes_Single_Cover.png",
+    genre = "Pop",
+    lyrics = listOf(),
+    title = "Night changes",
+    subTitle = "One Direction",
+    uri = "https://...",
+    version = null
+)
+
 val tracksTestData = listOf(
     trackTestData1,
     trackTestData2,
@@ -126,5 +148,7 @@ val tracksTestData = listOf(
     trackTestData7,
     trackTestData8,
     trackTestData9,
-    trackTestData10
+    trackTestData10,
+    trackTestData11,
+    trackTestData12
 )
