@@ -262,7 +262,8 @@ fun Artists(
                     artist = it,
                     onClick = {
                         onArtistClick(it.id)
-                    }
+                    },
+                    onMoreClick =  { }
                 )
             }
         }

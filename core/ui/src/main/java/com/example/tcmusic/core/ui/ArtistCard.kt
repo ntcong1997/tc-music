@@ -30,6 +30,8 @@ import com.example.tcmusic.core.model.Artist
 import com.example.tcmusic.core.testing.data.artistTestData1
 import com.example.tcmusic.core.ui.util.ArtistAvatarCompactNameContentDescription
 import com.example.tcmusic.core.ui.util.ArtistAvatarContentDescription
+import com.example.tcmusic.core.ui.util.ArtistCardContentDescription
+import com.example.tcmusic.core.ui.util.ArtistMoreIconContentDescription
 
 /**
  * Created by TC on 21/11/2022.
@@ -39,12 +41,16 @@ import com.example.tcmusic.core.ui.util.ArtistAvatarContentDescription
 @Composable
 fun ArtistCard(
     artist: Artist,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onMoreClick: () -> Unit
 ) {
     Card(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
+            .semantics {
+                this.contentDescription = ArtistCardContentDescription
+            }
     ) {
         Row(
             modifier = Modifier
@@ -56,7 +62,12 @@ fun ArtistCard(
 
             ArtistName(name = artist.name)
 
-            IconButton(onClick = { }) {
+            IconButton(
+                onClick = onMoreClick,
+                modifier = Modifier.semantics {
+                    this.contentDescription = ArtistMoreIconContentDescription
+                }
+            ) {
                 Image(
                     painter = painterResource(id = TcMusicIcons.More),
                     contentDescription = null
@@ -121,6 +132,7 @@ fun RowScope.ArtistName(
 fun ArtistCardPreview() {
     ArtistCard(
         artist = artistTestData1,
-        onClick = { }
+        onClick = { },
+        onMoreClick = { }
     )
 }
