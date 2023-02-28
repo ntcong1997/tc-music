@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,6 +26,10 @@ import com.example.tcmusic.core.designsystem.theme.GraySilverChalice
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.PlayingMedia
 import com.example.tcmusic.core.testing.data.playingMediaTestData1
+import com.example.tcmusic.core.ui.util.PlayingMediaCompactTitleImageContentDescription
+import com.example.tcmusic.core.ui.util.PlayingMediaImageContentDescription
+import com.example.tcmusic.core.ui.util.PlayingMediaPauseContentDescription
+import com.example.tcmusic.core.ui.util.PlayingMediaPlayContentDescription
 
 /**
  * Created by TC on 19/02/2023.
@@ -51,7 +57,7 @@ fun BoxScope.PlayingMediaFloatingBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (!playingMedia.image.isNullOrBlank()) PlayingMediaImage(image = playingMedia.image)
-        else PlayingMediaCompactTitle(title = playingMedia.title)
+        else PlayingMediaCompactTitleImage(title = playingMedia.title)
 
         Column(
             modifier = Modifier
@@ -80,23 +86,11 @@ fun BoxScope.PlayingMediaFloatingBar(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            if (isPlaying) {
-                Image(
-                    painter = painterResource(id = TcMusicIcons.Pause2),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        onPauseClick()
-                    }
-                )
-            } else {
-                Image(
-                    painter = painterResource(id = TcMusicIcons.Play2),
-                    contentDescription = null,
-                    modifier = Modifier.clickable {
-                        onPlayClick()
-                    }
-                )
-            }
+            PlayingMediaPlayPause(
+                isPlaying = isPlaying,
+                onPlayClick = onPlayClick,
+                onPauseClick = onPauseClick
+            )
 
             Spacer(modifier = Modifier.width(12.dp))
 
@@ -117,7 +111,7 @@ fun PlayingMediaImage(
 ) {
     AsyncImage(
         model = image,
-        contentDescription = null,
+        contentDescription = PlayingMediaImageContentDescription,
         contentScale = ContentScale.Fit,
         modifier = Modifier
             .padding(16.dp, 16.dp, 0.dp, 16.dp)
@@ -127,7 +121,7 @@ fun PlayingMediaImage(
 }
 
 @Composable
-fun PlayingMediaCompactTitle(
+fun PlayingMediaCompactTitleImage(
     title: String?
 ) {
     Box(
@@ -135,6 +129,9 @@ fun PlayingMediaCompactTitle(
             .size(48.dp)
             .padding(16.dp, 16.dp, 0.dp, 16.dp)
             .background(BlueRibbon, RoundedCornerShape(10.dp))
+            .semantics {
+                this.contentDescription = PlayingMediaCompactTitleImageContentDescription
+            }
     ) {
         Text(
             text = title.compactTo2Letters(),
@@ -166,6 +163,31 @@ fun PlayingMediaArtist(
         color = White,
         fontSize = 12.sp
     )
+}
+
+@Composable
+fun PlayingMediaPlayPause(
+    isPlaying: Boolean,
+    onPlayClick: () -> Unit,
+    onPauseClick: () -> Unit
+) {
+    if (isPlaying) {
+        Image(
+            painter = painterResource(id = TcMusicIcons.Pause2),
+            contentDescription = PlayingMediaPauseContentDescription,
+            modifier = Modifier.clickable {
+                onPauseClick()
+            }
+        )
+    } else {
+        Image(
+            painter = painterResource(id = TcMusicIcons.Play2),
+            contentDescription = PlayingMediaPlayContentDescription,
+            modifier = Modifier.clickable {
+                onPlayClick()
+            }
+        )
+    }
 }
 
 @Preview

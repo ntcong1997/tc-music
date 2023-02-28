@@ -28,7 +28,7 @@ import com.example.tcmusic.core.designsystem.theme.BlueRibbon
 import com.example.tcmusic.core.designsystem.theme.White
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.testing.data.trackTestData1
-import com.example.tcmusic.core.ui.util.TrackImageCompactTitleContentDescription
+import com.example.tcmusic.core.ui.util.TrackCompactTitleImageContentDescription
 import com.example.tcmusic.core.ui.util.TrackImageContentDescription
 
 /**
@@ -52,7 +52,7 @@ fun TrackCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (!track.image.isNullOrBlank()) TrackImage(image = track.image)
-            else TrackImageCompactTitle(title = track.title)
+            else TrackCompactTitleImage(title = track.title)
 
             Column(
                 modifier = Modifier
@@ -91,7 +91,7 @@ fun TrackImage(
 }
 
 @Composable
-fun TrackImageCompactTitle(
+fun TrackCompactTitleImage(
     title: String?
 ) {
     Box(
@@ -99,7 +99,7 @@ fun TrackImageCompactTitle(
             .size(60.dp)
             .background(BlueRibbon, CircleShape)
             .semantics {
-                this.contentDescription = TrackImageCompactTitleContentDescription
+                this.contentDescription = TrackCompactTitleImageContentDescription
             }
     ) {
         Text(

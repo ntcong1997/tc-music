@@ -7,7 +7,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import com.example.tcmusic.core.model.Track
 import com.example.tcmusic.core.ui.TrackCard
-import com.example.tcmusic.core.ui.util.TrackImageCompactTitleContentDescription
+import com.example.tcmusic.core.ui.util.TrackCompactTitleImageContentDescription
 import com.example.tcmusic.core.ui.util.TrackImageContentDescription
 import org.junit.Rule
 import org.junit.Test
@@ -44,7 +44,7 @@ class TrackCardTest {
             .assertExists()
 
         composeTestRule
-            .onNodeWithContentDescription(TrackImageCompactTitleContentDescription)
+            .onNodeWithContentDescription(TrackCompactTitleImageContentDescription)
             .assertDoesNotExist()
     }
 
@@ -73,7 +73,7 @@ class TrackCardTest {
             .assertDoesNotExist()
 
         composeTestRule
-            .onNodeWithContentDescription(TrackImageCompactTitleContentDescription)
+            .onNodeWithContentDescription(TrackCompactTitleImageContentDescription)
             .assertExists()
 
         composeTestRule
